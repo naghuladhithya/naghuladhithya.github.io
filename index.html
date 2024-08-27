@@ -27,30 +27,36 @@
             padding: 20px;
         }
         header {
-            background-image: url('https://api.placeholder.com/1000x300?text=Header+Background');
-            background-size: cover;
-            background-position: center;
+            background-color: var(--accent-color);
             color: var(--text-color);
-            text-align: center;
-            padding: 4rem 2rem;
-            position: relative;
+            padding: 2rem;
         }
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(22, 33, 62, 0.7);
-            z-index: 1;
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-        header * {
-            position: relative;
-            z-index: 2;
+        .profile-container {
+            display: flex;
+            align-items: center;
+        }
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--secondary-color);
+            margin-right: 20px;
+        }
+        .profile-info {
+            flex-grow: 1;
         }
         h1, h2 {
             color: var(--secondary-color);
+            margin: 0;
+        }
+        .contact-info {
+            text-align: right;
         }
         .section {
             background-color: var(--highlight-color);
@@ -66,13 +72,6 @@
         .achievements li, .olympiads li {
             margin-bottom: 10px;
         }
-        .contact {
-            text-align: center;
-            margin-top: 20px;
-            background-color: var(--accent-color);
-            padding: 20px;
-            border-radius: 10px;
-        }
         .skill-tag {
             display: inline-block;
             background-color: var(--secondary-color);
@@ -81,20 +80,6 @@
             border-radius: 15px;
             margin: 5px;
             font-size: 0.9em;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .fade-in {
-            animation: fadeIn 1s ease-out;
-        }
-        .social-link {
-            color: var(--secondary-color);
-            text-decoration: none;
-        }
-        .social-link:hover {
-            text-decoration: underline;
         }
         .project {
             border-left: 3px solid var(--secondary-color);
@@ -105,25 +90,9 @@
             color: var(--secondary-color);
             margin-bottom: 10px;
         }
-        .project p {
-            margin-bottom: 10px;
-        }
         .tech-used {
             font-style: italic;
             color: var(--muted-color);
-        }
-        .achievement-proof {
-            background-color: rgba(233, 69, 96, 0.1);
-            border-left: 3px solid var(--secondary-color);
-            padding: 10px;
-            margin-top: 10px;
-        }
-        .achievement-proof a {
-            color: var(--secondary-color);
-            text-decoration: none;
-        }
-        .achievement-proof a:hover {
-            text-decoration: underline;
         }
         .project-image {
             max-width: 100%;
@@ -146,30 +115,13 @@
         }
         .app-screenshots {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
+            justify-content: space-between;
             margin-top: 20px;
         }
         .app-screenshots img {
-            max-width: 45%;
-            margin-bottom: 10px;
-        }
-        .profile-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-        .profile-picture {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--secondary-color);
-        }
-        .contact-info {
-            margin-top: 10px;
-            font-size: 0.9em;
+            width: 18%;
+            height: auto;
+            border-radius: 5px;
         }
         .linkedin-button {
             display: inline-block;
@@ -179,20 +131,24 @@
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s ease;
+            margin-top: 10px;
         }
         .linkedin-button:hover {
             background-color: var(--accent-color);
+            color: var(--text-color);
         }
     </style>
 </head>
 <body>
-    <header class="fade-in">
-        <div class="container">
+    <header>
+        <div class="container header-content">
             <div class="profile-container">
-                <img src="images/IMG_1677.png" alt="Aayam Bansal" class="profile-picture">
+                <img src="images/IMG_1667.png" alt="Aayam Bansal" class="profile-picture">
+                <div class="profile-info">
+                    <h1>Aayam Bansal</h1>
+                    <p>High School Senior | Aspiring Computer Scientist | Mathematics Enthusiast</p>
+                </div>
             </div>
-            <h1>Aayam Bansal</h1>
-            <p>High School Senior | Aspiring Computer Scientist | Mathematics Enthusiast</p>
             <div class="contact-info">
                 <p>Email: aayambansal@gmail.com</p>
                 <a href="https://www.linkedin.com/in/aayambansal" target="_blank" class="linkedin-button">LinkedIn</a>
@@ -201,23 +157,22 @@
     </header>
 
     <div class="container">
-        <div class="section fade-in">
+        <div class="section">
             <h2>About Me</h2>
             <p>I'm a high school senior at Delhi Public School, Ruby Park, with a passion for computer science and mathematics. As I prepare for the next chapter of my academic journey, I'm excited to pursue a major in Computer Science with a minor in Mathematics.</p>
         </div>
 
-        <div class="section fade-in">
+        <div class="section">
             <h2>Academic Achievements</h2>
             <ul>
                 <li>SAT: 1560</li>
                 <li>IELTS: 8 band</li>
                 <li>AP Scores: Calculus BC (5), Physics C: Mechanics (4), Computer Science A (4), Computer Science Principles (4)</li>
-                <li>Grade Performance: 9th - 95% (2nd highest in batch), 10th - 96% (3rd highest in batch), 11th - 96.4% (highest in batch)</li>
-                <li>School Batch Size: 930</li>
+                <li>Grade Performance: 9th - 95%, 10th - 96%, 11th - 96.4%</li>
             </ul>
         </div>
 
-        <div class="section fade-in">
+        <div class="section">
             <h2>Research and Experience</h2>
             <ul>
                 <li><strong>Research Team Leader</strong> - Future Innovative Research Program, NUS (June 2023 - Present)
@@ -238,35 +193,22 @@
             </ul>
         </div>
 
-        <div class="section fade-in">
+        <div class="section">
             <h2>Programming and AI Projects</h2>
 
             <div class="project">
                 <h3>Employee Management System</h3>
                 <p class="tech-used">Technologies used: Python, SQLite, Tkinter</p>
-                <p>Developed a comprehensive Employee Management System using Python, SQLite, and Tkinter. This project demonstrates proficiency in database management, GUI development, and creating practical business applications. Key features include:</p>
-                <ul>
-                    <li>User-friendly graphical interface for easy data entry and management</li>
-                    <li>CRUD operations (Create, Read, Update, Delete) for employee records</li>
-                    <li>Data validation and error handling to ensure data integrity</li>
-                    <li>Export functionality to CSV for data portability</li>
-                    <li>Efficient database queries and data retrieval using SQLite</li>
-                </ul>
+                <p>Developed a comprehensive Employee Management System using Python, SQLite, and Tkinter. This project demonstrates proficiency in database management, GUI development, and creating practical business applications.</p>
                 <img src="images/employee-management-system.png" alt="Employee Management System Screenshot" class="project-image">
-                <p>The system features a dark-themed interface for comfortable use in various lighting conditions. It includes fields for comprehensive employee information such as ID, Name, Role, Gender, Status, Department, Contact, Hire Date, and Salary. The interface also provides buttons for adding, updating, and deleting employee records, as well as clearing fields and exporting data to CSV.</p>
+                <p>The system features a dark-themed interface for comfortable use in various lighting conditions. It includes fields for comprehensive employee information and provides functionality for adding, updating, and deleting employee records, as well as exporting data to CSV.</p>
                 <a href="https://github.com/aayambansal/Employee-Management-System" class="github-link" target="_blank">View on GitHub</a>
             </div>
 
             <div class="project">
                 <h3>AI Image Prediction Model</h3>
                 <p class="tech-used">Technologies used: MobileNetV2, Python, Computer Vision</p>
-                <p>Developed an advanced image identification model using MobileNetV2, capable of accurately classifying a wide range of images. This project demonstrates skills in deep learning and computer vision. Key features include:</p>
-                <ul>
-                    <li>Implementation of transfer learning using MobileNetV2</li>
-                    <li>Fine-tuning and optimization of the model for specific use cases</li>
-                    <li>Development of a graphical user interface for easy interaction</li>
-                    <li>Visual representation of model confidence levels for predictions</li>
-                </ul>
+                <p>Developed an advanced image identification model using MobileNetV2, capable of accurately classifying a wide range of images. This project demonstrates skills in deep learning and computer vision.</p>
                 <img src="images/ai-image-prediction.png" alt="AI Image Prediction Model Screenshot" class="project-image">
                 <p>The image shows a sample prediction of an Egyptian cat with a confidence level of 0.69.</p>
                 <a href="https://github.com/aayambansal/MLPredictionModel" class="github-link" target="_blank">View on GitHub</a>
@@ -275,19 +217,13 @@
             <div class="project">
                 <h3>ASK Introspection - Mental Health App</h3>
                 <p class="tech-used">Technologies used: Swift, iOS Development, UI/UX Design</p>
-                <p>Developed a comprehensive mental health app called "ASK Introspection" to serve as a daily companion for mental wellness. This project demonstrates skills in mobile app development, user interface design, and creating solutions for important social issues. Key features include:</p>
-                <ul>
-                    <li>Daily journaling functionality for users to record their thoughts and experiences</li>
-                    <li>Mental health quizzes to assess the user's current state of mind</li>
-                    <li>Motivational quotes to provide inspiration and encouragement</li>
-                    <li>Help section for additional resources and support</li>
-                </ul>
+                <p>Developed a comprehensive mental health app called "ASK Introspection" to serve as a daily companion for mental wellness. This project demonstrates skills in mobile app development, user interface design, and creating solutions for important social issues.</p>
                 <div class="app-screenshots">
-                    <img src="images/ask-introspection-home.png" alt="ASK Introspection Home Screen" class="project-image">
-                    <img src="images/ask-introspection-journal.png" alt="ASK Introspection Journal Screen" class="project-image">
-                    <img src="images/ask-introspection-quiz.png" alt="ASK Introspection Quiz Screen" class="project-image">
-                    <img src="images/ask-introspection-results.png" alt="ASK Introspection Quiz Results Screen" class="project-image">
-                    <img src="images/ask-introspection-quotes.png" alt="ASK Introspection Quotes Screen" class="project-image">
+                    <img src="images/ask-introspection-home.png" alt="ASK Introspection Home Screen">
+                    <img src="images/ask-introspection-journal.png" alt="ASK Introspection Journal Screen">
+                    <img src="images/ask-introspection-quiz.png" alt="ASK Introspection Quiz Screen">
+                    <img src="images/ask-introspection-results.png" alt="ASK Introspection Quiz Results Screen">
+                    <img src="images/ask-introspection-quotes.png" alt="ASK Introspection Quotes Screen">
                 </div>
                 <p>The app features a clean, intuitive interface with a soothing color scheme to promote a sense of calm and well-being. It offers personalized insights based on user inputs and provides actionable recommendations to improve mental health.</p>
                 <a href="#" class="github-link" target="_blank">View on GitHub</a>
@@ -296,27 +232,19 @@
             <div class="project">
                 <h3>The Wellness Clinic App</h3>
                 <p class="tech-used">Technologies used: Swift, iOS Development, UI/UX Design, Healthcare Integration</p>
-                <p>Developed a comprehensive mobile application for The Wellness Clinic, streamlining patient services and clinic management. This project demonstrates skills in creating practical solutions for healthcare providers and patients. Key features include:</p>
-                <ul>
-                    <li>User-friendly interface for booking various health services</li>
-                    <li>Appointment management system for patients and clinic staff</li>
-                    <li>Integration with Google Reviews for patient feedback</li>
-                    <li>Multiple service options including Physio Sessions, Deep Tissue, Diet Services, TeleHealth, and Osteopathic consultations</li>
-                    <li>Secure handling of patient information and appointment details</li>
-                </ul>
+                <p>Developed a comprehensive mobile application for The Wellness Clinic, streamlining patient services and clinic management. This project demonstrates skills in creating practical solutions for healthcare providers and patients.</p>
                 <div class="app-screenshots">
-                    <img src="images/wellness-clinic-home.png" alt="Wellness Clinic App Home Screen" class="project-image">
-                    <img src="images/wellness-clinic-booking.png" alt="Wellness Clinic App Booking Screen" class="project-image">
-                    <img src="images/wellness-clinic-services.png" alt="Wellness Clinic App Services Screen" class="project-image">
-                    <img src="images/wellness-clinic-appointments.png" alt="Wellness Clinic App Appointments Screen" class="project-image">
+                    <img src="images/wellness-clinic-home.png" alt="Wellness Clinic App Home Screen">
+                    <img src="images/wellness-clinic-booking.png" alt="Wellness Clinic App Booking Screen">
+                    <img src="images/wellness-clinic-services.png" alt="Wellness Clinic App Services Screen">
+                    <img src="images/wellness-clinic-appointments.png" alt="Wellness Clinic App Appointments Screen">
                 </div>
                 <p>The app features a clean, professional design with a blue and white color scheme, reflecting the clinic's branding. It offers an intuitive booking process, easy access to various health services, and a streamlined view of booked appointments for efficient clinic management.</p>
                 <a href="#" class="github-link" target="_blank">View on GitHub</a>
             </div>
-
         </div>
 
-        <div class="section fade-in">
+        <div class="section">
             <h2>Projects and Activities</h2>
             <ul>
                 <li><strong>App Developer</strong> (January 2023 - April 2023)
@@ -337,7 +265,7 @@
             </ul>
         </div>
 
-        <div class="section fade-in">
+        <div class="section">
             <h2>Upcoming Olympiads and Competitions</h2>
             <ul class="olympiads">
                 <li>NJCS (National Junior Cyber Security Olympiad) - September 15, 2024</li>
@@ -352,7 +280,7 @@
             </ul>
         </div>
 
-        <div class="section fade-in">
+        <div class="section">
             <h2>Skills and Interests</h2>
             <div>
                 <span class="skill-tag">Taekwondo</span>
@@ -366,7 +294,7 @@
             </div>
         </div>
 
-        <div class="section fade-in">
+        <div class="section">
             <h2>Honors and Awards</h2>
             <ul class="achievements">
                 <li>Computer Science Award of Excellence</li>
