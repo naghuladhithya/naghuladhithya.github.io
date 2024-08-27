@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aayam Bansal - Personal Website</title>
+    <style>
+        :root {
+            --bg-color: #1a1a2e;
+            --text-color: #e0e0e0;
+            --accent-color: #16213e;
+            --highlight-color: #0f3460;
+            --secondary-color: #e94560;
+            --muted-color: #4a4e69;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-image: url('https://api.placeholder.com/1000x300?text=Header+Background');
+            background-size: cover;
+            background-position: center;
+            color: var(--text-color);
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(22, 33, 62, 0.7);
+            z-index: 1;
+        }
+        header * {
+            position: relative;
+            z-index: 2;
+        }
+        h1, h2 {
+            color: var(--secondary-color);
+        }
+        .section {
+            background-color: var(--highlight-color);
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .section:hover {
+            transform: translateY(-5px);
+        }
+        .achievements li, .olympiads li {
+            margin-bottom: 10px;
+        }
+        .contact {
+            text-align: center;
+            margin-top: 20px;
+            background-color: var(--accent-color);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .skill-tag {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--bg-color);
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin: 5px;
+            font-size: 0.9em;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+        .social-link {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        .social-link:hover {
+            text-decoration: underline;
+        }
+        .project {
+            border-left: 3px solid var(--secondary-color);
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+        .project h3 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        .project p {
+            margin-bottom: 10px;
+        }
+        .tech-used {
+            font-style: italic;
+            color: var(--muted-color);
+        }
+        .achievement-proof {
+            background-color: rgba(233, 69, 96, 0.1);
+            border-left: 3px solid var(--secondary-color);
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .achievement-proof a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        .achievement-proof a:hover {
+            text-decoration: underline;
+        }
+        .project-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .github-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .github-link:hover {
+            background-color: var(--secondary-color);
+        }
+        .app-screenshots {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .app-screenshots img {
+            max-width: 45%;
+            margin-bottom: 10px;
+        }
+        .profile-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .profile-picture {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--secondary-color);
+        }
+        .contact-info {
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        .linkedin-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: var(--bg-color);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .linkedin-button:hover {
+            background-color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <header class="fade-in">
+        <div class="container">
+            <div class="profile-container">
+                <img src="images/IMG_1667.png" alt="Aayam Bansal" class="profile-picture">
+            </div>
+            <h1>Aayam Bansal</h1>
+            <p>High School Senior | Aspiring Computer Scientist | Mathematics Enthusiast</p>
+            <div class="contact-info">
+                <p>Email: aayambansal@gmail.com</p>
+                <a href="https://www.linkedin.com/in/aayambansal" target="_blank" class="linkedin-button">LinkedIn</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="section fade-in">
+            <h2>About Me</h2>
+            <p>I'm a high school senior at Delhi Public School, Ruby Park, with a passion for computer science and mathematics. As I prepare for the next chapter of my academic journey, I'm excited to pursue a major in Computer Science with a minor in Mathematics.</p>
+        </div>
+
+        <div class="section fade-in">
+            <h2>Academic Achievements</h2>
+            <ul>
+                <li>SAT: 1560</li>
+                <li>IELTS: 8 band</li>
+                <li>AP Scores: Calculus BC (5), Physics C: Mechanics (4), Computer Science A (4), Computer Science Principles (4)</li>
+                <li>Grade Performance: 9th - 95%, 10th - 96%, 11th - 96.4%</li>
+            </ul>
+        </div>
+
+        <div class="section fade-in">
+            <h2>Research and Experience</h2>
+            <ul>
+                <li><strong>Research Team Leader</strong> - Future Innovative Research Program, NUS (June 2023 - Present)
+                    <p>Leading a team of four on 'Efficient Route AI' under NUS professor. Using satellite data for road safety, developing a 4,000-word paper to be published in the NUS journal.</p>
+                </li>
+                <li><strong>AI Projects Team Leader</strong> - AI Internship for Young Achievers, NUS and Amazon (January 2023 - May 2023)
+                    <p>Led two diverse teams: AI Model for 'Telecom Churn Prediction' ranked top 3, AWS Chatbot on gun safety won the most innovative chatbot award.</p>
+                </li>
+                <li><strong>Research Project</strong> - Harvard Student Agency Research Program (September 2022 - December 2022)
+                    <p>Authored a 4,000-word paper on AI in Edge Computing, exploring low-latency processing models, published on the HSA website.</p>
+                </li>
+                <li><strong>AI Internship</strong> - Jadavpur University (May 2022 - April 2023)
+                    <p>Collaborated with PhD students on AI/ML projects for glaucoma & diabetes detection in retinal images, enhancing research quality & deepening learning.</p>
+                </li>
+                <li><strong>Maths Club Instructor</strong> - Delhi Public School, Ruby Park (August 2019 - Present)
+                    <p>Taught middle schoolers/freshmen/sophomores math basics, led calculus classes, organized math contests, highest honor, active in Stanford Math Club.</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section fade-in">
+            <h2>Programming and AI Projects</h2>
+
+            <div class="project">
+                <h3>Employee Management System</h3>
+                <p class="tech-used">Technologies used: Python, SQLite, Tkinter</p>
+                <p>Developed a comprehensive Employee Management System using Python, SQLite, and Tkinter. This project demonstrates proficiency in database management, GUI development, and creating practical business applications. Key features include:</p>
+                <ul>
+                    <li>User-friendly graphical interface for easy data entry and management</li>
+                    <li>CRUD operations (Create, Read, Update, Delete) for employee records</li>
+                    <li>Data validation and error handling to ensure data integrity</li>
+                    <li>Export functionality to CSV for data portability</li>
+                    <li>Efficient database queries and data retrieval using SQLite</li>
+                </ul>
+                <img src="images/employee-management-system.png" alt="Employee Management System Screenshot" class="project-image">
+                <p>The system features a dark-themed interface for comfortable use in various lighting conditions. It includes fields for comprehensive employee information such as ID, Name, Role, Gender, Status, Department, Contact, Hire Date, and Salary. The interface also provides buttons for adding, updating, and deleting employee records, as well as clearing fields and exporting data to CSV.</p>
+                <a href="https://github.com/aayambansal/Employee-Management-System" class="github-link" target="_blank">View on GitHub</a>
+            </div>
+
+            <div class="project">
+                <h3>AI Image Prediction Model</h3>
+                <p class="tech-used">Technologies used: MobileNetV2, Python, Computer Vision</p>
+                <p>Developed an advanced image identification model using MobileNetV2, capable of accurately classifying a wide range of images. This project demonstrates skills in deep learning and computer vision. Key features include:</p>
+                <ul>
+                    <li>Implementation of transfer learning using MobileNetV2</li>
+                    <li>Fine-tuning and optimization of the model for specific use cases</li>
+                    <li>Development of a graphical user interface for easy interaction</li>
+                    <li>Visual representation of model confidence levels for predictions</li>
+                </ul>
+                <img src="images/ai-image-prediction.png" alt="AI Image Prediction Model Screenshot" class="project-image">
+                <p>The image shows a sample prediction of an Egyptian cat with a confidence level of 0.69.</p>
+                <a href="https://github.com/aayambansal/MLPredictionModel" class="github-link" target="_blank">View on GitHub</a>
+            </div>
+
+            <div class="project">
+                <h3>ASK Introspection - Mental Health App</h3>
+                <p class="tech-used">Technologies used: Swift, iOS Development, UI/UX Design</p>
+                <p>Developed a comprehensive mental health app called "ASK Introspection" to serve as a daily companion for mental wellness. This project demonstrates skills in mobile app development, user interface design, and creating solutions for important social issues. Key features include:</p>
+                <ul>
+                    <li>Daily journaling functionality for users to record their thoughts and experiences</li>
+                    <li>Mental health quizzes to assess the user's current state of mind</li>
+                    <li>Motivational quotes to provide inspiration and encouragement</li>
+                    <li>Help section for additional resources and support</li>
+                </ul>
+                <div class="app-screenshots">
+                    <img src="images/ask-introspection-home.png" alt="ASK Introspection Home Screen" class="project-image">
+                    <img src="images/ask-introspection-journal.png" alt="ASK Introspection Journal Screen" class="project-image">
+                    <img src="images/ask-introspection-quiz.png" alt="ASK Introspection Quiz Screen" class="project-image">
+                    <img src="images/ask-introspection-results.png" alt="ASK Introspection Quiz Results Screen" class="project-image">
+                    <img src="images/ask-introspection-quotes.png" alt="ASK Introspection Quotes Screen" class="project-image">
+                </div>
+                <p>The app features a clean, intuitive interface with a soothing color scheme to promote a sense of calm and well-being. It offers personalized insights based on user inputs and provides actionable recommendations to improve mental health.</p>
+                <a href="#" class="github-link" target="_blank">View on GitHub</a>
+            </div>
+
+            <div class="project">
+                <h3>The Wellness Clinic App</h3>
+                <p class="tech-used">Technologies used: Swift, iOS Development, UI/UX Design, Healthcare Integration</p>
+                <p>Developed a comprehensive mobile application for The Wellness Clinic, streamlining patient services and clinic management. This project demonstrates skills in creating practical solutions for healthcare providers and patients. Key features include:</p>
+                <ul>
+                    <li>User-friendly interface for booking various health services</li>
+                    <li>Appointment management system for patients and clinic staff</li>
+                    <li>Integration with Google Reviews for patient feedback</li>
+                    <li>Multiple service options including Physio Sessions, Deep Tissue, Diet Services, TeleHealth, and Osteopathic consultations</li>
+                    <li>Secure handling of patient information and appointment details</li>
+                </ul>
+                <div class="app-screenshots">
+                    <img src="images/wellness-clinic-home.png" alt="Wellness Clinic App Home Screen" class="project-image">
+                    <img src="images/wellness-clinic-booking.png" alt="Wellness Clinic App Booking Screen" class="project-image">
+                    <img src="images/wellness-clinic-services.png" alt="Wellness Clinic App Services Screen" class="project-image">
+                    <img src="images/wellness-clinic-appointments.png" alt="Wellness Clinic App Appointments Screen" class="project-image">
+                </div>
+                <p>The app features a clean, professional design with a blue and white color scheme, reflecting the clinic's branding. It offers an intuitive booking process, easy access to various health services, and a streamlined view of booked appointments for efficient clinic management.</p>
+                <a href="#" class="github-link" target="_blank">View on GitHub</a>
+            </div>
+
+        </div>
+
+        <div class="section fade-in">
+            <h2>Projects and Activities</h2>
+            <ul>
+                <li><strong>App Developer</strong> (January 2023 - April 2023)
+                    <p>Developed and published two apps: one for a Wellness Clinic, another for mental health; utilized UCSD Swift course and YouTube tutorials for coding.</p>
+                </li>
+                <li><strong>Volunteer & Research Intern</strong> - Kolkata Municipal Corporation (KMC) (June 2019 - Present)
+                    <p>Conducted surveys in slums for the Old Age Pension scheme, focused on accurate data collection, community engagement with elderly, & field challenges.</p>
+                </li>
+                <li><strong>Volunteer & Research Intern</strong> - New Town Kolkata Development Authority (NKDA) (July 2020 - May 2022)
+                    <p>Led Dengue awareness campaigns, identified mosquito breeding sites, engaged locals in prevention, conducted field surveys, & distributed resources.</p>
+                </li>
+                <li><strong>Tech Club Member</strong> - Delhi Public School, Ruby Park (August 2021 - Present)
+                    <p>Led Python/Java workshops, organized hackathons, collaborated on AI/ML projects in the exclusive Tech Club, mentoring peers and innovating solutions.</p>
+                </li>
+                <li><strong>Chess Club Competitor</strong> (August 2020 - Present)
+                    <p>2nd in Don Bosco Bandel, 2nd in Silver Jubilee, 6th in All Bengal Open, Distinction award, taught basic chess concepts to juniors, 1650 online rating. 17th Nationally in 13th Edition Chess for Youth-2023 (Under-16).</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section fade-in">
+            <h2>Upcoming Olympiads and Competitions</h2>
+            <ul class="olympiads">
+                <li>NJCS (National Junior Cyber Security Olympiad) - September 15, 2024</li>
+                <li>Pi Quiz Seniors (IIM Indore) - September 17-19 & October 3-5, 2024</li>
+                <li>ASMO (Asian Science and Math Olympiad) - September 28-29, 2024</li>
+                <li>FMO (Fermat Math Olympiad) - October 19-20, 2024</li>
+                <li>AMO (American Math Olympiad) - October 27, 2024</li>
+                <li>IMO and IEO (Indian Math and English Olympiad) - October/November 2024</li>
+                <li>TIMO (Thailand International Math Olympiad) - December 8-9, 2024</li>
+                <li>Asian-Rope (Math Olympiad) - January 19, 2025</li>
+                <li>FISO (Future Intelligence Students Olympiad IT) - January 28-29, 2025</li>
+            </ul>
+        </div>
+
+        <div class="section fade-in">
+            <h2>Skills and Interests</h2>
+            <div>
+                <span class="skill-tag">Taekwondo</span>
+                <span class="skill-tag">Badminton</span>
+                <span class="skill-tag">Piano</span>
+                <span class="skill-tag">Shooting</span>
+                <span class="skill-tag">French</span>
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">Java</span>
+                <span class="skill-tag">Swift</span>
+            </div>
+        </div>
+
+        <div class="section fade-in">
+            <h2>Honors and Awards</h2>
+            <ul class="achievements">
+                <li>Computer Science Award of Excellence</li>
+                <li>AP Scholar with Honor</li>
+                <li>SASMO 2024: Bronze Medal, State and Country Rank 1</li>
+                <li>Aryabhatta National Math Competition 2024: Gold Medal</li>
+                <li>IMOCSEA 2024: International Silver Medal, National Rank 2</li>
+                <li>SOF National Cyber Olympiad: Zonal Rank 23, International Rank 214</li>
+                <li>NASTA 2019: 11th State Rank, 270th National Rank</li>
+                <li>Scholar Badge: Awarded for 3 consecutive years</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
