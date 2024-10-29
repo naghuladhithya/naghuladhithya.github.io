@@ -20,6 +20,57 @@
         }
     </script>
 </head>
+
+<!-- Inside index.html, just before </body> -->
+
+<!-- First load the data files -->
+<script>
+    // Initialize empty data objects to prevent errors
+    let researchData = { papers: [] };
+    let projectsData = { applications: [], startups: [] };
+    let achievementsData = { academic: [], competitions: [], hackathons: {}, certifications: [], olympiads: [] };
+    let experienceData = { research: [], internships: [], leadership: [], volunteer: [] };
+</script>
+
+<!-- Load all your data files -->
+<script src="research-data.js"></script>
+<script src="projects-data.js"></script>
+<script src="achievements-data.js"></script>
+<script src="experience-data.js"></script>
+
+<!-- Load main.js last -->
+<script src="main.js"></script>
+
+<!-- Initialize the page -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Show initial section
+        showSection('about');
+
+        // Add event listeners for modals
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        };
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.style.display = 'none';
+                });
+            }
+        });
+    });
+</script>
+
 <body class="bg-dark text-white">
     <!-- Navigation -->
     <nav class="fixed w-full bg-dark-card shadow-lg z-50">
