@@ -8,20 +8,46 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
-        .dark {
-            background-color: #1a1a1a;
-            color: #ffffff;
+        :root {
+            --primary: #5C6BC0;
+            --secondary: #7986CB;
+            --background-dark: #1a1a1a;
+            --card-dark: #2d2d2d;
+            --text-dark: #ffffff;
+            --border-dark: #404040;
         }
-        
-        .dark .card {
-            background-color: #2d2d2d;
-            border-color: #404040;
+
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-dark);
         }
-        
+
+        .card {
+            background-color: var(--card-dark);
+            border: 1px solid var(--border-dark);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .skill-tag {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            display: inline-block;
+            margin: 0.25rem;
+            transition: all 0.3s ease;
+        }
+
         .nav-link {
             position: relative;
+            color: var(--text-dark);
         }
-        
+
         .nav-link::after {
             content: '';
             position: absolute;
@@ -29,51 +55,21 @@
             height: 2px;
             bottom: -2px;
             left: 0;
-            background-color: currentColor;
+            background-color: var(--primary);
             transition: width 0.3s ease;
         }
-        
+
         .nav-link:hover::after {
             width: 100%;
-        }
-        
-        .card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .achievement-card {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .achievement-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu {
-                display: none;
-            }
-            
-            .mobile-menu.active {
-                display: block;
-            }
         }
 
         .tab-content {
             display: none;
+            animation: fadeIn 0.5s ease;
         }
 
         .tab-content.active {
             display: block;
-            animation: fadeIn 0.5s ease;
         }
 
         @keyframes fadeIn {
@@ -86,25 +82,37 @@
                 transform: translateY(0);
             }
         }
+
+        .mobile-menu {
+            display: none;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .desktop-menu {
+                display: none;
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-50 transition-colors duration-300">
+<body>
     <!-- Navigation -->
-    <nav class="fixed w-full bg-white dark:bg-gray-900 shadow-lg z-50">
+    <nav class="fixed w-full bg-gray-900 shadow-lg z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
                     <span class="text-xl font-bold">Aayam Bansal</span>
                 </div>
-                <div class="hidden md:flex items-center space-x-8">
+                <div class="hidden md:flex items-center space-x-8 desktop-menu">
                     <a href="#about" class="nav-link">About</a>
                     <a href="#research" class="nav-link">Research</a>
                     <a href="#projects" class="nav-link">Projects</a>
                     <a href="#achievements" class="nav-link">Achievements</a>
-                    <a href="bit.ly/aayamcv" target="_blank" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">CV</a>
-                    <button id="darkModeToggle" class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700">
-                        <i class="fas fa-moon"></i>
-                    </button>
+                    <a href="#experience" class="nav-link">Experience</a>
+                    <a href="bit.ly/aayamcv" target="_blank" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">CV</a>
                 </div>
                 <button class="md:hidden" id="mobileMenuButton">
                     <i class="fas fa-bars"></i>
@@ -114,11 +122,12 @@
         <!-- Mobile Menu -->
         <div class="mobile-menu md:hidden">
             <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="#about" class="block px-3 py-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700">About</a>
-                <a href="#research" class="block px-3 py-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700">Research</a>
-                <a href="#projects" class="block px-3 py-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700">Projects</a>
-                <a href="#achievements" class="block px-3 py-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700">Achievements</a>
-                <a href="bit.ly/aayamcv" target="_blank" class="block px-3 py-2 bg-blue-600 text-white rounded-md">CV</a>
+                <a href="#about" class="block px-3 py-2 rounded-md hover:bg-gray-700">About</a>
+                <a href="#research" class="block px-3 py-2 rounded-md hover:bg-gray-700">Research</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md hover:bg-gray-700">Projects</a>
+                <a href="#achievements" class="block px-3 py-2 rounded-md hover:bg-gray-700">Achievements</a>
+                <a href="#experience" class="block px-3 py-2 rounded-md hover:bg-gray-700">Experience</a>
+                <a href="bit.ly/aayamcv" target="_blank" class="block px-3 py-2 bg-indigo-600 text-white rounded-md">CV</a>
             </div>
         </div>
     </nav>
@@ -126,19 +135,19 @@
     <!-- Hero Section -->
     <header class="pt-32 pb-16 px-4">
         <div class="max-w-7xl mx-auto text-center">
-            <img src="/api/placeholder/150/150" alt="Aayam Bansal" class="mx-auto rounded-full shadow-lg mb-6 animate__animated animate__fadeIn">
+            <img src="AA.png" alt="Aayam Bansal" class="w-32 h-32 mx-auto rounded-full shadow-lg mb-6 animate__animated animate__fadeIn">
             <h1 class="text-4xl font-bold mb-4 animate__animated animate__fadeInUp">Aayam Bansal</h1>
-            <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 animate__animated animate__fadeInUp animate__delay-1s">
+            <p class="text-xl text-gray-300 mb-8 animate__animated animate__fadeInUp animate__delay-1s">
                 High School Senior | Aspiring Computer Scientist | Mathematics Enthusiast
             </p>
             <div class="flex justify-center space-x-4 animate__animated animate__fadeInUp animate__delay-2s">
-                <a href="mailto:aayambansal@gmail.com" class="social-link">
+                <a href="mailto:aayambansal@gmail.com" class="text-gray-300 hover:text-white transition">
                     <i class="fas fa-envelope text-2xl"></i>
                 </a>
-                <a href="https://www.linkedin.com/in/aayambansal" target="_blank" class="social-link">
+                <a href="https://www.linkedin.com/in/aayambansal" target="_blank" class="text-gray-300 hover:text-white transition">
                     <i class="fab fa-linkedin text-2xl"></i>
                 </a>
-                <a href="https://github.com/aayambansal" target="_blank" class="social-link">
+                <a href="https://github.com/aayambansal" target="_blank" class="text-gray-300 hover:text-white transition">
                     <i class="fab fa-github text-2xl"></i>
                 </a>
             </div>
@@ -147,109 +156,110 @@
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Tabs -->
+        <div class="mb-8 flex justify-center space-x-4">
+            <button class="tab-button px-4 py-2 rounded-lg bg-indigo-600 text-white" data-tab="about">About</button>
+            <button class="tab-button px-4 py-2 rounded-lg bg-gray-700" data-tab="research">Research</button>
+            <button class="tab-button px-4 py-2 rounded-lg bg-gray-700" data-tab="projects">Projects</button>
+            <button class="tab-button px-4 py-2 rounded-lg bg-gray-700" data-tab="achievements">Achievements</button>
+            <button class="tab-button px-4 py-2 rounded-lg bg-gray-700" data-tab="experience">Experience</button>
+        </div>
+
         <!-- About Section -->
-        <section id="about" class="mb-16">
-            <h2 class="text-3xl font-bold mb-8">About Me</h2>
+        <section id="about" class="tab-content active">
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="card p-6 rounded-lg shadow-lg">
+                <div class="card p-6 rounded-lg">
                     <h3 class="text-xl font-semibold mb-4">Academic Excellence</h3>
                     <ul class="space-y-2">
                         <li>🎓 SAT: 1560</li>
                         <li>🌟 IELTS: 8 band</li>
-                        <li>📚 AP Scores: Calculus BC (5), Physics C: Mechanics (4), Computer Science A (4)</li>
-                        <li>📊 Grade Performance: 96.4% (highest in batch)</li>
+                        <li>📚 AP Scores:
+                            <ul class="ml-4">
+                                <li>- Calculus BC (5)</li>
+                                <li>- Physics C: Mechanics (4)</li>
+                                <li>- Computer Science A (4)</li>
+                                <li>- Computer Science Principles (4)</li>
+                            </ul>
+                        </li>
+                        <li>📊 Grade Performance: 
+                            <ul class="ml-4">
+                                <li>- 11th: 96.4% (highest in batch)</li>
+                                <li>- 10th: 96%</li>
+                                <li>- 9th: 95%</li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
-                <div class="card p-6 rounded-lg shadow-lg">
+                <div class="card p-6 rounded-lg">
                     <h3 class="text-xl font-semibold mb-4">Skills & Expertise</h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 rounded-full">Python</span>
-                        <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 rounded-full">Java</span>
-                        <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 rounded-full">Swift</span>
-                        <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 rounded-full">AI/ML</span>
-                        <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 rounded-full">Research</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Swift</span>
+                        <span class="skill-tag">AI/ML</span>
+                        <span class="skill-tag">Research</span>
+                        <span class="skill-tag">OpenCV</span>
+                        <span class="skill-tag">NLP</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Deep Learning</span>
+                        <span class="skill-tag">Computer Vision</span>
+                    </div>
+                    <div class="mt-4">
+                        <h4 class="font-semibold mb-2">Languages</h4>
+                        <p>English (Native), Hindi (Native), Bengali (Professional), French (Alliance Française)</p>
+                    </div>
+                    <div class="mt-4">
+                        <h4 class="font-semibold mb-2">Additional Skills</h4>
+                        <ul class="ml-4 list-disc">
+                            <li>Taekwondo (Red Stripe Belt)</li>
+                            <li>Piano (7 years, Distinction)</li>
+                            <li>Chess (2250 Lichess rating)</li>
+                            <li>NRAI Certified Shooter</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Research Section -->
-        <section id="research" class="mb-16">
-            <h2 class="text-3xl font-bold mb-8">Research Work</h2>
+        <section id="research" class="tab-content">
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="card p-6 rounded-lg shadow-lg">
-                    <h3 class="text-xl font-semibold mb-4">AI in Healthcare</h3>
-                    <p>Led research on AI-based detection systems for glaucoma and diabetes using retinal imaging at Jadavpur University.</p>
-                </div>
-                <div class="card p-6 rounded-lg shadow-lg">
-                    <h3 class="text-xl font-semibold mb-4">Environmental Studies</h3>
-                    <p>Conducted research at East Kolkata Wetland, reporting endangered species to IUCN and performing environmental tests.</p>
-                </div>
-                <!-- Add more research cards -->
+                <!-- Research cards will be populated by JavaScript -->
             </div>
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="mb-16">
-            <h2 class="text-3xl font-bold mb-8">Notable Projects</h2>
+        <section id="projects" class="tab-content">
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="card p-6 rounded-lg shadow-lg">
-                    <h3 class="text-xl font-semibold mb-4">ASK Introspection</h3>
-                    <p>Mental health app developed using Swift, featuring daily wellness tracking and personalized recommendations.</p>
-                </div>
-                <div class="card p-6 rounded-lg shadow-lg">
-                    <h3 class="text-xl font-semibold mb-4">Slumdog Mealionaire</h3>
-                    <p>Drone-based food delivery system for vulnerable populations in Delhi slums, secured $2,000 in funding.</p>
-                </div>
-                <div class="card p-6 rounded-lg shadow-lg">
-                    <h3 class="text-xl font-semibold mb-4">AI Image Prediction</h3>
-                    <p>Advanced image classification model using MobileNetV2, demonstrating proficiency in deep learning.</p>
-                </div>
+                <!-- Project cards will be populated by JavaScript -->
             </div>
         </section>
 
         <!-- Achievements Section -->
-        <section id="achievements" class="mb-16">
-            <h2 class="text-3xl font-bold mb-8">Achievements & Awards</h2>
+        <section id="achievements" class="tab-content">
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="achievement-card card p-6 rounded-lg shadow-lg">
-                    <h3 class="text-xl font-semibold mb-4">Academic Awards</h3>
-                    <ul class="space-y-2">
-                        <li>🏆 Computer Science Award of Excellence</li>
-                        <li>🎯 AP Scholar with Honor</li>
-                        <li>🌟 Scholar Badge (3 consecutive years)</li>
-                    </ul>
-                </div>
-                <div class="achievement-card card p-6 rounded-lg shadow-lg">
-                    <h3 class="text-xl font-semibold mb-4">Competition Achievements</h3>
-                    <ul class="space-y-2">
-                        <li>🥉 SASMO 2024: Bronze Medal, State and Country Rank 1</li>
-                        <li>🥇 Aryabhatta National Math Competition 2024: Gold Medal</li>
-                        <li>🥈 IMOCSEA 2024: International Silver Medal</li>
-                    </ul>
-                </div>
+                <!-- Achievement cards will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="tab-content">
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Experience cards will be populated by JavaScript -->
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-100 dark:bg-gray-900 py-8">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-gray-600 dark:text-gray-300">© 2024 Aayam Bansal. All rights reserved.</p>
+    <footer class="bg-gray-900 py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-300">
+            <p>© 2024 Aayam Bansal. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Dark mode toggle
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const body = document.body;
-        
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark');
-            const icon = darkModeToggle.querySelector('i');
-            icon.classList.toggle('fa-moon');
-            icon.classList.toggle('fa-sun');
-        });
+        // Data objects will be loaded from separate files
+        let researchData, projectsData, achievementsData, experienceData;
 
         // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobileMenuButton');
@@ -259,7 +269,31 @@
             mobileMenu.classList.toggle('active');
         });
 
-        // Smooth scroll for navigation links
+        // Tab switching
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabName = button.getAttribute('data-tab');
+                
+                // Update button styles
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('bg-indigo-600');
+                    btn.classList.add('bg-gray-700');
+                });
+                button.classList.remove('bg-gray-700');
+                button.classList.add('bg-indigo-600');
+                
+                // Show selected content
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(tabName).classList.add('active');
+            });
+        });
+
+        // Smooth scroll for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -268,23 +302,6 @@
                 });
             });
         });
-
-        // Intersection Observer for achievement cards
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
-
-        document.querySelectorAll('.achievement-card').forEach(card => {
-            observer.observe(card);
-        });
     </script>
-</body>
-</html>
 </body>
 </html>
