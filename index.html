@@ -43,6 +43,11 @@
             transition: all 0.3s ease;
         }
 
+        .skill-tag:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
         .nav-link {
             position: relative;
             color: var(--text-dark);
@@ -83,18 +88,68 @@
             }
         }
 
-        .mobile-menu {
+        .modal {
             display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
         }
 
-        .mobile-menu.active {
-            display: block;
+        .modal-content {
+            position: relative;
+            background-color: var(--card-dark);
+            margin: 5% auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 8px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
         }
 
         @media (max-width: 768px) {
-            .desktop-menu {
+            .mobile-menu {
                 display: none;
             }
+            
+            .mobile-menu.active {
+                display: block;
+            }
+            
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+            }
+        }
+
+        .screenshot-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .screenshot-gallery img {
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot-gallery img:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -106,7 +161,7 @@
                 <div class="flex items-center">
                     <span class="text-xl font-bold">Aayam Bansal</span>
                 </div>
-                <div class="hidden md:flex items-center space-x-8 desktop-menu">
+                <div class="hidden md:flex items-center space-x-8">
                     <a href="#about" class="nav-link">About</a>
                     <a href="#research" class="nav-link">Research</a>
                     <a href="#projects" class="nav-link">Projects</a>
@@ -119,7 +174,6 @@
                 </button>
             </div>
         </div>
-        <!-- Mobile Menu -->
         <div class="mobile-menu md:hidden">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="#about" class="block px-3 py-2 rounded-md hover:bg-gray-700">About</a>
@@ -157,98 +211,36 @@
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 py-8">
         <!-- Tabs -->
-        <div class="mb-8 flex justify-center space-x-4">
-            <button class="tab-button px-4 py-2 rounded-lg bg-indigo-600 text-white" data-tab="about">About</button>
-            <button class="tab-button px-4 py-2 rounded-lg bg-gray-700" data-tab="research">Research</button>
-            <button class="tab-button px-4 py-2 rounded-lg bg-gray-700" data-tab="projects">Projects</button>
-            <button class="tab-button px-4 py-2 rounded-lg bg-gray-700" data-tab="achievements">Achievements</button>
-            <button class="tab-button px-4 py-2 rounded-lg bg-gray-700" data-tab="experience">Experience</button>
+        <div class="mb-8 flex justify-center space-x-4 flex-wrap">
+            <button class="tab-button px-4 py-2 rounded-lg bg-indigo-600 text-white mb-2" data-tab="about">About</button>
+            <button class="tab-button px-4 py-2 rounded-lg bg-gray-700 text-white mb-2" data-tab="research">Research</button>
+            <button class="tab-button px-4 py-2 rounded-lg bg-gray-700 text-white mb-2" data-tab="projects">Projects</button>
+            <button class="tab-button px-4 py-2 rounded-lg bg-gray-700 text-white mb-2" data-tab="achievements">Achievements</button>
+            <button class="tab-button px-4 py-2 rounded-lg bg-gray-700 text-white mb-2" data-tab="experience">Experience</button>
         </div>
 
-        <!-- About Section -->
-        <section id="about" class="tab-content active">
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-xl font-semibold mb-4">Academic Excellence</h3>
-                    <ul class="space-y-2">
-                        <li>🎓 SAT: 1560</li>
-                        <li>🌟 IELTS: 8 band</li>
-                        <li>📚 AP Scores:
-                            <ul class="ml-4">
-                                <li>- Calculus BC (5)</li>
-                                <li>- Physics C: Mechanics (4)</li>
-                                <li>- Computer Science A (4)</li>
-                                <li>- Computer Science Principles (4)</li>
-                            </ul>
-                        </li>
-                        <li>📊 Grade Performance: 
-                            <ul class="ml-4">
-                                <li>- 11th: 96.4% (highest in batch)</li>
-                                <li>- 10th: 96%</li>
-                                <li>- 9th: 95%</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <div class="card p-6 rounded-lg">
-                    <h3 class="text-xl font-semibold mb-4">Skills & Expertise</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">Java</span>
-                        <span class="skill-tag">Swift</span>
-                        <span class="skill-tag">AI/ML</span>
-                        <span class="skill-tag">Research</span>
-                        <span class="skill-tag">OpenCV</span>
-                        <span class="skill-tag">NLP</span>
-                        <span class="skill-tag">AWS</span>
-                        <span class="skill-tag">Deep Learning</span>
-                        <span class="skill-tag">Computer Vision</span>
-                    </div>
-                    <div class="mt-4">
-                        <h4 class="font-semibold mb-2">Languages</h4>
-                        <p>English (Native), Hindi (Native), Bengali (Professional), French (Alliance Française)</p>
-                    </div>
-                    <div class="mt-4">
-                        <h4 class="font-semibold mb-2">Additional Skills</h4>
-                        <ul class="ml-4 list-disc">
-                            <li>Taekwondo (Red Stripe Belt)</li>
-                            <li>Piano (7 years, Distinction)</li>
-                            <li>Chess (2250 Lichess rating)</li>
-                            <li>NRAI Certified Shooter</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Research Section -->
-        <section id="research" class="tab-content">
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Research cards will be populated by JavaScript -->
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="tab-content">
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Project cards will be populated by JavaScript -->
-            </div>
-        </section>
-
-        <!-- Achievements Section -->
-        <section id="achievements" class="tab-content">
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Achievement cards will be populated by JavaScript -->
-            </div>
-        </section>
-
-        <!-- Experience Section -->
-        <section id="experience" class="tab-content">
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Experience cards will be populated by JavaScript -->
-            </div>
-        </section>
+        <!-- Content Sections -->
+        <section id="about" class="tab-content active"></section>
+        <section id="research" class="tab-content"></section>
+        <section id="projects" class="tab-content"></section>
+        <section id="achievements" class="tab-content"></section>
+        <section id="experience" class="tab-content"></section>
     </main>
+
+    <!-- Modals -->
+    <div id="researchModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('researchModal')">&times;</span>
+            <div id="researchModalContent"></div>
+        </div>
+    </div>
+
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('projectModal')">&times;</span>
+            <div id="projectModalContent"></div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-gray-900 py-8 mt-16">
@@ -257,51 +249,8 @@
         </div>
     </footer>
 
-    <script>
-        // Data objects will be loaded from separate files
-        let researchData, projectsData, achievementsData, experienceData;
-
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobileMenuButton');
-        const mobileMenu = document.querySelector('.mobile-menu');
-        
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('active');
-        });
-
-        // Tab switching
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const tabName = button.getAttribute('data-tab');
-                
-                // Update button styles
-                tabButtons.forEach(btn => {
-                    btn.classList.remove('bg-indigo-600');
-                    btn.classList.add('bg-gray-700');
-                });
-                button.classList.remove('bg-gray-700');
-                button.classList.add('bg-indigo-600');
-                
-                // Show selected content
-                tabContents.forEach(content => {
-                    content.classList.remove('active');
-                });
-                document.getElementById(tabName).classList.add('active');
-            });
-        });
-
-        // Smooth scroll for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
