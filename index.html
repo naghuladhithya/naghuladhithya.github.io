@@ -4,854 +4,2209 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aayam Bansal - Portfolio</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+        
         :root {
-            --primary: #0a0a0a;
-            --secondary: #1a1a1a;
-            --accent: #4f46e5;
-            --text: #e5e5e5;
+            --primary: #0a1929;
+            --secondary: #111e2c;
+            --accent: #3a86ff;
+            --accent-gradient: linear-gradient(135deg, #3a86ff 0%, #4facfe 100%);
+            --accent-soft: rgba(58, 134, 255, 0.15);
+            --text: #e0e6ed;
+            --text-muted: #8b949e;
+            --text-bright: #ffffff;
+            --border: #1e3a5f;
+            --card: #0f1923;
+            --hover: #1a2d46;
+            --success: #00c16e;
+            --warning: #ffd166;
+            --danger: #ef476f;
+            --gradient-bg: linear-gradient(135deg, #0a1929 0%, #0f2942 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
             background-color: var(--primary);
+            background-image: var(--gradient-bg);
             color: var(--text);
-            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
         }
         
-        .nav-link {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+            overflow: hidden;
+        }
+        
+        .bg-animation span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(58, 134, 255, 0.1);
+            border-radius: 50%;
+            animation: animate 25s linear infinite;
+        }
+        
+        .bg-animation span:nth-child(1) {
+            left: 25%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+        }
+        
+        .bg-animation span:nth-child(2) {
+            left: 10%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 2s;
+            animation-duration: 12s;
+        }
+        
+        .bg-animation span:nth-child(3) {
+            left: 70%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 4s;
+        }
+        
+        .bg-animation span:nth-child(4) {
+            left: 40%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+            animation-duration: 18s;
+        }
+        
+        .bg-animation span:nth-child(5) {
+            left: 65%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 0s;
+        }
+        
+        .bg-animation span:nth-child(6) {
+            left: 75%;
+            width: 110px;
+            height: 110px;
+            animation-delay: 3s;
+        }
+        
+        .bg-animation span:nth-child(7) {
+            left: 35%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 7s;
+        }
+        
+        .bg-animation span:nth-child(8) {
+            left: 50%;
+            width: 25px;
+            height: 25px;
+            animation-delay: 15s;
+            animation-duration: 45s;
+        }
+        
+        .bg-animation span:nth-child(9) {
+            left: 20%;
+            width: 15px;
+            height: 15px;
+            animation-delay: 2s;
+            animation-duration: 35s;
+        }
+        
+        .bg-animation span:nth-child(10) {
+            left: 85%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 0s;
+            animation-duration: 11s;
+        }
+        
+        @keyframes animate {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+                border-radius: 50%;
+            }
+            
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+                border-radius: 50%;
+            }
+        }
+        
+        /* Header Styling */
+        header {
+            background-color: rgba(17, 30, 44, 0.9);
+            color: var(--text-bright);
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             position: relative;
         }
         
-        .nav-link::after {
+        .profile-header {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .profile-header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .profile-image-container {
+            position: relative;
+        }
+        
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-bright);
+            font-size: 3rem;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(58, 134, 255, 0.8), rgba(111, 191, 252, 0.4));
+            animation: rotate 4s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .profile-status {
+            position: absolute;
+            bottom: 10px;
+            right: 5px;
+            width: 30px;
+            height: 30px;
+            background-color: var(--success);
+            border-radius: 50%;
+            border: 3px solid var(--secondary);
+            z-index: 2;
+        }
+        
+        .profile-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .profile-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-bright);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .profile-name::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background: var(--accent-gradient);
+            border-radius: 10px;
+        }
+        
+        .profile-title {
+            font-size: 1.2rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .highlight {
+            color: var(--accent);
+            font-weight: 500;
+        }
+        
+        .profile-location {
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .profile-location i {
+            color: var(--accent);
+        }
+        
+        .contact-info {
+            text-align: right;
+            min-width: 200px;
+        }
+        
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .contact-link {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+        
+        .contact-link:hover {
+            background-color: var(--hover);
+            transform: translateX(-5px);
+        }
+        
+        .contact-link i {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+            color: var(--accent);
+        }
+        
+        .contact-link span {
+            font-weight: 500;
+        }
+        
+        /* Navigation Styling */
+        .nav {
+            background-color: rgba(17, 30, 44, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .nav.scrolled {
+            padding: 5px 0;
+            background-color: rgba(10, 25, 41, 0.98);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0;
+        }
+        
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--text-bright);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .nav-logo .logo-highlight {
+            color: var(--accent);
+        }
+        
+        .nav-list {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav-item a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 1rem 1.2rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .nav-item a::before {
             content: '';
             position: absolute;
             width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: var(--accent);
+            height: 3px;
+            bottom: 0;
+            left: 50%;
+            background: var(--accent-gradient);
+            transform: translateX(-50%);
             transition: width 0.3s ease;
+            border-radius: 3px;
         }
         
-        .nav-link:hover::after {
-            width: 100%;
+        .nav-item a:hover {
+            color: var(--text-bright);
         }
         
-        .card {
-            background-color: var(--secondary);
-            transition: transform 0.3s ease;
+        .nav-item a:hover::before {
+            width: 60%;
         }
         
-        .card:hover {
-            transform: translateY(-5px);
+        .nav-item.active a {
+            color: var(--accent);
         }
         
-        .paper-abstract {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
+        .nav-item.active a::before {
+            width: 60%;
         }
         
-        .paper-abstract.open {
-            max-height: 1000px;
+        /* Social Icons at Nav */
+        .nav-social {
+            display: flex;
+            gap: 10px;
         }
         
-        .timeline-item {
-            position: relative;
-            padding-left: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 2px;
-            background-color: var(--accent);
-        }
-        
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            left: -4px;
-            top: 0;
-            width: 10px;
-            height: 10px;
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border-radius: 50%;
-            background-color: var(--accent);
+            color: var(--text);
+            background-color: var(--hover);
+            transition: all 0.3s ease;
+            text-decoration: none;
         }
-
-        .tab-content {
+        
+        .social-icon:hover {
+            background: var(--accent-gradient);
+            color: var(--text-bright);
+            transform: translateY(-3px);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
             display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
         }
-
-        .tab-content.active {
-            display: block;
+        
+        @media (max-width: 992px) {
+            .profile-header-top {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .profile-name::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .contact-info {
+                text-align: center;
+                margin-top: 1rem;
+            }
+            
+            .contact-links {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .contact-link {
+                justify-content: center;
+                padding: 10px 15px;
+            }
+            
+            .nav-container {
+                padding: 0.5rem 0;
+            }
+            
+            .nav-list {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: var(--secondary);
+                padding: 1rem 0;
+                border-bottom: 1px solid var(--border);
+                z-index: 200;
+            }
+            
+            .nav-list.active {
+                display: flex;
+            }
+            
+            .nav-social {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
         }
-
-                /* Fade in animation */
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .fade-in {
-        animation: fadeIn 0.6s ease-out;
-    }
-
-    /* Smooth section transitions */
-    section {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.6s ease-out;
-    }
-
-    section.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* Enhanced card hover effects */
-    .card {
-        transition: all 0.3s ease;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(79, 70, 229, 0.1);
-    }
-
-    /* Glowing effect for buttons */
-    .glow-on-hover:hover {
-        box-shadow: 0 0 15px rgba(79, 70, 229, 0.5);
-    }
+        
+        /* Section styling for reference */
+        .section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background-color: var(--secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        }
+        
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-gradient);
+            border-radius: 4px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.8rem;
+            color: var(--text-bright);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            color: var(--accent);
+        }
     </style>
 </head>
 <body>
-
-    <div id="preloader" class="fixed top-0 left-0 w-full h-full bg-gray-900 z-50 flex items-center justify-center">
-    <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-indigo-500"></div>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
-    
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-opacity-90 backdrop-filter backdrop-blur-lg bg-gray-900">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <a href="#" class="text-2xl font-bold text-white">AB</a>
-                <div class="hidden md:flex space-x-6">
-                    <a href="#about" class="nav-link text-gray-300 hover:text-white">About</a>
-                    <a href="#education" class="nav-link text-gray-300 hover:text-white">Education</a>
-                    <a href="#research" class="nav-link text-gray-300 hover:text-white">Research</a>
-                    <a href="#experience" class="nav-link text-gray-300 hover:text-white">Experience</a>
-                    <a href="#projects" class="nav-link text-gray-300 hover:text-white">Projects</a>
-                    <a href="#achievements" class="nav-link text-gray-300 hover:text-white">Achievements</a>
-                    <a href="#skills" class="nav-link text-gray-300 hover:text-white">Skills</a>
-                    <a href="#contact" class="nav-link text-gray-300 hover:text-white">Contact</a>
+
+    <header>
+        <div class="container">
+            <div class="profile-header">
+                <div class="profile-header-top">
+                    <div class="profile-image-container">
+                        <div class="profile-image">AB</div>
+                        <div class="profile-status"></div>
+                    </div>
+                    <div class="profile-info">
+                        <h1 class="profile-name">Aayam Bansal</h1>
+                        <p class="profile-title">
+                            Incoming Freshman at <span class="highlight">?</span> | 
+                            <span class="highlight">HVTWF'24</span> | 
+                            Building "<span class="highlight">AI Socks</span>" | 
+                            Research <span class="highlight">@NUS @Harvard @Oxford @Perrin</span> | 
+                            Looking for Summer 2025 Internship & Research Opportunities
+                        </p>
+                        <p class="profile-location"><i class="fas fa-map-marker-alt"></i> United States</p>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-links">
+                            <a href="mailto:aayambansal@gmail.com" class="contact-link">
+                                <i class="fas fa-envelope"></i>
+                                <span>aayambansal@gmail.com</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/aayambansal" target="_blank" class="contact-link">
+                                <i class="fab fa-linkedin"></i>
+                                <span>LinkedIn</span>
+                            </a>
+                            <a href="https://aayambansal.github.io/" target="_blank" class="contact-link">
+                                <i class="fas fa-globe"></i>
+                                <span>Personal Website</span>
+                            </a>
+                            <a href="https://github.com/aayambansal" target="_blank" class="contact-link">
+                                <i class="fab fa-github"></i>
+                                <span>GitHub</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </header>
+    
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="#" class="nav-logo">
+                <span class="logo-highlight">Aayam</span>Bansal
+            </a>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-list">
+                <li class="nav-item active"><a href="#summary"><i class="fas fa-user-alt"></i> About</a></li>
+                <li class="nav-item"><a href="#experience"><i class="fas fa-briefcase"></i> Experience</a></li>
+                <li class="nav-item"><a href="#publications"><i class="fas fa-scroll"></i> Research</a></li>
+                <li class="nav-item"><a href="#patents"><i class="fas fa-lightbulb"></i> Patents</a></li>
+                <li class="nav-item"><a href="#awards"><i class="fas fa-trophy"></i> Awards</a></li>
+                <li class="nav-item"><a href="#skills"><i class="fas fa-tools"></i> Skills</a></li>
+                <li class="nav-item"><a href="#education"><i class="fas fa-graduation-cap"></i> Education</a></li>
+            </ul>
+            
+            <div class="nav-social">
+                <a href="https://www.linkedin.com/in/aayambansal" target="_blank" class="social-icon">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://github.com/aayambansal" target="_blank" class="social-icon">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="mailto:aayambansal@gmail.com" class="social-icon">
+                    <i class="fas fa-envelope"></i>
+                </a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center pt-16">
-        <div class="container mx-auto px-6 py-16 text-center" data-aos="fade-up">
-            <div class="mb-8">
-                <img src="images/AA.png" alt="Aayam Bansal" class="w-48 h-48 rounded-full mx-auto object-cover shadow-lg">
-            </div>
-            <h1 class="text-5xl font-bold mb-4">Aayam Bansal</h1>
-            <p class="text-xl text-gray-400 mb-8">Senior at Delhi Public School, Ruby Park | AI Researcher | Developer | Innovator</p>
-            <div class="flex justify-center space-x-4">
-                <a href="bit.ly/aayamcv" target="_blank" class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition">Download CV</a>
-                <a href="#contact" class="border border-indigo-600 text-indigo-600 px-6 py-2 rounded-lg hover:bg-indigo-600 hover:text-white transition">Contact Me</a>
-            </div>
-            <div class="mt-8 flex justify-center space-x-6">
-                <a href="mailto:aayambansal@gmail.com" class="text-gray-400 hover:text-white transition">
-                    <span class="sr-only">Email</span>
-                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
-                </a>
-                <a href="https://linkedin.com/in/aayambansal" target="_blank" class="text-gray-400 hover:text-white transition">
-                    <span class="sr-only">LinkedIn</span>
-                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                </a>
-                <a href="https://github.com/aayambansal" target="_blank" class="text-gray-400 hover:text-white transition">
-                    <span class="sr-only">GitHub</span>
-                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-16 bg-gray-900">
-        <div class="container mx-auto px-6" data-aos="fade-up">
-            <h2 class="text-3xl font-bold mb-8">About Me</h2>
-            <div class="prose prose-lg text-gray-300 max-w-none">
-                <p class="mb-4">A driven high school innovator combining AI expertise with social impact. Published researcher in AI applications, led 110+ hackathons (17 wins), and developed solutions from dengue control to smart grid optimization. Currently leading AI projects at NUS and developing patented healthcare tech.</p>
-                <p class="mb-4">Passionate about using technology to create meaningful change in healthcare, education, and sustainability. Proven track record of leading teams and delivering impactful solutions across various domains.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-                    <div class="card p-6">
-                        <h3 class="text-xl font-semibold mb-4">Languages</h3>
-                        <ul class="space-y-2">
-                            <li>English (Native)</li>
-                            <li>Hindi (Native)</li>
-                            <li>Bengali (Professional Working)</li>
-                            <li>French (Elementary)</li>
-                        </ul>
-                    </div>
-                    <div class="card p-6">
-                        <h3 class="text-xl font-semibold mb-4">Quick Facts</h3>
-                        <ul class="space-y-2">
-                            <li>🎓 High School Senior at Delhi Public School, Ruby Park</li>
-                            <li>🏆 17+ Hackathon Wins</li>
-                            <li>📝 Multiple Research Publications</li>
-                            <li>🌟 NSHSS Member</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education Section -->
-    <section id="education" class="py-16">
-        <div class="container mx-auto px-6" data-aos="fade-up">
-            <h2 class="text-3xl font-bold mb-8">Education</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="card p-6">
-                    <h3 class="text-xl font-semibold mb-4">Delhi Public School, Ruby Park</h3>
-                    <p class="text-gray-400">High School Diploma (Expected May 2025)</p>
-                    <ul class="mt-4 space-y-2 text-gray-300">
-                        <li>GPA: 95.4% (12th predicted), 96.4% (11th), 96% (10th), 90% (9th)</li>
-                        <li>SAT: 1560</li>
-                        <li>IELTS: 8 bands</li>
-                        <li>Advanced Placement: Calculus BC (5), Physics C: Mechanics (4), Computer Science A (4), CS Principles (4)</li>
-                    </ul>
-                </div>
-                <div class="card p-6">
-                    <h3 class="text-xl font-semibold mb-4">Additional Coursework</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li>Stanford Math Circle (Fall 2024)</li>
-                        <li>IIT Kanpur Deep Learning</li>
-                        <li>MIT OCW Multivariable Calculus</li>
-                        <li>Harvard CS50AI</li>
-                        <li>Python for Everyone (University of Michigan)</li>
-                        <li>Swift Programming (UCSD)</li>
-                        <li>Google Cloud (13 badges)</li>
-                        <li>Prompt Engineering (Vanderbilt)</li>
-                        <li>AWS ML Certification</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-  <!-- Research Section -->
-    <section id="research" class="py-16 bg-gray-900">
-        <div class="container mx-auto px-6" data-aos="fade-up">
-            <h2 class="text-3xl font-bold mb-8">Research Publications</h2>
-            <div class="grid grid-cols-1 gap-8">
-                <!-- Published Papers -->
-                <div class="mb-12">
-                    <h3 class="text-2xl font-semibold mb-6 text-indigo-400">Published Research</h3>
-                    
-                    <div class="card p-6 mb-6">
-                        <h3 class="text-xl font-semibold mb-2">Emotional Resonance in AI-Generated Music</h3>
-                        <p class="text-gray-400 mb-2">Published in SSRN (2024)</p>
-                        <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4976704" class="text-indigo-400 hover:text-indigo-300 text-sm mb-3 inline-block">View Publication</a>
-                        <button class="text-indigo-500 hover:text-indigo-400 block" onclick="toggleAbstract('paper1')">Read Abstract ▾</button>
-                        <div id="paper1" class="paper-abstract mt-4 text-gray-400">
-                            <p>Developed machine learning models analyzing emotional patterns in AI-composed music for stress therapy in marginalized communities. The research achieved 87% emotional alignment and established new methodologies for therapeutic applications of AI-generated music.</p>
-                            <ul class="mt-3 list-disc list-inside">
-                                <li>Implemented advanced ML algorithms for music generation</li>
-                                <li>Achieved 87% emotional alignment accuracy</li>
-                                <li>Focus on accessibility for marginalized communities</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="card p-6 mb-6">
-                        <h3 class="text-xl font-semibold mb-2">AI For Real-Time Detection of Fake News</h3>
-                        <p class="text-gray-400 mb-2">Published in IOSR Journal (2024)</p>
-                        <a href="https://www.iosrjournals.org/iosr-jce/papers/Vol26-issue5/Ser-3/B2605030918.pdf" class="text-indigo-400 hover:text-indigo-300 text-sm mb-3 inline-block">View Publication</a>
-                        <button class="text-indigo-500 hover:text-indigo-400 block" onclick="toggleAbstract('paper2')">Read Abstract ▾</button>
-                        <div id="paper2" class="paper-abstract mt-4 text-gray-400">
-                            <p>Created multi-source verification system using NLP and transformer models for fake news detection and mitigation, reducing false information spread by 42%.</p>
-                            <ul class="mt-3 list-disc list-inside">
-                                <li>Developed novel multi-source verification algorithms</li>
-                                <li>42% reduction in false information spread</li>
-                                <li>Implementation of advanced NLP techniques</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="card p-6 mb-6">
-                        <h3 class="text-xl font-semibold mb-2">AI's Impact on Learning</h3>
-                        <p class="text-gray-400 mb-2">International Journal of High School Research (IJHSR)</p>
-                        <button class="text-indigo-500 hover:text-indigo-400 block" onclick="toggleAbstract('paper3')">Read Abstract ▾</button>
-                        <div id="paper3" class="paper-abstract mt-4 text-gray-400">
-                            <p>Analyzed adaptive learning systems' effectiveness across 500+ students, demonstrating a 31% improvement in retention rates through AI-driven personalized learning approaches.</p>
-                            <ul class="mt-3 list-disc list-inside">
-                                <li>Study conducted across 500+ students</li>
-                                <li>31% improvement in retention rates</li>
-                                <li>Analysis of AI-driven adaptive learning systems</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Conference Papers -->
-                <div class="mb-12">
-                    <h3 class="text-2xl font-semibold mb-6 text-indigo-400">Conference Papers</h3>
-
-                    <div class="card p-6 mb-6">
-                        <h3 class="text-xl font-semibold mb-2">Early Detection of Mental Health Crises</h3>
-                        <p class="text-gray-400 mb-2">IEEE ICAAICS Conference</p>
-                        <button class="text-indigo-500 hover:text-indigo-400 block" onclick="toggleAbstract('conf1')">Read Abstract ▾</button>
-                        <div id="conf1" class="paper-abstract mt-4 text-gray-400">
-                            <p>Applied BERT-LSTM models to social media data for early detection of mental health crises, achieving 89% accuracy in crisis prediction. Peer-reviewed by faculty from IIT Kharagpur, IITK, and CMU.</p>
-                            <ul class="mt-3 list-disc list-inside">
-                                <li>89% accuracy in crisis prediction</li>
-                                <li>Implementation of BERT-LSTM architecture</li>
-                                <li>Social media data analysis</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="card p-6 mb-6">
-                        <h3 class="text-xl font-semibold mb-2">AI in Religious Syncretism</h3>
-                        <p class="text-gray-400 mb-2">IEEE ICAI Conference</p>
-                        <button class="text-indigo-500 hover:text-indigo-400 block" onclick="toggleAbstract('conf2')">Read Abstract ▾</button>
-                        <div id="conf2" class="paper-abstract mt-4 text-gray-400">
-                            <p>Used advanced semantic comparison techniques to analyze cross-religious philosophies, identifying 76% commonality patterns. Reviewed by Dr. Wendy Doniger (UChicago) and Dr. David Blei (Columbia).</p>
-                            <ul class="mt-3 list-disc list-inside">
-                                <li>76% commonality pattern identification</li>
-                                <li>Advanced semantic analysis techniques</li>
-                                <li>Cross-religious philosophical comparison</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ongoing Research -->
-                <div>
-                    <h3 class="text-2xl font-semibold mb-6 text-indigo-400">Ongoing Research</h3>
-
-                    <div class="card p-6 mb-6">
-                        <h3 class="text-xl font-semibold mb-2">Wildfire High-Risk Area Prediction</h3>
-                        <p class="text-gray-400 mb-2">In collaboration with IIT Kharagpur AI Lab</p>
-                        <button class="text-indigo-500 hover:text-indigo-400 block" onclick="toggleAbstract('ongoing1')">Read Abstract ▾</button>
-                        <div id="ongoing1" class="paper-abstract mt-4 text-gray-400">
-                            <p>Developed real-time prediction system using satellite data and IoT sensors, achieving 92% accuracy in high-risk zone identification.</p>
-                            <ul class="mt-3 list-disc list-inside">
-                                <li>92% prediction accuracy</li>
-                                <li>Integration of satellite data and IoT sensors</li>
-                                <li>Real-time monitoring system</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="card p-6">
-                        <h3 class="text-xl font-semibold mb-2">AI in Economics: Carbon Credit Markets</h3>
-                        <p class="text-gray-400 mb-2">Mentored by Dr. Ken Kahn (MIT and Oxford)</p>
-                        <button class="text-indigo-500 hover:text-indigo-400 block" onclick="toggleAbstract('ongoing2')">Read Abstract ▾</button>
-                        <div id="ongoing2" class="paper-abstract mt-4 text-gray-400">
-                            <p>Designing multi-agent systems for carbon credit markets, optimizing trading efficiency by 28% through advanced game theory applications.</p>
-                            <ul class="mt-3 list-disc list-inside">
-                                <li>28% improvement in trading efficiency</li>
-                                <li>Multi-agent system design</li>
-                                <li>Game theory applications in market optimization</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-  <!-- Experience Section -->
-    <section id="experience" class="py-16">
-        <div class="container mx-auto px-6" data-aos="fade-up">
-            <h2 class="text-3xl font-bold mb-8">Professional Experience</h2>
-            
-            <!-- Research Positions -->
-            <div class="mb-12">
-                <h3 class="text-2xl font-semibold mb-6 text-indigo-400">Research Positions</h3>
-                
-                <div class="timeline-item card p-6 mb-6">
-                    <h4 class="text-xl font-semibold">Research Team Leader</h4>
-                    <p class="text-indigo-400">National University of Singapore | Aug 2024 - Present</p>
-                    <ul class="mt-4 space-y-2 text-gray-300">
-                        <li>• Leading 3-student FIRE program team under NUS Head of Computer Science</li>
-                        <li>• Developed AI system for energy optimization achieving 98% R²</li>
-                        <li>• Publication pending in MDPI Sensor</li>
-                        <li>• Created award-winning AWS Chatbot for gun safety recommendations</li>
-                    </ul>
-                </div>
-
-                <div class="timeline-item card p-6 mb-6">
-                    <h4 class="text-xl font-semibold">Research Scholar</h4>
-                    <p class="text-indigo-400">Harvard Student Agencies | Jul 2024 - Sep 2024</p>
-                    <ul class="mt-4 space-y-2 text-gray-300">
-                        <li>• Engineered YOLO-based pedestrian detection reducing wait times by 28%</li>
-                        <li>• Improved urban traffic safety by 35% through AI-powered management</li>
-                        <li>• IEEE publication pending for adaptive traffic control system</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Leadership Roles -->
-            <div class="mb-12">
-                <h3 class="text-2xl font-semibold mb-6 text-indigo-400">Leadership Roles</h3>
-
-                <div class="timeline-item card p-6 mb-6">
-                    <h4 class="text-xl font-semibold">Team Leader & AI/Automation Lead</h4>
-                    <p class="text-indigo-400">NASA Space Settlement Design Competition | Sep 2024 - Present</p>
-                    <ul class="mt-4 space-y-2 text-gray-300">
-                        <li>• Leading 15-member team in designing space settlement systems</li>
-                        <li>• Developing AI systems for life support and power management</li>
-                        <li>• Qualified for Indian Round; implementing autonomous robotics solutions</li>
-                    </ul>
-                </div>
-
-                <div class="timeline-item card p-6 mb-6">
-                    <h4 class="text-xl font-semibold">Tech Club Coordinator</h4>
-                    <p class="text-indigo-400">Delhi Public School, Ruby Park | 2023 - 2024</p>
-                    <ul class="mt-4 space-y-2 text-gray-300">
-                        <li>• Founded CompCom (50+ members)</li>
-                        <li>• Tech Director IYTC</li>
-                        <li>• Led Python/Java workshops and organized hackathons</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Internships -->
-            <div>
-                <h3 class="text-2xl font-semibold mb-6 text-indigo-400">Internships</h3>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="card p-6">
-                        <h4 class="text-xl font-semibold">University of Oxford</h4>
-                        <p class="text-indigo-400 mb-4">AI Research Intern</p>
-                        <ul class="space-y-2 text-gray-300">
-                            <li>• Developed Face Emotion Detection system using OpenCV and DeepFace</li>
-                        </ul>
-                    </div>
-
-                    <div class="card p-6">
-                        <h4 class="text-xl font-semibold">Jadavpur University</h4>
-                        <p class="text-indigo-400 mb-4">Research Intern</p>
-                        <ul class="space-y-2 text-gray-300">
-                            <li>• Created CNN models for glaucoma detection and diabetes classification</li>
-                        </ul>
-                    </div>
-
-                    <div class="card p-6">
-                        <h4 class="text-xl font-semibold">MLA Office, UP</h4>
-                        <p class="text-indigo-400 mb-4">Student Fellow</p>
-                        <ul class="space-y-2 text-gray-300">
-                            <li>• Developed "VirtualSpud" platform integrating VR/AI for agriculture</li>
-                        </ul>
-                    </div>
-
-                    <div class="card p-6">
-                        <h4 class="text-xl font-semibold">Pratichi Trust</h4>
-                        <p class="text-indigo-400 mb-4">Research Intern</p>
-                        <ul class="space-y-2 text-gray-300">
-                            <li>• Analyzed education preferences under Nobel Laureate Dr. Amartya Sen</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="py-16 bg-gray-900">
-        <div class="container mx-auto px-6" data-aos="fade-up">
-            <h2 class="text-3xl font-bold mb-8">Projects & Innovations</h2>
-
-            <!-- Entrepreneurial Projects -->
-            <div class="mb-12">
-                <h3 class="text-2xl font-semibold mb-6 text-indigo-400">Entrepreneurial Projects</h3>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="card p-6">
-                        <h4 class="text-xl font-semibold mb-2">ASK Introspection</h4>
-                        <p class="text-gray-400 mb-4">Mental Health Application</p>
-                        <ul class="space-y-2 text-gray-300">
-                            <li>• Developed iOS app for mental health support</li>
-                            <li>• Implemented AI-powered features</li>
-                            <li>• Under Apple App Store review</li>
-                        </ul>
-                    </div>
-
-                    <div class="card p-6">
-                        <h4 class="text-xl font-semibold mb-2">Bytezia</h4>
-                        <p class="text-gray-400 mb-4">Educational Platform</p>
-                        <ul class="space-y-2 text-gray-300">
-                            <li>• Platform teaching AI/ML through AI celebrity instructors</li>
-                            <li>• Community of 50+ active learners</li>
-                        </ul>
-                    </div>
-
-                    <div class="card p-6">
-                        <h4 class="text-xl font-semibold mb-2">Slumdog Mealionaire</h4>
-                        <p class="text-gray-400 mb-4">Humanitarian Drone Project</p>
-                        <ul class="space-y-2 text-gray-300">
-                            <li>• Drone delivery system for Delhi slums</li>
-                            <li>• Secured $2,000 funding</li>
-                            <li>• Focus on vulnerable population support</li>
-                        </ul>
-                    </div>
-
-                    <div class="card p-6">
-                        <h4 class="text-xl font-semibold mb-2">Metatarsus Adductus Detection</h4>
-                        <p class="text-gray-400 mb-4">Healthcare Innovation (Patent Pending)</p>
-                        <ul class="space-y-2 text-gray-300">
-                            <li>• Developed sensor-based detection system</li>
-                            <li>• Real-time monitoring application</li>
-                            <li>• Innovative healthcare solution</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Technical Projects -->
-            <div>
-                <h3 class="text-2xl font-semibold mb-6 text-indigo-400">Technical Achievements</h3>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="card p-6">
-                        <h4 class="text-xl font-semibold mb-2">Hackathon Leadership</h4>
-                        <p class="text-gray-300">Led 110+ hackathons with 17 wins and 35+ finalist positions at premier institutions</p>
-                    </div>
-
-                    <div class="card p-6">
-                        <h4 class="text-xl font-semibold mb-2">Competition Projects</h4>
-                        <p class="text-gray-300">Finalist in major competitions including IIT Bombay E-Cell, DCE (AI smart light), IIT Dhanbad (Urban Solar Microgrids)</p>
-                    </div>
-
-                    <div class="card p-6">
-                        <h4 class="text-xl font-semibold mb-2">Research Projects</h4>
-                        <p class="text-gray-300">Created 20-page Spotify AI algorithm analysis, winning Product Case Competition against college students</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-  <!-- Achievements Section -->
-    <section id="achievements" class="py-16">
-        <div class="container mx-auto px-6" data-aos="fade-up">
-            <h2 class="text-3xl font-bold mb-8">Honors & Achievements</h2>
-
-            <!-- Academic Achievements -->
-            <div class="mb-12">
-                <h3 class="text-2xl font-semibold mb-6 text-indigo-400">Academic Excellence</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="card p-6">
-                        <h4 class="text-xl font-semibold mb-2">Mathematics & Science</h4>
-                        <ul class="space-y-2 text-gray-300">
-                            <li>• SASMO Bronze Medal, State & Country Rank 1; Selected for SISMO (Singapore)</li>
-                            <li>• IMOCSEA International Silver Medal, National Rank 2; Thailand Finals Qualifier</li>
-                            <li>• PIMSO Bronze Medal; Philippines Finals Qualifier</li>
-                            <li>• Aryabhatta National Math Gold Medal</li>
-                            <li>• University of Waterloo Newton Physics Competition, School Rank 1</li>
-                            <li>• Asian Science and Math Olympiad Participant</li>
-                        </ul>
-                    </div>
-
-                    <div class="card p-6">
-                        <h4 class="text-xl font-semibold mb-2">Computer Science & Technology</h4>
-                        <ul class="space-y-2 text-gray-300">
-                            <li>• National Cyber Olympiad: Zonal Rank 1, National Rank 17</li>
-                            <li>• Computer Science Award of Excellence (Top 3 of 930)</li>
-                            <li>• NASTA: State Rank 11, National Rank 270</li>
-                            <li>• Zonal Distinction Award in CS (Grade 9 & 10)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Upcoming Competitions -->
-            <div class="mb-12">
-                <h3 class="text-2xl font-semibold mb-6 text-indigo-400">Upcoming Competitions</h3>
-                <div class="card p-6">
-                    <ul class="space-y-2 text-gray-300 grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <li>• TIMO (Thailand Int. Math Olympiad) - Dec 8-9</li>
-                        <li>• FISO (Future Intelligence Students Olympiad) - Jan 28-29</li>
-                        <li>• USACO (USA Computing Olympiad)</li>
-                        <li>• ZOI/ZCO (Zonal/Computing Olympiad)</li>
-                        <li>• Asian-Rope Math Olympiad - Jan 19</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Recognition & Awards -->
-            <div class="mb-12">
-                <h3 class="text-2xl font-semibold mb-6 text-indigo-400">Recognition & Awards</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="card p-6">
-                        <h4 class="text-xl font-semibold mb-2">Government & Institutional Recognition</h4>
-                        <ul class="space-y-2 text-gray-300">
-                            <li>• SKOCH Award from Govt. of India for Call Centre Model</li>
-                            <li>• Scholar Badge recipient for STEM excellence (2021-25)</li>
-                            <li>• Advanced Placement (AP) Scholar with Honor</li>
-                        </ul>
-                    </div>
-
-                    <div class="card p-6">
-                        <h4 class="text-xl font-semibold mb-2">Professional Memberships & Affiliations</h4>
-                        <ul class="space-y-2 text-gray-300">
-                            <li>• NSHSS Member (National Society of High School Scholars)</li>
-                            <li>• Member of Alliance Française du Bengale</li>
-                            <li>• AWS Educate Member</li>
-                            <li>• Stanford Math Circle Member</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="py-16 bg-gray-900">
-        <div class="container mx-auto px-6" data-aos="fade-up">
-            <h2 class="text-3xl font-bold mb-8">Skills & Expertise</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Technical Skills -->
-                <div class="card p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-indigo-400">Technical Skills</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-semibold text-gray-200 mb-2">Programming Languages</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li>• Python (Advanced)</li>
-                                <li>• Java (Proficient)</li>
-                                <li>• Swift (Intermediate)</li>
-                                <li>• JavaScript (Intermediate)</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-200 mb-2">AI/ML Technologies</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li>• Deep Learning (CNN, BERT-LSTM)</li>
-                                <li>• Computer Vision (OpenCV)</li>
-                                <li>• NLP (Transformer Models)</li>
-                                <li>• GANs & Neural Architecture Search</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Cloud & Tools -->
-                <div class="card p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-indigo-400">Cloud & Development Tools</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-semibold text-gray-200 mb-2">Cloud Services</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li>• AWS (ML Services, SageMaker)</li>
-                                <li>• Google Cloud (13 Certified Badges)</li>
-                                <li>• Cloud Infrastructure Design</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-200 mb-2">Development Tools</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li>• Git & Version Control</li>
-                                <li>• Docker Containers</li>
-                                <li>• Jupyter Notebooks</li>
-                                <li>• iOS Development Tools</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Additional Skills -->
-                <div class="card p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-indigo-400">Additional Skills</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <h4 class="font-semibold text-gray-200 mb-2">Professional Skills</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li>• Project Management</li>
-                                <li>• Team Leadership</li>
-                                <li>• Research Methodology</li>
-                                <li>• Technical Writing</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-200 mb-2">Extra-Curricular</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li>• Piano (7 years, Distinction)</li>
-                                <li>• Chess (2250 Lichess rating)</li>
-                                <li>• Taekwondo (Red Stripe Belt)</li>
-                                <li>• NRAI Certified Shooter</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-16">
-        <div class="container mx-auto px-6" data-aos="fade-up">
-            <h2 class="text-3xl font-bold mb-8">Get in Touch</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Contact Information -->
-                <div class="card p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-indigo-400">Contact Information</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center">
-                            <svg class="w-6 h-6 mr-3 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                            </svg>
-                            <a href="mailto:aayambansal@gmail.com" class="text-gray-300 hover:text-white">aayambansal@gmail.com</a>
-                        </div>
-                        <div class="flex items-center">
-                            <svg class="w-6 h-6 mr-3 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
-                            </svg>
-                            <a href="https://aayambansal.github.io" target="_blank" class="text-gray-300 hover:text-white">aayambansal.github.io</a>
-                        </div>
-                        <div class="flex items-center">
-                            <svg class="w-6 h-6 mr-3 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
-                            </svg>
-                            <a href="https://linkedin.com/in/aayambansal" target="_blank" class="text-gray-300 hover:text-white">linkedin.com/in/aayambansal</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Quick Links -->
-                <div class="card p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-indigo-400">Quick Links</h3>
-                    <div class="grid grid-cols-2 gap-4">
-                        <a href="bit.ly/aayamcv" target="_blank" class="text-gray-300 hover:text-white flex items-center">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                            </svg>
-                            Download CV
-                        </a>
-                        <a href="#research" class="text-gray-300 hover:text-white">Research Papers</a>
-                        <a href="#projects" class="text-gray-300 hover:text-white">Projects</a>
-                        <a href="#achievements" class="text-gray-300 hover:text-white">Achievements</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-8 bg-gray-900">
-        <div class="container mx-auto px-6 text-center">
-            <p class="text-gray-400">© 2024 Aayam Bansal. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Scroll to Top Button -->
-    <button onclick="scrollToTop()" id="scrollToTopBtn" class="fixed bottom-8 right-8 bg-indigo-600 text-white p-3 rounded-full shadow-lg hidden hover:bg-indigo-700 transition-all">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
-        </svg>
-    </button>
-
-        <!-- Import External Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-
-    <!-- Main Script -->
+    <!-- Main content sections would follow here -->
+    
+    <!-- JavaScript for interactive elements -->
     <script>
-        // Initialize AOS (Animate On Scroll)
-        AOS.init({
-            duration: 1000,
-            once: true,
-            offset: 100
-        });
-
-        // Preloader
-        window.addEventListener('load', function() {
-            const preloader = document.getElementById('preloader');
-            preloader.style.opacity = '0';
-            setTimeout(() => {
-                preloader.style.display = 'none';
-            }, 500);
-        });
-
-        // Toggle Paper Abstracts
-        function toggleAbstract(id) {
-            const abstract = document.getElementById(id);
-            abstract.classList.toggle('open');
-        }
-
-        // Scroll to Top Button Functionality
-        window.onscroll = function() {
-            const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                scrollToTopBtn.classList.remove("hidden");
+        // Add scroll class to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 0) {
+                nav.classList.add('scrolled');
             } else {
-                scrollToTopBtn.classList.add("hidden");
+                nav.classList.remove('scrolled');
             }
-        };
-
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-
-        // Smooth Scroll for Navigation Links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                const headerOffset = 80;
-                const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            });
         });
-
-        // Section Visibility Observer
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navList = document.querySelector('.nav-list');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navList.classList.toggle('active');
+        });
+        
+        // Navigation active state
+        const navLinks = document.querySelectorAll('.nav-item a');
+        const sections = document.querySelectorAll('section');
+        
+        window.addEventListener('scroll', function() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
                 }
             });
-        }, observerOptions);
-
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
+            
+            navLinks.forEach(link => {
+                link.parentElement.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.parentElement.classList.add('active');
+                }
+            });
         });
-
-        // Mobile Menu Toggle (if you have a mobile menu)
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.classList.toggle('hidden');
-        }
     </script>
+</body>
+</html>
+    
+    <main class="container">
+        <section class="section" id="summary">
+            <h2 class="section-title">Summary</h2>
+            <p>I build tech that actually helps people. Created VirtualSpud to support farmers in rural India and founded ASK Introspection to make mental health support more accessible to students. Currently researching AI at NUS Computing and have a couple of iOS apps in the works (fingers crossed for Apple's approval!).</p>
+            <br>
+            <p>I've been lucky to work with some amazing organizations like Pratichi Trust and have learned tons through research opportunities at Harvard, Oxford, UVA and NUS. When I'm not coding, you'll find me geeking out over math competitions or playing classical piano.</p>
+            <br>
+            <p>I love connecting technology with human needs to create meaningful change. Looking for Summer 2025 internship opportunities where I can continue this work!</p>
+        </section>
+        
+        <section class="section" id="experience">
+    <h2 class="section-title"><i class="fas fa-briefcase"></i> Experience</h2>
+    
+    <div class="timeline">
+        <!-- Current/Recent Experiences -->
+        <div class="timeline-group current">
+            <div class="timeline-heading">
+                <h3>Current & Recent Experience</h3>
+                <span class="timeline-period">2024 - Present</span>
+            </div>
+            
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div class="experience-logo" style="background-color: #4facfe">
+                        <span>AI</span>
+                    </div>
+                    <div class="experience-title-container">
+                        <h3 class="item-title">Founder, CEO</h3>
+                        <div class="item-subtitle">aisock</div>
+                    </div>
+                    <div class="experience-date">
+                        <span class="date-badge current">Current</span>
+                        <span class="item-date">Oct 2024 - Present • 7 months</span>
+                    </div>
+                </div>
+                <div class="experience-content">
+                    <div class="item-location-container">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span class="item-location">United States</span>
+                    </div>
+                    <div class="item-description">
+                        <p>Building AI socks to tackle metatarsus adductus</p>
+                        <p><i class="fas fa-info-circle"></i> Currently working on the logo and brand identity</p>
+                    </div>
+                    <div class="experience-skills">
+                        <span class="skill-tag">AI</span>
+                        <span class="skill-tag">Healthcare Tech</span>
+                        <span class="skill-tag">Entrepreneurship</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div class="experience-logo" style="background-color: #8e44ad">
+                        <span>PI</span>
+                    </div>
+                    <div class="experience-title-container">
+                        <h3 class="item-title">Policy Researcher</h3>
+                        <div class="item-subtitle">Perrin Institution</div>
+                    </div>
+                    <div class="experience-date">
+                        <span class="date-badge current">Current</span>
+                        <span class="item-date">Jan 2025 - Present • 4 months</span>
+                    </div>
+                </div>
+                <div class="experience-content">
+                    <div class="item-location-container">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span class="item-location">Harvard University SEAS, University of Virginia, United States</span>
+                    </div>
+                    <div class="item-description">
+                        <p>Working on the paper "Modern Acceleration of Malicious Technology: A Framework to Halt the Development of AI" with my mates from the Harvard (HVTWF) program. Backed by Harvard SEAS and UVA.</p>
+                    </div>
+                    <div class="experience-skills">
+                        <span class="skill-tag">AI Ethics</span>
+                        <span class="skill-tag">Policy Research</span>
+                        <span class="skill-tag">Technology Governance</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div class="experience-logo nus-logo">
+                        <span>NUS</span>
+                    </div>
+                    <div class="experience-title-container">
+                        <h3 class="item-title">Research Team Lead</h3>
+                        <div class="item-subtitle">National University of Singapore</div>
+                    </div>
+                    <div class="experience-date">
+                        <span class="date-badge completed">Completed</span>
+                        <span class="item-date">Aug 2024 - Mar 2025 • 8 months</span>
+                    </div>
+                </div>
+                <div class="experience-content">
+                    <div class="item-location-container">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span class="item-location">Singapore</span>
+                    </div>
+                    <div class="item-description">
+                        <div class="key-achievements">
+                            <div class="achievement-item">
+                                <i class="fas fa-chart-line"></i>
+                                <p>Led AI research in energy prediction under Dr. Sanka's mentorship, focusing on temporal feature engineering and model optimization.</p>
+                            </div>
+                            <div class="achievement-item">
+                                <i class="fas fa-lightbulb"></i>
+                                <p>Engineered a breakthrough Sinusoidal Encoding Framework achieving 12.6% RMSE reduction and 7.8% R² improvement in energy prediction accuracy.</p>
+                            </div>
+                            <div class="achievement-item">
+                                <i class="fas fa-code-branch"></i>
+                                <p>Developed and optimized ensemble models (Random Forest, XGBoost, LightGBM) for robust prediction capabilities.</p>
+                            </div>
+                            <div class="achievement-item">
+                                <i class="fas fa-file-alt"></i>
+                                <p>Authored comprehensive LaTeX research documentation incorporating mathematical derivations and technical implementation details.</p>
+                            </div>
+                            <div class="achievement-item">
+                                <i class="fas fa-users"></i>
+                                <p>Led a 3-student research team while ensuring consistent delivery of research milestones and technical documentation.</p>
+                            </div>
+                        </div>
+                        <div class="achievement-highlight">
+                            <i class="fas fa-award"></i>
+                            <p>Paper accepted to MERCON 2025 being held at University of Mauritius, Sri Lanka.</p>
+                        </div>
+                    </div>
+                    <div class="experience-skills">
+                        <span class="skill-tag">AI</span>
+                        <span class="skill-tag">Energy Prediction</span>
+                        <span class="skill-tag">Machine Learning</span>
+                        <span class="skill-tag">Time Series Analysis</span>
+                        <span class="skill-tag">Team Leadership</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div class="experience-logo nasa-logo">
+                        <i class="fas fa-space-shuttle"></i>
+                    </div>
+                    <div class="experience-title-container">
+                        <h3 class="item-title">Leader @Team Resonance, AI & Automation Head</h3>
+                        <div class="item-subtitle">NASA - National Aeronautics and Space Administration</div>
+                    </div>
+                    <div class="experience-date">
+                        <span class="date-badge completed">Completed</span>
+                        <span class="item-date">Aug 2024 - Feb 2025 • 7 months</span>
+                    </div>
+                </div>
+                <div class="experience-content">
+                    <div class="item-description">
+                        <p>Led AI & Automation initiatives for Team Resonance in NASA-Boeing Space Settlement Design Competition. 2nd Runners Up (Qualifying Round, 50+ teams) and 1st Runners Up (Indian Round) as HOD AI & Automation. Developed integrated solutions for autonomous robotics and human-centered space habitation design.</p>
+                    </div>
+                    <div class="experience-skills">
+                        <span class="skill-tag">AI</span>
+                        <span class="skill-tag">Automation</span>
+                        <span class="skill-tag">Space Technology</span>
+                        <span class="skill-tag">Team Leadership</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 2024 Experiences -->
+        <div class="timeline-group">
+            <div class="timeline-heading">
+                <h3>2024</h3>
+            </div>
+            
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div class="experience-logo harvard-logo">
+                        <span>H</span>
+                    </div>
+                    <div class="experience-title-container">
+                        <h3 class="item-title">Winter Fellow @ HVTWF</h3>
+                        <div class="item-subtitle">Harvard John A. Paulson School of Engineering and Applied Sciences</div>
+                    </div>
+                    <div class="experience-date">
+                        <span class="item-date">Dec 2024 - Jan 2025 • 2 months</span>
+                    </div>
+                </div>
+                <div class="experience-content">
+                    <div class="item-location-container">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span class="item-location">Harvard University, Massachusetts, United States</span>
+                    </div>
+                    <div class="item-description">
+                        <p><span class="highlight-text">Selected as a Winter Fellow at Harvard SEAS (<1% acceptance rate)</span> to develop an AI parenting assistant. Created a GPT-4 powered system with RLHF, ElevenLabs voice integration, and RAG capabilities. Built parent-matching algorithm. Worked with team of 5 technical founders on market analysis, financial modeling, and go-to-market strategy.</p>
+                        <p class="fun-note"><i class="fas fa-smile-wink"></i> Solving World Hunger on the side.</p>
+                    </div>
+                    <div class="experience-skills">
+                        <span class="skill-tag">AI</span>
+                        <span class="skill-tag">GPT-4</span>
+                        <span class="skill-tag">RLHF</span>
+                        <span class="skill-tag">RAG</span>
+                        <span class="skill-tag">Voice Integration</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div class="experience-logo stanford-logo">
+                        <span>S</span>
+                    </div>
+                    <div class="experience-title-container">
+                        <h3 class="item-title">Student @ Math Circle</h3>
+                        <div class="item-subtitle">Stanford University</div>
+                    </div>
+                    <div class="experience-date">
+                        <span class="item-date">Oct 2024 - Dec 2024 • 3 months</span>
+                    </div>
+                </div>
+                <div class="experience-content">
+                    <div class="item-location-container">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span class="item-location">India</span>
+                    </div>
+                    <div class="item-description">
+                        <p>Selected to participate in the Stanford Math Circle for the fall semester. Worked on multiple math projects and problems from topics ranging from Calculus 3 to Eigenvalues.</p>
+                    </div>
+                    <div class="experience-skills">
+                        <span class="skill-tag">Advanced Mathematics</span>
+                        <span class="skill-tag">Calculus</span>
+                        <span class="skill-tag">Linear Algebra</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- More experiences can be added with similar structure -->
+            
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div class="experience-logo nyas-logo">
+                        <span>NYAS</span>
+                    </div>
+                    <div class="experience-title-container">
+                        <h3 class="item-title">Research Team Lead (Ethical AI problem)</h3>
+                        <div class="item-subtitle">The New York Academy of Sciences</div>
+                    </div>
+                    <div class="experience-date">
+                        <span class="item-date">Sep 2024 - Nov 2024 • 3 months</span>
+                    </div>
+                </div>
+                <div class="experience-content">
+                    <div class="item-location-container">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span class="item-location">New York, United States</span>
+                    </div>
+                    <div class="item-description">
+                        <div class="key-metrics">
+                            <div class="metric">
+                                <div class="metric-value">43%</div>
+                                <div class="metric-label">Reduction in hiring discrimination</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">28%</div>
+                                <div class="metric-label">Increase in diverse candidates</div>
+                            </div>
+                        </div>
+                        <p>Research Lead for Ethical AI initiatives, developed frameworks that reduced hiring discrimination by 43% and increased diverse candidate selection by 28%. Implemented bias detection algorithms using Python and ML. Collaborated with The Young Academy on AI ethics, focusing on responsible development and human-aligned systems.</p>
+                    </div>
+                    <div class="experience-skills">
+                        <span class="skill-tag">Ethical AI</span>
+                        <span class="skill-tag">Bias Detection</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Machine Learning</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Show more/less toggle -->
+            <div class="show-more-container">
+                <button class="show-more-btn" id="showMoreExperiences">
+                    <i class="fas fa-chevron-down"></i> Show More Experiences
+                </button>
+            </div>
+            
+            <!-- Hidden experiences (initially collapsed) -->
+            <div class="hidden-experiences">
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="experience-logo aws-logo">
+                            <i class="fab fa-aws"></i>
+                        </div>
+                        <div class="experience-title-container">
+                            <h3 class="item-title">AWS Educate Participant</h3>
+                            <div class="item-subtitle">AWS Educate Student Community India</div>
+                        </div>
+                        <div class="experience-date">
+                            <span class="item-date">Jun 2024 - Nov 2024 • 6 months</span>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <div class="item-description">
+                            <p>Participated in the AWS Educate program, gaining comprehensive knowledge and hands-on experience in cloud computing technologies.</p>
+                            <ul class="experience-list">
+                                <li>Completed courses in Cloud Foundations, AI/Machine Learning, and Development</li>
+                                <li>Worked on projects involving cloud infrastructure, machine learning, serverless applications, and data analysis</li>
+                                <li>Developed proficiency in core AWS services (EC2, S3, Lambda, DynamoDB)</li>
+                                <li>Gained skills in cloud computing fundamentals, serverless architecture, and cloud security</li>
+                            </ul>
+                        </div>
+                        <div class="experience-skills">
+                            <span class="skill-tag">AWS</span>
+                            <span class="skill-tag">Cloud Computing</span>
+                            <span class="skill-tag">Serverless</span>
+                            <span class="skill-tag">Lambda</span>
+                            <span class="skill-tag">S3</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="experience-logo oxford-logo">
+                            <span>OX</span>
+                        </div>
+                        <div class="experience-title-container">
+                            <h3 class="item-title">Artificial Intelligence Intern</h3>
+                            <div class="item-subtitle">University of Oxford</div>
+                        </div>
+                        <div class="experience-date">
+                            <span class="item-date">Sep 2024 • 1 month</span>
+                        </div>
+                    </div>
+                    <div class="experience-content">
+                        <div class="item-description">
+                            <p>Developed an interactive Face Emotion Detection system using Python, OpenCV, and DeepFace during an intensive 15-day internship. The project showcased real-time emotion analysis from images and webcam feeds, enhancing my skills in computer vision and machine learning. Implemented an intuitive user interface and integrated complex AI technologies for practical applications.</p>
+                        </div>
+                        <div class="experience-skills">
+                            <span class="skill-tag">Computer Vision</span>
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">OpenCV</span>
+                            <span class="skill-tag">DeepFace</span>
+                            <span class="skill-tag">Face Detection</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Other experiences can be added similarly -->
+            </div>
+        </div>
+    </div>
+</section>
 
-    </body>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+    
+    /* Base styling (assuming previous styles are included) */
+    :root {
+        --primary: #0a1929;
+        --secondary: #111e2c;
+        --accent: #3a86ff;
+        --accent-gradient: linear-gradient(135deg, #3a86ff 0%, #4facfe 100%);
+        --accent-soft: rgba(58, 134, 255, 0.15);
+        --text: #e0e6ed;
+        --text-muted: #8b949e;
+        --text-bright: #ffffff;
+        --border: #1e3a5f;
+        --card: #0f1923;
+        --hover: #1a2d46;
+        --success: #00c16e;
+        --warning: #ffd166;
+        --danger: #ef476f;
+        --gradient-bg: linear-gradient(135deg, #0a1929 0%, #0f2942 100%);
+        
+        /* Organization colors */
+        --harvard: #A51C30;
+        --stanford: #8C1515;
+        --nus: #003D7C;
+        --nasa: #0B3D91;
+        --oxford: #002147;
+        --nyas: #00539B;
+        --aws: #FF9900;
+    }
+    
+    /* Section styling */
+    .section {
+        margin: 2rem 0;
+        padding: 2.5rem;
+        background-color: var(--secondary);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: var(--text-bright);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        position: relative;
+    }
+    
+    .section-title i {
+        color: var(--accent);
+        font-size: 1.8rem;
+    }
+    
+    .section-title::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to right, var(--accent), transparent);
+    }
+    
+    /* Timeline styling */
+    .timeline {
+        position: relative;
+        padding-left: 20px;
+    }
+    
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 3px;
+        background: linear-gradient(to bottom, var(--accent), rgba(58, 134, 255, 0.1));
+        border-radius: 5px;
+    }
+    
+    .timeline-group {
+        margin-bottom: 3rem;
+        position: relative;
+    }
+    
+    .timeline-group::before {
+        content: '';
+        position: absolute;
+        left: -29px;
+        top: 0;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: var(--accent);
+        border: 3px solid var(--secondary);
+        z-index: 2;
+    }
+    
+    .timeline-group.current::before {
+        background-color: var(--success);
+        box-shadow: 0 0 0 4px rgba(0, 193, 110, 0.2);
+        width: 14px;
+        height: 14px;
+        left: -30px;
+    }
+    
+    .timeline-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--border);
+    }
+    
+    .timeline-heading h3 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--text-bright);
+    }
+    
+    .timeline-period {
+        font-size: 1rem;
+        color: var(--accent);
+        font-weight: 500;
+    }
+    
+    /* Experience Item Styling */
+    .experience-item {
+        background-color: rgba(26, 45, 70, 0.5);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .experience-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        border-color: rgba(58, 134, 255, 0.3);
+    }
+    
+    .experience-header {
+        display: flex;
+        align-items: center;
+        padding: 1.25rem;
+        background: linear-gradient(to right, rgba(26, 45, 70, 0.8), rgba(15, 25, 35, 0.4));
+        border-bottom: 1px solid var(--border);
+        gap: 1rem;
+    }
+    
+    .experience-logo {
+        width: 52px;
+        height: 52px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        color: white;
+        background: var(--accent-gradient);
+        font-size: 1.2rem;
+        flex-shrink: 0;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+    }
+    
+    .experience-logo i {
+        font-size: 1.5rem;
+    }
+    
+    /* Organization-specific logo styles */
+    .harvard-logo {
+        background-color: var(--harvard);
+    }
+    
+    .stanford-logo {
+        background-color: var(--stanford);
+    }
+    
+    .nus-logo {
+        background-color: var(--nus);
+    }
+    
+    .nasa-logo {
+        background-color: var(--nasa);
+    }
+    
+    .oxford-logo {
+        background-color: var(--oxford);
+    }
+    
+    .nyas-logo {
+        background-color: var(--nyas);
+        font-size: 0.7rem;
+    }
+    
+    .aws-logo {
+        background-color: var(--aws);
+    }
+    
+    .experience-title-container {
+        flex: 1;
+    }
+    
+    .item-title {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--text-bright);
+        margin-bottom: 0.3rem;
+    }
+    
+    .item-subtitle {
+        font-size: 0.95rem;
+        color: var(--accent);
+        font-weight: 500;
+    }
+    
+    .experience-date {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.5rem;
+    }
+    
+    .date-badge {
+        padding: 0.2rem 0.6rem;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+    
+    .date-badge.current {
+        background-color: rgba(0, 193, 110, 0.2);
+        color: var(--success);
+    }
+    
+    .date-badge.completed {
+        background-color: rgba(58, 134, 255, 0.2);
+        color: var(--accent);
+    }
+    
+    .item-date {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+    }
+    
+    .experience-content {
+        padding: 1.25rem;
+    }
+    
+    .item-location-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+    
+    .item-location-container i {
+        color: var(--accent);
+        font-size: 0.85rem;
+    }
+    
+    .item-description {
+        color: var(--text);
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    .item-description p {
+        margin-bottom: 0.8rem;
+    }
+    
+    .highlight-text {
+        color: var(--accent);
+        font-weight: 500;
+    }
+    
+    .fun-note {
+        font-style: italic;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+    
+    .fun-note i {
+        color: var(--warning);
+        margin-right: 0.3rem;
+    }
+    
+    /* Key achievements styling */
+    .key-achievements {
+        margin: 1rem 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .achievement-item {
+        display: flex;
+        gap: 0.8rem;
+    }
+    
+    .achievement-item i {
+        color: var(--accent);
+        margin-top: 0.3rem;
+        font-size: 0.9rem;
+    }
+    
+    .achievement-highlight {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-top: 1rem;
+        padding: 0.8rem;
+        background-color: rgba(58, 134, 255, 0.1);
+        border-radius: 8px;
+        border-left: 3px solid var(--accent);
+    }
+    
+    .achievement-highlight i {
+        color: var(--accent);
+        font-size: 1.2rem;
+    }
+    
+    .achievement-highlight p {
+        margin: 0;
+    }
+    
+    /* Key metrics styling */
+    .key-metrics {
+        display: flex;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .metric {
+        text-align: center;
+        flex: 1;
+        padding: 1rem;
+        background-color: rgba(26, 45, 70, 0.5);
+        border-radius: 8px;
+        border: 1px solid var(--border);
+    }
+    
+    .metric-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: 0.3rem;
+    }
+    
+    .metric-label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+    }
+    
+    /* Skills styling */
+    .experience-skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+    }
+    
+    .skill-tag {
+        padding: 0.3rem 0.7rem;
+        border-radius: 20px;
+        background-color: rgba(58, 134, 255, 0.1);
+        color: var(--accent);
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+    
+    /* List styling */
+    .experience-list {
+        list-style: none;
+        margin: 1rem 0;
+    }
+    
+    .experience-list li {
+        position: relative;
+        padding-left: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .experience-list li::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+    }
+    
+    /* Show more/less toggle */
+    .show-more-container {
+        display: flex;
+        justify-content: center;
+        margin: 1.5rem 0;
+    }
+    
+    .show-more-btn {
+        background-color: var(--hover);
+        color: var(--text);
+        border: 1px solid var(--border);
+        padding: 0.7rem 1.5rem;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .show-more-btn:hover {
+        background-color: var(--accent-soft);
+        color: var(--accent);
+    }
+    
+    .show-more-btn i {
+        font-size: 0.8rem;
+        transition: transform 0.3s ease;
+    }
+    
+    .show-more-btn.active i {
+        transform: rotate(180deg);
+    }
+    
+    .hidden-experiences {
+        display: none;
+    }
+    
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+        .experience-header {
+            flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .experience-date {
+        align-items: flex-start;
+        width: 100%;
+        margin-top: 1rem;
+    }
+    
+    .key-metrics {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .metric {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        gap: 1rem;
+    }
+    
+    .metric-value {
+        font-size: 1.5rem;
+        margin-bottom: 0;
+    }
+    
+    .metric-label {
+        font-size: 0.9rem;
+    }
+}
+
+/* Animation effects */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.experience-item {
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+}
+
+.experience-item:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.experience-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.experience-item:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.experience-item:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.experience-item:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.hidden-experiences .experience-item {
+    animation-delay: 0.1s;
+}
+</style>
+
+<script>
+// Show more/less functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const showMoreBtn = document.getElementById('showMoreExperiences');
+    const hiddenExperiences = document.querySelector('.hidden-experiences');
+    
+    if (showMoreBtn && hiddenExperiences) {
+        showMoreBtn.addEventListener('click', function() {
+            if (hiddenExperiences.style.display === 'block') {
+                hiddenExperiences.style.display = 'none';
+                showMoreBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Show More Experiences';
+                showMoreBtn.classList.remove('active');
+                
+                // Scroll to the show more button
+                showMoreBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                hiddenExperiences.style.display = 'block';
+                showMoreBtn.innerHTML = '<i class="fas fa-chevron-up"></i> Show Less';
+                showMoreBtn.classList.add('active');
+                
+                // Add fade-in animation to newly visible items
+                const hiddenItems = hiddenExperiences.querySelectorAll('.experience-item');
+                hiddenItems.forEach((item, index) => {
+                    item.style.animationDelay = `${0.1 * (index + 1)}s`;
+                    item.style.opacity = '0';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                    }, 50);
+                });
+            }
+        });
+    }
+    
+    // Add intersection observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+    
+    document.querySelectorAll('.experience-item').forEach(item => {
+        observer.observe(item);
+    });
+});
+</script>
+        
+        <section class="section" id="publications">
+            <h2 class="section-title">Publications</h2>
+            
+            <div class="publication-item">
+                <div class="item-header">
+                    <h3 class="item-title">Temporal Encoding Strategies for Energy Time Series Prediction</h3>
+                    <span class="item-date">Moratuwa Engineering Research Conference 2025 (MERCon 2025) (TBP) · Mar 19, 2025</span>
+                </div>
+                <div class="publication-abstract">
+                    <p>In contemporary power systems, energy consumption prediction plays a crucial role in maintaining grid stability and resource allocation enabling power companies to minimize energy waste and avoid overloading the grid. While there are several research works on energy optimization, they often fail to address the complexities of real-time fluctuations and the cyclic pattern of energy consumption. This work proposes a novel approach to enhance the accuracy of predictive models by employing sinusoidal encoding on periodic features of time-series data.</p>
+                    <p>The results demonstrated a 12.6% improvement of Root Mean Squared Error (from 0.5497 to 0.4802) and a 7.8% increase in the R² score (from 0.7530 to 0.8118), indicating that the proposed encoding better captures the cyclic nature of temporal patterns than traditional methods.</p>
+                    <a href="#" class="btn">View Paper</a>
+                </div>
+            </div>
+            
+            <div class="publication-item">
+                <div class="item-header">
+                    <h3 class="item-title">Early Detection of Mental Health Crises through Social Media Analysis</h3>
+                    <span class="item-date">Journal of Healthcare Informatics Research, Springer · Mar 17, 2025</span>
+                </div>
+                <div class="publication-abstract">
+                    <p>Mental health crises represent serious challenges for public health systems everywhere. Early detection and intervention is crucial to mitigate the impact of these crises on individuals and communities. This paper collected social media posts from 10,000 users and analyzed the linguistic markers associated with changes in mental health status over a 12-month period.</p>
+                    <p>Using a BERT-LSTM model, our NLP model was able to identify users with deteriorating mental health (≡ 83%). The most significant linguistic cues were greater rates of first-person singular pronouns, negative emotion words and different levels of sentence complexity.</p>
+                    <a href="#" class="btn">View Paper</a>
+                </div>
+            </div>
+            
+            <div class="publication-item">
+                <div class="item-header">
+                    <h3 class="item-title">Linguistic Complexity and Socio-cultural Patterns in Hip-Hop Lyrics</h3>
+                    <span class="item-date">Columbia Undergraduate Science Journal (TBP) · Dec 17, 2024</span>
+                </div>
+                <div class="publication-abstract">
+                    <p>Rap music, from its roots in cultural resistance and self-expression, has transformed into a global phenomenon appreciated for its intricate lyricism and strong commentary. This study delves into the linguistic, thematic, and stylistic aspects of rap lyrics through computational and interpretive lenses.</p>
+                    <p>With a dataset of lyrics from famous rappers across several decades, we measure linguistic complexity, sentiment polarity, and thematic diversity. This paper also explains the ways in which social-political contexts and individual experience influence rap art, with regards to its adaptability and the mastery language itself holds for its artists.</p>
+                    <a href="#" class="btn">View Paper</a>
+                </div>
+            </div>
+            
+            <div class="publication-item">
+                <div class="item-header">
+                    <h3 class="item-title">Adaptive Pedestrian Crossing System Using AI and Computer Vision</h3>
+                    <span class="item-date">IEEE Intelligent Transportation Systems Society Conference Management System · Oct 24, 2024</span>
+                </div>
+                <div class="publication-abstract">
+                    <p>With the growth of urbanization, an increasing pedestrian and vehicular flow has posed numerous challenges. The application of fixed-time pedestrian crossing systems often fails in conventional techniques for the optimization of safety and efficiency. A new pedestrian crossing system, adaptive in nature, with AI and computer vision as its driving forces, changes the signal timings with real-time changes in pedestrian density and environmental conditions.</p>
+                    <p>Testing with simulation showed that this system reduced overall average pedestrian wait time by 35%, vehicle delays by 20%, and increased safe crossings by 15% compared with fixed-time systems. Real-world testing supports this assertion, with the system showing a reduction in pedestrian wait times as high as 28%.</p>
+                    <a href="#" class="btn">View Paper</a>
+                </div>
+            </div>
+            
+            <div class="publication-item">
+                <div class="item-header">
+                    <h3 class="item-title">AI For Real-Time Detection And Mitigation Of Fake News Via Multi-Source Verification</h3>
+                    <span class="item-date">IOSR Journal of Computer Engineering · Oct 4, 2024</span>
+                </div>
+                <div class="publication-abstract">
+                    <p>The paper introduces a novel AI-based solution to detect and mitigate fake news in real time by cross-verifying claims against multiple verified sources, employing linguistic analysis, and leveraging propagation patterns. The system achieved an 89% accuracy rate with a processing latency of less than 1.5 seconds per article, demonstrating significant improvements over existing benchmarks.</p>
+                    <a href="#" class="btn">View Paper</a>
+                </div>
+            </div>
+            
+            <div class="publication-item">
+                <div class="item-header">
+                    <h3 class="item-title">Emotional Resonance in AI-Generated Music for Stress Therapy in Marginalized Communities</h3>
+                    <span class="item-date">SSRN Preprint · Sep 21, 2024</span>
+                </div>
+                <div class="publication-abstract">
+                    <p>This paper explored the use of AI to reflect on the music that resonates with the beliefs of certain communities and can be cultivated in order to create emotionally resonant cultural embeds, specifically within marginalized communities. The adaptability of AI-generated music better fits the cultural context of a person which could enhance the emotional connection and efficacy of therapy.</p>
+                    <p>This paper employs both a theoretical analysis of AI music techniques, emotional resonance and culturally adaptive therapies present in the literature to argue that culturally specific music can enhance the therapeutic effect for marginalized groups, serving as an accessible and individually tailored option to tackle chronic stress.</p>
+                    <a href="#" class="btn">View Paper</a>
+                </div>
+            </div>
+            
+            <div class="publication-item">
+                <div class="item-header">
+                    <h3 class="item-title">The Impact Artificial Intelligence Has On High School Students' Learning</h3>
+                    <span class="item-date">International Journal of High School Research · Sep 18, 2024</span>
+                </div>
+                <div class="publication-abstract">
+                    <p>This paper examined the large impacts of Artificial Intelligence (AI) on high school student learning. Our exploration of AI's role in shaping education took us to an analysis of today's AI-powered tools and personalized learning experiences. It explained attitudes about this transformational shift from traditional teaching.</p>
+                    <p>We also present an experimental study with high school students comparing AI-powered tutoring to traditional methods, looking at performance and motivation. This study uses a few case studies to draw out the lessons and explore prospective developments.</p>
+                    <a href="#" class="btn">View Paper</a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section" id="patents">
+            <h2 class="section-title">Patents</h2>
+            
+            <div class="patent-item">
+                <div class="item-header">
+                    <h3 class="item-title">Neuromorphic Dynamic Architecture Optimization System (NeuralDAO)</h3>
+                    <span class="item-date">In Process · Filed Jan 24, 2025</span>
+                </div>
+                <div class="patent-details">
+                    <p>A groundbreaking AI system enabling neural networks to dynamically evolve their architecture during both training and inference phases, inspired by biological neuroplasticity. The system implements real-time structural modifications based on performance metrics and computational demands, utilizing a meta-controller network to optimize resource allocation and network topology.</p>
+                    <p>This innovation introduces novel methods for continuous architecture adaptation, including dynamic node generation, pathway pruning, and layer bifurcation. The system's resource-aware scaling mechanisms and biologically-inspired growth patterns represent a significant advance in neural network optimization, with applications ranging from edge computing to large-scale AI models.</p>
+                </div>
+            </div>
+            
+            <div class="patent-item">
+                <div class="item-header">
+                    <h3 class="item-title">A Wearable Legwear System and Article For Detecting Foot Angles and Distances</h3>
+                    <span class="item-date">IN 202431099487 · Filed Dec 16, 2024</span>
+                </div>
+                <div class="patent-details">
+                    <p>A groundbreaking wearable device that utilizes integrated sensors and real-time data processing to detect and monitor Metatarsus adductus, a common foot deformity affecting approximately 1 in 1,000 newborns. The system combines advanced textile-integrated strain gauges, IMU sensors, and machine learning algorithms to provide continuous monitoring and early detection capabilities, reducing reliance on periodic clinical visits.</p>
+                    <p>The innovation features textile-integrated sensors strategically placed across the sock, real-time data processing through edge computing, and a user-friendly mobile interface for healthcare providers. The system's key components include flexible PCB integration, wireless data transmission, and HIPAA-compliant cloud storage.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section" id="awards">
+    <h2 class="section-title">Awards & Honors</h2>
+    
+    <div class="olympiad-section">
+        <h3 class="section-subtitle">Mathematics & Science Olympiad Achievements</h3>
+        <div class="olympiad-grid">
+            <div class="olympiad-item">
+                <div class="olympiad-medal gold"></div>
+                <div class="olympiad-content">
+                    <h4>FISO Digital Technology Olympiad (2025)</h4>
+                    <p>National Gold Award | National Rank 1</p>
+                </div>
+            </div>
+            <div class="olympiad-item">
+                <div class="olympiad-medal gold"></div>
+                <div class="olympiad-content">
+                    <h4>Thailand International Mathematical Olympiad (2024)</h4>
+                    <p>National Gold Medal</p>
+                </div>
+            </div>
+            <div class="olympiad-item">
+                <div class="olympiad-medal silver"></div>
+                <div class="olympiad-content">
+                    <h4>Fermat Mathematics Olympiad (2024)</h4>
+                    <p>International Silver Medal | National Rank 4</p>
+                    <p class="olympiad-note">Selected for Indian Team Finals</p>
+                </div>
+            </div>
+            <div class="olympiad-item">
+                <div class="olympiad-medal silver"></div>
+                <div class="olympiad-content">
+                    <h4>International Mathematics Olympiad (2024)</h4>
+                    <p>International Silver Medal | National Rank 2</p>
+                    <p class="olympiad-note">Selected for Indian Team Finals</p>
+                </div>
+            </div>
+            <div class="olympiad-item">
+                <div class="olympiad-medal bronze"></div>
+                <div class="olympiad-content">
+                    <h4>Asian Science and Mathematics Olympiad (2024)</h4>
+                    <p>Bronze Medal | National Rank 4</p>
+                    <p class="olympiad-note">Selected for Indian Team Finals</p>
+                </div>
+            </div>
+            <div class="olympiad-item">
+                <div class="olympiad-medal bronze"></div>
+                <div class="olympiad-content">
+                    <h4>Philippines International Math and Science Olympiad (2024)</h4>
+                    <p>Bronze Medal | National Rank 3</p>
+                    <p class="olympiad-note">Selected for Indian Team Finals</p>
+                </div>
+            </div>
+            <div class="olympiad-item">
+                <div class="olympiad-medal bronze"></div>
+                <div class="olympiad-content">
+                    <h4>Singapore and Asian School Math Olympiad (2024)</h4>
+                    <p>International Bronze Medal | National Rank 1</p>
+                    <p class="olympiad-note">Selected for SISMO Indian Team</p>
+                </div>
+            </div>
+            <div class="olympiad-item">
+                <div class="olympiad-medal gold"></div>
+                <div class="olympiad-content">
+                    <h4>Aryabhata National Math Competition (2024)</h4>
+                    <p>National Gold Medal</p>
+                </div>
+            </div>
+            <div class="olympiad-item">
+                <div class="olympiad-medal gold"></div>
+                <div class="olympiad-content">
+                    <h4>Waterloo Newton Physics Competition (2024)</h4>
+                    <p>School Rank 1</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="awards-grid">
+        <div class="award-item">
+            <div class="award-icon"><i class="fas fa-award"></i></div>
+            <div class="award-content">
+                <h3 class="award-title">Scholar Badge - All Subjects</h3>
+                <p class="award-date">March 2025</p>
+                <div class="award-description">
+                    <p>Maintained 90%+ grades across all subjects while consistently ranking in top 3 of 930 students in Computer Science and Mathematics. Received continuous recognition through Scholar Badge and CS Excellence Award.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="award-item">
+            <div class="award-icon"><i class="fas fa-rocket"></i></div>
+            <div class="award-content">
+                <h3 class="award-title">Space Settlement Design Competition - NASA & Boeing</h3>
+                <p class="award-date">February 2025</p>
+                <div class="award-description">
+                    <p>Led Team Resonance as Founder and Head of AI/Automation. Achieved 2nd Runner-up in Indian National Round (50+ teams) and 1st Runner-up in Asian Qualifying Round. Qualified for International Round in Florida.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="award-item">
+            <div class="award-icon"><i class="fas fa-file-alt"></i></div>
+            <div class="award-content">
+                <h3 class="award-title">Top Downloaded Research Paper - AI & Music Therapy</h3>
+                <p class="award-date">January 2025</p>
+                <div class="award-description">
+                    <p>Paper "Emotional Resonance in AI-Generated Music for Stress Therapy in Marginalized Communities" recognized as Top Paper across three eJournals with 100+ downloads.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="award-item">
+            <div class="award-icon"><i class="fas fa-trophy"></i></div>
+            <div class="award-content">
+                <h3 class="award-title">Best Research Paper Award</h3>
+                <p class="award-date">September 2024</p>
+                <div class="award-description">
+                    <p>Best Research paper award out of 50+ papers. Created original dataset with 500+ entries published on Hugging Face.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="award-item">
+            <div class="award-icon"><i class="fas fa-star"></i></div>
+            <div class="award-content">
+                <h3 class="award-title">Student Hall of Fame Recognition - NUS Summer Program</h3>
+                <p class="award-date">July 2024</p>
+                <div class="award-description">
+                    <p>Featured as sole student on Github Hall of Fame from NUS Summer Program batch for exceptional technical performance.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="award-item">
+            <div class="award-icon"><i class="fas fa-chess-knight"></i></div>
+            <div class="award-content">
+                <h3 class="award-title">Chess Tournament Achievements</h3>
+                <p class="award-date">August 2023</p>
+                <div class="award-description">
+                    <p>2nd Place District Championship, 6th State Tournament, 14th & 17th National U-16 Championships. 2250 Lichess rating.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="award-item">
+            <div class="award-icon"><i class="fas fa-cube"></i></div>
+            <div class="award-content">
+                <h3 class="award-title">First Place - Speed Solving Division</h3>
+                <p class="award-date">August 2023</p>
+                <div class="award-description">
+                    <p>Solved 3x3 Rubik's cube with record time of 02:05.39 minutes, competing against 75+ participants from 12 schools.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="award-item">
+            <div class="award-icon"><i class="fas fa-question-circle"></i></div>
+            <div class="award-content">
+                <h3 class="award-title">Government of India National Quiz Recognition</h3>
+                <p class="award-date">January 2023</p>
+                <div class="award-description">
+                    <p>Achieved 90%+ accuracy across 10 national quizzes covering cybersecurity, water conservation, freedom struggle, and more.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="award-item">
+            <div class="award-icon"><i class="fas fa-bicycle"></i></div>
+            <div class="award-content">
+                <h3 class="award-title">Youngest Cyclothon Finisher & Organizer</h3>
+                <p class="award-date">February 2022</p>
+                <div class="award-description">
+                    <p>Became youngest participant to complete both 30km and 50km cyclothons. Organized event in partnership with Kolkata Police for organ donation awareness.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="award-item">
+            <div class="award-icon"><i class="fas fa-medal"></i></div>
+            <div class="award-content">
+                <h3 class="award-title">SKOCH Award</h3>
+                <p class="award-date">October 2021</p>
+                <div class="award-description">
+                    <p>Developed Call Centre Model leading to Department of Health & Family Welfare, Government of West Bengal receiving the SKOCH Award.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .section {
+        margin: 2rem 0;
+        padding: 2rem;
+        background-color: var(--secondary);
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: var(--text-bright);
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--accent);
+    }
+    
+    .section-subtitle {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 1.5rem 0;
+        color: var(--accent);
+    }
+    
+    /* Olympiad Section Styling */
+    .olympiad-section {
+        margin-bottom: 3rem;
+    }
+    
+    .olympiad-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.25rem;
+    }
+    
+    .olympiad-item {
+        display: flex;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.03);
+        border-radius: 8px;
+        padding: 1rem;
+        border: 1px solid var(--border);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .olympiad-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    
+    .olympiad-medal {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+    
+    .gold {
+        background: linear-gradient(145deg, #ffd700, #b8860b);
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+    }
+    
+    .silver {
+        background: linear-gradient(145deg, #c0c0c0, #a9a9a9);
+        box-shadow: 0 0 10px rgba(192, 192, 192, 0.6);
+    }
+    
+    .bronze {
+        background: linear-gradient(145deg, #cd7f32, #8b4513);
+        box-shadow: 0 0 10px rgba(205, 127, 50, 0.6);
+    }
+    
+    .olympiad-content h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0 0 0.5rem 0;
+        color: var(--text-bright);
+    }
+    
+    .olympiad-content p {
+        font-size: 0.9rem;
+        margin: 0;
+        color: var(--text);
+    }
+    
+    .olympiad-note {
+        font-style: italic;
+        color: var(--accent) !important;
+        font-size: 0.85rem !important;
+        margin-top: 0.25rem !important;
+    }
+    
+    /* Awards Grid Styling */
+    .awards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .award-item {
+        display: flex;
+        background-color: rgba(255, 255, 255, 0.03);
+        border-radius: 8px;
+        padding: 1.5rem;
+        border: 1px solid var(--border);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .award-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    
+    .award-icon {
+        font-size: 2rem;
+        color: var(--accent);
+        margin-right: 1rem;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        width: 2.5rem;
+    }
+    
+    .award-content {
+        flex: 1;
+    }
+    
+    .award-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 0 0 0.5rem 0;
+        color: var(--text-bright);
+    }
+    
+    .award-date {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-bottom: 0.75rem;
+    }
+    
+    .award-description p {
+        font-size: 0.95rem;
+        color: var(--text);
+        margin: 0;
+        line-height: 1.5;
+    }
+    
+    @media (max-width: 768px) {
+        .olympiad-grid,
+        .awards-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .award-item {
+            flex-direction: column;
+        }
+        
+        .award-icon {
+            margin-right: 0;
+            margin-bottom: 1rem;
+            width: auto;
+        }
+    }
+    
+    /* For Font Awesome icons (if using CDN) */
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+</style>
+        
+        <section class="section" id="skills">
+            <h2 class="section-title">Top Skills</h2>
+            <div class="skills-list">
+                <div class="skill-item">Python (Programming Language)</div>
+                <div class="skill-item">Artificial Intelligence (AI)</div>
+                <div class="skill-item">Machine Learning</div>
+                <div class="skill-item">Research</div>
+                <div class="skill-item">Data Science</div>
+                <div class="skill-item">Computer Vision</div>
+                <div class="skill-item">Neural Networks</div>
+                <div class="skill-item">Cloud Computing</div>
+                <div class="skill-item">AWS</div>
+                <div class="skill-item">Project Management</div>
+            </div>
+        </section>
+        
+        <section class="section" id="languages">
+            <h2 class="section-title">Languages</h2>
+            <div class="languages-list">
+                <div class="language-item">
+                    <span>English</span>
+                    <span class="language-proficiency">Native or Bilingual</span>
+                </div>
+                <div class="language-item">
+                    <span>Hindi</span>
+                    <span class="language-proficiency">Native or Bilingual</span>
+                </div>
+                <div class="language-item">
+                    <span>Marwari</span>
+                    <span class="language-proficiency">Native or Bilingual</span>
+                </div>
+                <div class="language-item">
+                    <span>Bengali</span>
+                    <span class="language-proficiency">Full Professional</span>
+                </div>
+                <div class="language-item">
+                    <span>French</span>
+                    <span class="language-proficiency">Limited Working</span>
+                </div>
+                <div class="language-item">
+                    <span>Russian</span>
+                    <span class="language-proficiency">Elementary</span>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section" id="certifications">
+            <h2 class="section-title">Certifications</h2>
+            <ul class="certifications-list">
+                <li class="certification-item">CS50AI - Harvard Youtube</li>
+                <li class="certification-item">Introduction to Pandas, 30 Days of Javascript</li>
+                <li class="certification-item">Artificial Intelligence and Machine Learning using AWS ML Services</li>
+                <li class="certification-item">Python for Artificial Intelligence, Machine Learning and Deep Learning</li>
+                <li class="certification-item">AI For Everyone</li>
+            </ul>
+        </section>
+        
+        <section class="section" id="education">
+            <h2 class="section-title">Education</h2>
+            
+            <div class="education-item">
+                <div class="item-header">
+                    <h3 class="item-title">Delhi Public School, Ruby Park</h3>
+                    <span class="item-date">May 2018 - May 2025</span>
+                </div>
+                <div class="item-subtitle">Middle School Diploma, High School Diploma (MPC)</div>
+                <div class="education-details">
+                    <div class="education-detail-item">
+                        <span class="education-detail-label">Grade:</span>
+                        <span>4.0 GPA</span>
+                    </div>
+                    <div class="education-detail-item">
+                        <span class="education-detail-label">Activities:</span>
+                        <span>Math Club (7 years), Tech Club (2 years), Chess Club (5 years), Student Council, National Society of High School Scholars (NSHSS)</span>
+                    </div>
+                    <div class="education-detail-item">
+                        <span class="education-detail-label">Subjects:</span>
+                        <span>Mathematics, Physics, Computer Science, Chemistry and English</span>
+                    </div>
+                    <div class="education-detail-item">
+                        <span class="education-detail-label">Grades:</span>
+                        <span>IX Grade - 90%, X Grade - 95.8%, XI Grade - 96.6%, XII Grade (Predicted) - 95.2%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="education-item">
+                <div class="item-header">
+                    <h3 class="item-title">National University of Singapore</h3>
+                    <span class="item-date">June 2024 - June 2024</span>
+                </div>
+                <div class="item-subtitle">Data Science and AI, Artificial Intelligence</div>
+                <div class="education-details">
+                    <div class="education-detail-item">
+                        <span class="education-detail-label">Grade:</span>
+                        <span>A+</span>
+                    </div>
+                    <div class="education-detail-item">
+                        <span class="education-detail-label">Activities:</span>
+                        <span>AIYA (AI Internship for Young Achievers) Summer Program</span>
+                    </div>
+                    <div class="education-detail-item">
+                        <span class="education-detail-label">Projects:</span>
+                        <span>Team Leader spearheading two cutting-edge AI projects: telecom churn prediction and a Gun Safety and Recommendation Chatbot. Demonstrated leadership and innovation, guiding team to develop the most innovative chatbot recognized by NUS.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Aayam Bansal. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
 </html>
