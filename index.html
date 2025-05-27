@@ -1507,25 +1507,13 @@ document.addEventListener('DOMContentLoaded', function() {
     <h2 class="section-title"><i class="fas fa-scroll"></i> Research Publications</h2>
     
     <div class="publications-container">
-        <div class="publications-filters">
-            <div class="filter-group">
-                <label>Filter by topic:</label>
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="ai">AI</button>
-                    <button class="filter-btn" data-filter="healthcare">Healthcare</button>
-                    <button class="filter-btn" data-filter="data">Data Science</button>
-                    <button class="filter-btn" data-filter="social">Social Computing</button>
-                </div>
-            </div>
-        </div>
         
         <div class="publications-grid">
             <!-- Publication 1 -->
             <div class="publication-card" data-topics="ai data">
                 <div class="publication-header">
                     <div class="publication-journal">
-                        <div class="journal-badge">MERCon 2025</div>
+                        <div class="journal-badge">Springer(Under-Review)</div>
                         <div class="pub-date">Mar 19, 2025</div>
                     </div>
                     <div class="publication-stats">
@@ -1540,7 +1528,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
                 
-                <h3 class="publication-title">Temporal Encoding Strategies for Energy Time Series Prediction</h3>
+                <h3 class="publication-title">Real Time Driver Drowsiness Detection for Safe Driving</h3>
                 
                 <div class="publication-tags">
                     <span class="publication-tag">Time Series</span>
@@ -1549,22 +1537,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 
                 <div class="publication-authors">
-                    <img src="/api/placeholder/40/40" alt="Author" class="author-avatar">
-                    <span class="author-name">Aayam Bansal</span> et al.
+                    <span class="author-name">Naghul Adhithya</span> et al.
                 </div>
                 
                 <div class="publication-controls">
                     <button class="abstract-toggle-btn">
                         <i class="fas fa-chevron-down"></i> Abstract
                     </button>
-                    <a href="https://arxiv.org/abs/2503.15456" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.authorea.com/doi/full/10.22541/au.173204423.35921469" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
                         <i class="fas fa-external-link-alt"></i> View Paper
                     </a>
                 </div>
                 
                 <div class="publication-abstract">
-                    <p>In contemporary power systems, energy consumption prediction plays a crucial role in maintaining grid stability and resource allocation enabling power companies to minimize energy waste and avoid overloading the grid. While there are several research works on energy optimization, they often fail to address the complexities of real-time fluctuations and the cyclic pattern of energy consumption.</p>
-                    <p>This work proposes a novel approach to enhance the accuracy of predictive models by employing sinusoidal encoding on periodic features of time-series data. The results demonstrated a 12.6% improvement of Root Mean Squared Error (from 0.5497 to 0.4802) and a 7.8% increase in the R² score (from 0.7530 to 0.8118), indicating that the proposed encoding better captures the cyclic nature of temporal patterns than traditional methods.</p>
+                    <p>Driver drowsiness is a critical factor contributing to road accidents worldwide. The accidents can be prevented if warning is provided on time to the drowsy driver. This research proposes a deep learning based approach for detection of drowsiness in drivers. The system leverages computer vision techniques, specifically the calculation of Eye Aspect Ratio (EAR), to monitor and detect signs of drowsiness by analysing facial landmarks. EAR is computed to determine eye closure patterns indicative of drowsiness. To enhance accuracy, a method for detecting sunglasses is integrated in the proposed system by utilizing Hue, Saturation and Value (HSV) color space and color masks to identify regions obstructing the eyes. Upon detecting drowsiness, the system triggers visual and auditory alerts to notify the driver, promoting timely intervention for safer driving. Experimental results demonstrate the system's effectiveness in various lighting conditions and validate its ability to differentiate between drowsy and alert states with high accuracy. The proposed approach not only addresses the challenge of detecting drowsiness in diverse conditions but also contributes to mitigating road accidents caused by driver fatigue, thereby enhancing overall road safety.</p>
                 </div>
             </div>
             
@@ -1572,7 +1558,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="publication-card" data-topics="ai healthcare social">
                 <div class="publication-header">
                     <div class="publication-journal">
-                        <div class="journal-badge">Springer</div>
+                        <div class="journal-badge">Springer(Under-Review)</div>
                         <div class="pub-date">Mar 17, 2025</div>
                     </div>
                     <div class="publication-stats">
@@ -1587,7 +1573,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
                 
-                <h3 class="publication-title">Early Detection of Mental Health Crises through Social Media Analysis</h3>
+                <h3 class="publication-title">Real Time Vehicle Detection and Counting for Traffic Management System</h3>
                 
                 <div class="publication-tags">
                     <span class="publication-tag">Mental Health</span>
@@ -1596,232 +1582,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 
                 <div class="publication-authors">
-                    <img src="/api/placeholder/40/40" alt="Author" class="author-avatar">
-                    <span class="author-name">Aayam Bansal</span> et al.
+                    <span class="author-name">Naghul Adhithya</span> et al.
                 </div>
                 
                 <div class="publication-controls">
                     <button class="abstract-toggle-btn">
                         <i class="fas fa-chevron-down"></i> Abstract
                     </button>
-                    <a href="https://preprints.jmir.org/preprint/74037" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.authorea.com/users/858543/articles/1242124-real-time-vehicle-detection-and-counting-for-traffic-management-system" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
                         <i class="fas fa-external-link-alt"></i> View Paper
                     </a>
                 </div>
                 
                 <div class="publication-abstract">
-                    <p>Mental health crises represent serious challenges for public health systems everywhere. Early detection and intervention is crucial to mitigate the impact of these crises on individuals and communities. This paper collected social media posts from 10,000 users and analyzed the linguistic markers associated with changes in mental health status over a 12-month period.</p>
-                    <p>Using a BERT-LSTM model, our NLP model was able to identify users with deteriorating mental health (≡ 83%). The most significant linguistic cues were greater rates of first-person singular pronouns, negative emotion words and different levels of sentence complexity.</p>
-                </div>
+                    <p>Vehicle counting plays an important role in traffic management and surveillance systems. Counting the vehicles is challenging due to various factors, such as lighting variations, occlusions, and diverse vehicle types. Existing methods for vehicle counting often relied on manual or semi-automated methods, which are both labor intensive and are also bound to have some human error. Automating the counting process using deep learning algorithms can provide a more efficient and accurate solution. This work aims to detect and count vehicles in real-time video streams for which real-time recorded video datasets are used. A centroid-based tracking algorithm has been implemented to track the vehicles across consecutive frames, the algorithm associates the center points of vehicles over time, thereby enabling the tracking of individual vehicles as they move throughout the video. The evaluation demonstrates YOLOv8's high accuracy in detecting and counting vehicles in comparison with YOLOv5, which makes it suitable for diverse real-world applications such as traffic flow analysis, congestion management, and the system's real-time processing capabilities which further enhance its practical utility in surveillance systems.</p>
             </div>
             
-            <!-- Publication 3 -->
-            <div class="publication-card" data-topics="ai social">
-                <div class="publication-header">
-                    <div class="publication-journal">
-                        <div class="journal-badge">Columbia USJ</div>
-                        <div class="pub-date">Dec 17, 2024</div>
-                    </div>
-                </div>
-                
-                <h3 class="publication-title">Linguistic Complexity and Socio-cultural Patterns in Hip-Hop Lyrics</h3>
-                
-                <div class="publication-tags">
-                    <span class="publication-tag">Linguistics</span>
-                    <span class="publication-tag">Cultural Computing</span>
-                    <span class="publication-tag">Music</span>
-                </div>
-                
-                <div class="publication-authors">
-                    <img src="/api/placeholder/40/40" alt="Author" class="author-avatar">
-                    <span class="author-name">Aayam Bansal</span> et al.
-                </div>
-                
-                <div class="publication-controls">
-                    <button class="abstract-toggle-btn">
-                        <i class="fas fa-chevron-down"></i> Abstract
-                    </button>
-                    <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5184608" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
-                        <i class="fas fa-external-link-alt"></i> View Paper
-                    </a>
-                </div>
-                
-                <div class="publication-abstract">
-                    <p>Rap music, from its roots in cultural resistance and self-expression, has transformed into a global phenomenon appreciated for its intricate lyricism and strong commentary. This study delves into the linguistic, thematic, and stylistic aspects of rap lyrics through computational and interpretive lenses.</p>
-                    <p>With a dataset of lyrics from famous rappers across several decades, we measure linguistic complexity, sentiment polarity, and thematic diversity. This paper also explains the ways in which social-political contexts and individual experience influence rap art, with regards to its adaptability and the mastery language itself holds for its artists.</p>
-                </div>
-            </div>
-            
-            <!-- Publication 4 -->
-            <div class="publication-card" data-topics="ai">
-                <div class="publication-header">
-                    <div class="publication-journal">
-                        <div class="journal-badge">IEEE</div>
-                        <div class="pub-date">Oct 24, 2024</div>
-                    </div>
-                    <div class="publication-stats">
-                        <div class="stat-item">
-                            <i class="fas fa-walking"></i>
-                            <span>35% Wait ↓</span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-car"></i>
-                            <span>20% Delay ↓</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <h3 class="publication-title">Adaptive Pedestrian Crossing System Using AI and Computer Vision</h3>
-                
-                <div class="publication-tags">
-                    <span class="publication-tag">Computer Vision</span>
-                    <span class="publication-tag">Smart Cities</span>
-                    <span class="publication-tag">Transport</span>
-                </div>
-                
-                <div class="publication-authors">
-                    <img src="/api/placeholder/40/40" alt="Author" class="author-avatar">
-                    <span class="author-name">Aayam Bansal</span> et al.
-                </div>
-                
-                <div class="publication-controls">
-                    <button class="abstract-toggle-btn">
-                        <i class="fas fa-chevron-down"></i> Abstract
-                    </button>
-                    <a href="https://drive.google.com/file/d/1S6ao8mLXm05ay27q9oKrlV_4LYwq9e3t/view" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
-                        <i class="fas fa-external-link-alt"></i> View Paper
-                    </a>
-                </div>
-                
-                <div class="publication-abstract">
-                    <p>With the growth of urbanization, an increasing pedestrian and vehicular flow has posed numerous challenges. The application of fixed-time pedestrian crossing systems often fails in conventional techniques for the optimization of safety and efficiency. A new pedestrian crossing system, adaptive in nature, with AI and computer vision as its driving forces, changes the signal timings with real-time changes in pedestrian density and environmental conditions.</p>
-                    <p>Testing with simulation showed that this system reduced overall average pedestrian wait time by 35%, vehicle delays by 20%, and increased safe crossings by 15% compared with fixed-time systems. Real-world testing supports this assertion, with the system showing a reduction in pedestrian wait times as high as 28%.</p>
-                </div>
-            </div>
-            
-            <!-- More publications -->
-            <div class="publication-card" data-topics="ai social">
-                <div class="publication-header">
-                    <div class="publication-journal">
-                        <div class="journal-badge">IOSR</div>
-                        <div class="pub-date">Oct 4, 2024</div>
-                    </div>
-                    <div class="publication-stats">
-                        <div class="stat-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>89% Accuracy</span>
-                        </div>
-                        <div class="stat-item">
-                            <i class="fas fa-bolt"></i>
-                            <span>1.5s Latency</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <h3 class="publication-title">AI For Real-Time Detection And Mitigation Of Fake News Via Multi-Source Verification</h3>
-                
-                <div class="publication-tags">
-                    <span class="publication-tag">Fake News</span>
-                    <span class="publication-tag">NLP</span>
-                    <span class="publication-tag">Real-time</span>
-                </div>
-                
-                <div class="publication-authors">
-                    <img src="/api/placeholder/40/40" alt="Author" class="author-avatar">
-                    <span class="author-name">Aayam Bansal</span> et al.
-                </div>
-                
-                <div class="publication-controls">
-                    <button class="abstract-toggle-btn">
-                        <i class="fas fa-chevron-down"></i> Abstract
-                    </button>
-                    <a href="https://www.iosrjournals.org/iosr-jce/papers/Vol26-issue5/Ser-3/B2605030918.pdf" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
-                        <i class="fas fa-external-link-alt"></i> View Paper
-                    </a>
-                </div>
-                
-                <div class="publication-abstract">
-                    <p>The paper introduces a novel AI-based solution to detect and mitigate fake news in real time by cross-verifying claims against multiple verified sources, employing linguistic analysis, and leveraging propagation patterns. The system achieved an 89% accuracy rate with a processing latency of less than 1.5 seconds per article, demonstrating significant improvements over existing benchmarks.</p>
-                </div>
-            </div>
-            
-            <div class="publication-card" data-topics="ai healthcare">
-                <div class="publication-header">
-                    <div class="publication-journal">
-                        <div class="journal-badge highlight">SSRN Top Paper</div>
-                        <div class="pub-date">Sep 21, 2024</div>
-                    </div>
-                    <div class="publication-stats">
-                        <div class="stat-item">
-                            <i class="fas fa-download"></i>
-                            <span>100+ Downloads</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <h3 class="publication-title">Emotional Resonance in AI-Generated Music for Stress Therapy in Marginalized Communities</h3>
-                
-                <div class="publication-tags">
-                    <span class="publication-tag">Music AI</span>
-                    <span class="publication-tag">Therapy</span>
-                    <span class="publication-tag">Healthcare</span>
-                </div>
-                
-                <div class="publication-authors">
-                    <img src="/api/placeholder/40/40" alt="Author" class="author-avatar">
-                    <span class="author-name">Aayam Bansal</span> et al.
-                </div>
-                
-                <div class="publication-controls">
-                    <button class="abstract-toggle-btn">
-                        <i class="fas fa-chevron-down"></i> Abstract
-                    </button>
-                    <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4976704" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
-                        <i class="fas fa-external-link-alt"></i> View Paper
-                    </a>
-                </div>
-                
-                <div class="publication-abstract">
-                    <p>This paper explored the use of AI to reflect on the music that resonates with the beliefs of certain communities and can be cultivated in order to create emotionally resonant cultural embeds, specifically within marginalized communities. The adaptability of AI-generated music better fits the cultural context of a person which could enhance the emotional connection and efficacy of therapy.</p>
-                    <p>This paper employs both a theoretical analysis of AI music techniques, emotional resonance and culturally adaptive therapies present in the literature to argue that culturally specific music can enhance the therapeutic effect for marginalized groups, serving as an accessible and individually tailored option to tackle chronic stress.</p>
-                </div>
-            </div>
-            
-            <div class="publication-card" data-topics="ai">
-                <div class="publication-header">
-                    <div class="publication-journal">
-                        <div class="journal-badge">IJHSR</div>
-                        <div class="pub-date">Sep 18, 2024</div>
-                    </div>
-                </div>
-                
-                <h3 class="publication-title">The Impact Artificial Intelligence Has On High School Students' Learning</h3>
-                
-                <div class="publication-tags">
-                    <span class="publication-tag">Education</span>
-                    <span class="publication-tag">AI</span>
-                    <span class="publication-tag">EdTech</span>
-                </div>
-                
-                <div class="publication-authors">
-                    <img src="/api/placeholder/40/40" alt="Author" class="author-avatar">
-                    <span class="author-name">Aayam Bansal</span> et al.
-                </div>
-                
-                <div class="publication-controls">
-                    <button class="abstract-toggle-btn">
-                        <i class="fas fa-chevron-down"></i> Abstract
-                    </button>
-                    <a href="https://drive.google.com/file/d/12OSWnnZov79n6g1F6NVJCV5yP9gBxAq6/view" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
-                        <i class="fas fa-external-link-alt"></i> View Paper
-                    </a>
-                </div>
-                
-                <div class="publication-abstract">
-                    <p>This paper examined the large impacts of Artificial Intelligence (AI) on high school student learning. Our exploration of AI's role in shaping education took us to an analysis of today's AI-powered tools and personalized learning experiences. It explained attitudes about this transformational shift from traditional teaching.</p>
-                    <p>We also present an experimental study with high school students comparing AI-powered tutoring to traditional methods, looking at performance and motivation. This study uses a few case studies to draw out the lessons and explore prospective developments.</p>
-                </div>
-            </div>
         </div>
     </div>
 </section>
@@ -2198,33 +1974,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-</script>
-        
-        <section class="section" id="patents">
-            <h2 class="section-title">Patents</h2>
-            
-            <div class="patent-item">
-                <div class="item-header">
-                    <h3 class="item-title">Neuromorphic Dynamic Architecture Optimization System (NeuralDAO)</h3>
-                    <span class="item-date">In Process · Filed Jan 24, 2025</span>
-                </div>
-                <div class="patent-details">
-                    <p>A groundbreaking AI system enabling neural networks to dynamically evolve their architecture during both training and inference phases, inspired by biological neuroplasticity. The system implements real-time structural modifications based on performance metrics and computational demands, utilizing a meta-controller network to optimize resource allocation and network topology.</p>
-                    <p>This innovation introduces novel methods for continuous architecture adaptation, including dynamic node generation, pathway pruning, and layer bifurcation. The system's resource-aware scaling mechanisms and biologically-inspired growth patterns represent a significant advance in neural network optimization, with applications ranging from edge computing to large-scale AI models.</p>
-                </div>
-            </div>
-            
-            <div class="patent-item">
-                <div class="item-header">
-                    <h3 class="item-title">A Wearable Legwear System and Article For Detecting Foot Angles and Distances</h3>
-                    <span class="item-date">IN 202431099487 · Filed Dec 16, 2024</span>
-                </div>
-                <div class="patent-details">
-                    <p>A groundbreaking wearable device that utilizes integrated sensors and real-time data processing to detect and monitor Metatarsus adductus, a common foot deformity affecting approximately 1 in 1,000 newborns. The system combines advanced textile-integrated strain gauges, IMU sensors, and machine learning algorithms to provide continuous monitoring and early detection capabilities, reducing reliance on periodic clinical visits.</p>
-                    <p>The innovation features textile-integrated sensors strategically placed across the sock, real-time data processing through edge computing, and a user-friendly mobile interface for healthcare providers. The system's key components include flexible PCB integration, wireless data transmission, and HIPAA-compliant cloud storage.</p>
-                </div>
-            </div>
-        </section>
         
         <section class="section" id="awards">
     <h2 class="section-title">Awards & Honors</h2>
