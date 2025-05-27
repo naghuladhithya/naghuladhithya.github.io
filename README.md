@@ -12,7 +12,7 @@ This portfolio is designed to:
 
 ## 🔗 Live Website
 
-You can view the live website here: [your-website-link]([https://your-username.github.io](https://naghuladhithya.github.io/))
+You can view the live website here: [your-website-link]([https://naghuladhithya.github.io/])
 
 
 ## 🧰 Tech Stack
