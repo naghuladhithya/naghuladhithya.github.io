@@ -1945,391 +1945,631 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(item);
     });
 });
-<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publications Section</title>
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        /* Publications Section Styling */
-        #publications {
-            padding: 3rem 2rem;
-        }
-
-        .publications-container {
-            position: relative;
-        }
-
-        .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            color: var(--text-bright, #ffffff);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            position: relative;
-        }
-
-        .section-title i {
-            color: var(--accent, #3a86ff);
-            font-size: 1.8rem;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -10px;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(to right, var(--accent, #3a86ff), transparent);
-        }
-
-        /* Filters */
-        .publications-filters {
-            margin-bottom: 2rem;
-        }
-
-        .filter-group {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .filter-group label {
-            font-weight: 500;
-            color: var(--text-muted, #a0a0a0);
-        }
-
-        .filter-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .filter-btn {
-            background-color: var(--hover, #1a2d46);
-            border: 1px solid var(--border, #2d4373);
-            color: var(--text, #ffffff);
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn:hover {
-            background-color: var(--accent-soft, #4facfe);
-            color: var(--accent, #3a86ff);
-        }
-
-        .filter-btn.active {
-            background-color: var(--accent, #3a86ff);
-            color: var(--primary, #ffffff);
-            border-color: var(--accent, #3a86ff);
-        }
-
-        /* Publications Grid */
-        .publications-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
-
-        /* Publication Card */
-        .publication-card {
-            background-color: var(--hover, #1a2d46);
-            border: 1px solid var(--border, #2d4373);
-            border-radius: 12px;
-            overflow: hidden;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .publication-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            border-color: rgba(58, 134, 255, 0.3);
-        }
-
-        .publication-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .publication-journal {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-        }
-
-        .journal-badge {
-            display: inline-block;
-            padding: 0.3rem 0.7rem;
-            background-color: rgba(58, 134, 255, 0.1);
-            color: var(--accent, #3a86ff);
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .journal-badge.highlight {
-            background-color: rgba(255, 209, 102, 0.2);
-            color: var(--warning, #ffd166);
-        }
-
-        .pub-date {
-            font-size: 0.8rem;
-            color: var(--text-muted, #a0a0a0);
-        }
-
-        .publication-stats {
-            display: flex;
-            gap: 0.8rem;
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.8rem;
-            color: var(--text-muted, #a0a0a0);
-            background-color: rgba(26, 45, 70, 0.5);
-            padding: 0.3rem 0.6rem;
-            border-radius: 4px;
-        }
-
-        .stat-item i {
-            color: var(--accent, #3a86ff);
-        }
-
-        .publication-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--text-bright, #ffffff);
-            line-height: 1.4;
-        }
-
-        .publication-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .publication-tag {
-            font-size: 0.75rem;
-            padding: 0.2rem 0.6rem;
-            background-color: rgba(58, 134, 255, 0.1);
-            color: var(--accent, #3a86ff);
-            border-radius: 20px;
-        }
-
-        .publication-authors {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.85rem;
-            color: var(--text-muted, #a0a0a0);
-            margin-bottom: 1rem;
-        }
-
-        .author-name {
-            color: var(--text, #ffffff);
-            font-weight: 500;
-        }
-
-        .publication-controls {
-            display: flex;
-            justify-content: space-between;
-            margin-top: auto;
-            padding-top: 1rem;
-        }
-
-        .view-paper-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background-color: var(--accent, #3a86ff);
-            color: var(--primary, #ffffff);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .view-paper-btn:hover {
-            background-color: #4facfe;
-            transform: translateY(-2px);
-        }
-
-        .view-paper-btn i {
-            font-size: 0.85rem;
-        }
-    </style>
-</head>
-<body>
-    <section class="section" id="publications">
-        <h2 class="section-title"><i class="fas fa-scroll"></i> Research Publications</h2>
-        
-        <div class="publications-container">
-            <div class="publications-grid">
-                <!-- Publication 1 -->
-                <div class="publication-card" data-topics="ai data">
-                    <div class="publication-header">
-                        <div class="publication-journal">
-                            <div class="journal-badge">Springer (Under-Review)</div>
-                            <div class="pub-date">Dec 20, 2024</div>
-                        newsletters
-                        <div class="publication-stats">
-                            <div class="stat-item">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div class="stat-item">
-                                <i class="fas fa-chart-bar"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h3 class="publication-title">Real Time Driver Drowsiness Detection for Safe Driving</h3>
-                    
-                    <div class="publication-tags">
-                        <span class="publication-tag">Computer Vision</span>
-                        <span class="publication-tag">Safe Driving</span>
-                        <span class="publication-tag">Eye Aspect Ratio (EAR)</span>
-                    </div>
-                    
-                    <div class="publication-authors">
-                        <span class="author-name">Naghul Adhithya</span>
-                    </div>
-                    
-                    <div class="publication-controls">
-                        <a href="https://www.authorea.com/doi/full/10.22541/au.173204423.35921469" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
-                            <i class="fas fa-external-link-alt"></i> View Paper
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Publication 2 -->
-                <div class="publication-card" data-topics="ai healthcare social">
-                    <div class="publication-header">
-                        <div class="publication-journal">
-                            <div class="journal-badge">Springer LNNS, Singapore</div>
-                            <div class="pub-date">July 17, 2024</div>
-                        </div>
-                        <div class="publication-stats">
-                            <div class="stat-item">
-                                <i class="fas fa-percentage"></i>
-                            </div>
-                            <div class="stat-item">
-                                <i class="fas fa-users"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h3 class="publication-title">Real Time Vehicle Detection and Counting for Traffic Management System</h3>
-                    
-                    <div class="publication-tags">
-                        <span class="publication-tag">Computer Vision</span>
-                        <span class="publication-tag">YOLO</span>
-                        <span class="publication-tag">Traffic Management</span>
-                    </div>
-                    
-                    <div class="publication-authors">
-                        <span class="author-name">Naghul Adhithya</span>
-                    </div>
-                    
-                    <div class="publication-controls">
-                        <a href="https://link.springer.com/chapter/10.1007/978-981-96-2647-2_23" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
-                            <i class="fas fa-external-link-alt"></i> View Paper
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Publication 3 -->
-                <div class="publication-card" data-topics="ai business">
-                    <div class="publication-header">
-                        <div class="publication-journal">
-                            <div class="pub-date">Sep 26, 2023</div>
-                        </div>
-                        <div class="publication-stats">
-                            <div class="stat-item">
-                                <i class="fas fa-percentage"></i>
-                            </div>
-                            <div class="stat-item">
-                                <i class="fas fa-users"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h3 class="publication-title">AI-Driven ERP Systems for Small & Medium Enterprises</h3>
-                    
-                    <div class="publication-tags">
-                        <span class="publication-tag">ERP</span>
-                        <span class="publication-tag">SME</span>
-                        <span class="publication-tag">AI</span>
-                    </div>
-                    
-                    <div class="publication-authors">
-                        <span class="author-name">Naghul Adhithya</span> et al.
-                    </div>
-                    
-                    <div class="publication-controls">
-                        <a href="https://naghuladhithya.github.io/incognito_blueprints/" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
-                            <i class="fas fa-external-link-alt"></i> View Paper
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Publication 4 -->
-                <div class="publication-card" data-topics="ai road safety">
-                    <div class="publication-header">
-                        <div class="publication-journal">
-                            <div class="journal-badge">Submitted (Waiting)</div>
-                            <div class="pub-date">2025</div>
-                        </div>
-                        <div class="publication-stats">
-                            <div class="stat-item">
-                                <i class="fas fa-percentage"></i>
-                            </div>
-                            <div class="stat-item">
-                                <i class="fas fa-users"></i>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <h3 class="publication-title">Intelligent Vision Based System for Overtaking of Vehicle</h3>
-                    
-                    <div class="publication-tags">
-                        <span class="publication-tag">Computer Vision</span>
-                        <span class="publication-tag">COCO</span>
-                        <span class="publication-tag">MobileNet-SSD</span>
-                    </div>
-                    
-                    <div class="publication-authors">
-                        <span class="author-name">Naghul Adhithya</span>
-                    </div>
-                    
-                    <div class="publication-controls">
-                        <a href="https://www.authorea.com/users/858543/articles/1243325-intelligent-vision-based-system-for-overtaking-of-vehicle" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
-                            <i class="fas fa-external-link-alt"></i> View Paper
-                        </a>
-                    </div>
+ <section class="section" id="publications">
+    <h2 class="section-title"><i class="fas fa-scroll"></i> Research Publications</h2>
+    
+    <div class="publications-container">
+        <div class="publications-filters">
+            <div class="filter-group">
+                <label>Filter by topic:</label>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="ai">AI</button>
+                    <button class="filter-btn" data-filter="healthcare">Healthcare</button>
+                    <button class="filter-btn" data-filter="data">Data Science</button>
+                    <button class="filter-btn" data-filter="social">Social Computing</button>
                 </div>
             </div>
         </div>
-    </section>
+        
+        <div class="publications-grid">
+            <!-- Publication 1 -->
+            <div class="publication-card" data-topics="ai data">
+                <div class="publication-header">
+                    <div class="publication-journal">
+                        <div class="journal-badge">MERCon 2025</div>
+                        <div class="pub-date">Mar 19, 2025</div>
+                    </div>
+                    <div class="publication-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span>12.6% RMSE ↓</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>7.8% R² ↑</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="publication-title">Temporal Encoding Strategies for Energy Time Series Prediction</h3>
+                
+                <div class="publication-tags">
+                    <span class="publication-tag">Time Series</span>
+                    <span class="publication-tag">Machine Learning</span>
+                    <span class="publication-tag">Energy</span>
+                </div>
+                
+                <div class="publication-authors">
+                    <img src="/api/placeholder/40/40" alt="Author" class="author-avatar">
+                    <span class="author-name">Aayam Bansal</span> et al.
+                </div>
+                
+                <div class="publication-controls">
+                    <button class="abstract-toggle-btn">
+                        <i class="fas fa-chevron-down"></i> Abstract
+                    </button>
+                    <a href="https://arxiv.org/abs/2503.15456" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i> View Paper
+                    </a>
+                </div>
+                
+                <div class="publication-abstract">
+                    <p>In contemporary power systems, energy consumption prediction plays a crucial role in maintaining grid stability and resource allocation enabling power companies to minimize energy waste and avoid overloading the grid. While there are several research works on energy optimization, they often fail to address the complexities of real-time fluctuations and the cyclic pattern of energy consumption.</p>
+                    <p>This work proposes a novel approach to enhance the accuracy of predictive models by employing sinusoidal encoding on periodic features of time-series data. The results demonstrated a 12.6% improvement of Root Mean Squared Error (from 0.5497 to 0.4802) and a 7.8% increase in the R² score (from 0.7530 to 0.8118), indicating that the proposed encoding better captures the cyclic nature of temporal patterns than traditional methods.</p>
+                </div>
+            </div>
+            
+            <!-- Publication 2 -->
+            <div class="publication-card" data-topics="ai healthcare social">
+                <div class="publication-header">
+                    <div class="publication-journal">
+                        <div class="journal-badge">Springer</div>
+                        <div class="pub-date">Mar 17, 2025</div>
+                    </div>
+                    <div class="publication-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-percentage"></i>
+                            <span>83% Accuracy</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+                            <span>10,000 Users</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="publication-title">Early Detection of Mental Health Crises through Social Media Analysis</h3>
+                
+                <div class="publication-tags">
+                    <span class="publication-tag">Mental Health</span>
+                    <span class="publication-tag">NLP</span>
+                    <span class="publication-tag">Social Media</span>
+                </div>
+                
+                <div class="publication-authors">
+                    <img src="/api/placeholder/40/40" alt="Author" class="author-avatar">
+                    <span class="author-name">Aayam Bansal</span> et al.
+                </div>
+                
+                <div class="publication-controls">
+                    <button class="abstract-toggle-btn">
+                        <i class="fas fa-chevron-down"></i> Abstract
+                    </button>
+                    <a href="https://preprints.jmir.org/preprint/74037" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i> View Paper
+                    </a>
+                </div>
+                
+                <div class="publication-abstract">
+                    <p>Mental health crises represent serious challenges for public health systems everywhere. Early detection and intervention is crucial to mitigate the impact of these crises on individuals and communities. This paper collected social media posts from 10,000 users and analyzed the linguistic markers associated with changes in mental health status over a 12-month period.</p>
+                    <p>Using a BERT-LSTM model, our NLP model was able to identify users with deteriorating mental health (≡ 83%). The most significant linguistic cues were greater rates of first-person singular pronouns, negative emotion words and different levels of sentence complexity.</p>
+                </div>
+            </div>
+            
+            <!-- Publication 3 -->
+            <div class="publication-card" data-topics="ai social">
+                <div class="publication-header">
+                    <div class="publication-journal">
+                        <div class="journal-badge">Columbia USJ</div>
+                        <div class="pub-date">Dec 17, 2024</div>
+                    </div>
+                </div>
+                
+                <h3 class="publication-title">Linguistic Complexity and Socio-cultural Patterns in Hip-Hop Lyrics</h3>
+                
+                <div class="publication-tags">
+                    <span class="publication-tag">Linguistics</span>
+                    <span class="publication-tag">Cultural Computing</span>
+                    <span class="publication-tag">Music</span>
+                </div>
+                
+                <div class="publication-authors">
+                    <img src="/api/placeholder/40/40" alt="Author" class="author-avatar">
+                    <span class="author-name">Aayam Bansal</span> et al.
+                </div>
+                
+                <div class="publication-controls">
+                    <button class="abstract-toggle-btn">
+                        <i class="fas fa-chevron-down"></i> Abstract
+                    </button>
+                    <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5184608" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i> View Paper
+                    </a>
+                </div>
+                
+                <div class="publication-abstract">
+                    <p>Rap music, from its roots in cultural resistance and self-expression, has transformed into a global phenomenon appreciated for its intricate lyricism and strong commentary. This study delves into the linguistic, thematic, and stylistic aspects of rap lyrics through computational and interpretive lenses.</p>
+                    <p>With a dataset of lyrics from famous rappers across several decades, we measure linguistic complexity, sentiment polarity, and thematic diversity. This paper also explains the ways in which social-political contexts and individual experience influence rap art, with regards to its adaptability and the mastery language itself holds for its artists.</p>
+                </div>
+            </div>
+            
+            <!-- Publication 4 -->
+            <div class="publication-card" data-topics="ai">
+                <div class="publication-header">
+                    <div class="publication-journal">
+                        <div class="journal-badge">IEEE</div>
+                        <div class="pub-date">Oct 24, 2024</div>
+                    </div>
+                    <div class="publication-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-walking"></i>
+                            <span>35% Wait ↓</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-car"></i>
+                            <span>20% Delay ↓</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="publication-title">Adaptive Pedestrian Crossing System Using AI and Computer Vision</h3>
+                
+                <div class="publication-tags">
+                    <span class="publication-tag">Computer Vision</span>
+                    <span class="publication-tag">Smart Cities</span>
+                    <span class="publication-tag">Transport</span>
+                </div>
+                
+                <div class="publication-authors">
+                    <img src="/api/placeholder/40/40" alt="Author" class="author-avatar">
+                    <span class="author-name">Aayam Bansal</span> et al.
+                </div>
+                
+                <div class="publication-controls">
+                    <button class="abstract-toggle-btn">
+                        <i class="fas fa-chevron-down"></i> Abstract
+                    </button>
+                    <a href="https://drive.google.com/file/d/1S6ao8mLXm05ay27q9oKrlV_4LYwq9e3t/view" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i> View Paper
+                    </a>
+                </div>
+                
+                <div class="publication-abstract">
+                    <p>With the growth of urbanization, an increasing pedestrian and vehicular flow has posed numerous challenges. The application of fixed-time pedestrian crossing systems often fails in conventional techniques for the optimization of safety and efficiency. A new pedestrian crossing system, adaptive in nature, with AI and computer vision as its driving forces, changes the signal timings with real-time changes in pedestrian density and environmental conditions.</p>
+                    <p>Testing with simulation showed that this system reduced overall average pedestrian wait time by 35%, vehicle delays by 20%, and increased safe crossings by 15% compared with fixed-time systems. Real-world testing supports this assertion, with the system showing a reduction in pedestrian wait times as high as 28%.</p>
+                </div>
+            </div>
+            
+            <!-- More publications -->
+            <div class="publication-card" data-topics="ai social">
+                <div class="publication-header">
+                    <div class="publication-journal">
+                        <div class="journal-badge">IOSR</div>
+                        <div class="pub-date">Oct 4, 2024</div>
+                    </div>
+                    <div class="publication-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>89% Accuracy</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-bolt"></i>
+                            <span>1.5s Latency</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="publication-title">AI For Real-Time Detection And Mitigation Of Fake News Via Multi-Source Verification</h3>
+                
+                <div class="publication-tags">
+                    <span class="publication-tag">Fake News</span>
+                    <span class="publication-tag">NLP</span>
+                    <span class="publication-tag">Real-time</span>
+                </div>
+                
+                <div class="publication-authors">
+                    <img src="/api/placeholder/40/40" alt="Author" class="author-avatar">
+                    <span class="author-name">Aayam Bansal</span> et al.
+                </div>
+                
+                <div class="publication-controls">
+                    <button class="abstract-toggle-btn">
+                        <i class="fas fa-chevron-down"></i> Abstract
+                    </button>
+                    <a href="https://www.iosrjournals.org/iosr-jce/papers/Vol26-issue5/Ser-3/B2605030918.pdf" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i> View Paper
+                    </a>
+                </div>
+                
+                <div class="publication-abstract">
+                    <p>The paper introduces a novel AI-based solution to detect and mitigate fake news in real time by cross-verifying claims against multiple verified sources, employing linguistic analysis, and leveraging propagation patterns. The system achieved an 89% accuracy rate with a processing latency of less than 1.5 seconds per article, demonstrating significant improvements over existing benchmarks.</p>
+                </div>
+            </div>
+            
+            <div class="publication-card" data-topics="ai healthcare">
+                <div class="publication-header">
+                    <div class="publication-journal">
+                        <div class="journal-badge highlight">SSRN Top Paper</div>
+                        <div class="pub-date">Sep 21, 2024</div>
+                    </div>
+                    <div class="publication-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-download"></i>
+                            <span>100+ Downloads</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="publication-title">Emotional Resonance in AI-Generated Music for Stress Therapy in Marginalized Communities</h3>
+                
+                <div class="publication-tags">
+                    <span class="publication-tag">Music AI</span>
+                    <span class="publication-tag">Therapy</span>
+                    <span class="publication-tag">Healthcare</span>
+                </div>
+                
+                <div class="publication-authors">
+                    <img src="/api/placeholder/40/40" alt="Author" class="author-avatar">
+                    <span class="author-name">Aayam Bansal</span> et al.
+                </div>
+                
+                <div class="publication-controls">
+                    <button class="abstract-toggle-btn">
+                        <i class="fas fa-chevron-down"></i> Abstract
+                    </button>
+                    <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4976704" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i> View Paper
+                    </a>
+                </div>
+                
+                <div class="publication-abstract">
+                    <p>This paper explored the use of AI to reflect on the music that resonates with the beliefs of certain communities and can be cultivated in order to create emotionally resonant cultural embeds, specifically within marginalized communities. The adaptability of AI-generated music better fits the cultural context of a person which could enhance the emotional connection and efficacy of therapy.</p>
+                    <p>This paper employs both a theoretical analysis of AI music techniques, emotional resonance and culturally adaptive therapies present in the literature to argue that culturally specific music can enhance the therapeutic effect for marginalized groups, serving as an accessible and individually tailored option to tackle chronic stress.</p>
+                </div>
+            </div>
+            
+            <div class="publication-card" data-topics="ai">
+                <div class="publication-header">
+                    <div class="publication-journal">
+                        <div class="journal-badge">IJHSR</div>
+                        <div class="pub-date">Sep 18, 2024</div>
+                    </div>
+                </div>
+                
+                <h3 class="publication-title">The Impact Artificial Intelligence Has On High School Students' Learning</h3>
+                
+                <div class="publication-tags">
+                    <span class="publication-tag">Education</span>
+                    <span class="publication-tag">AI</span>
+                    <span class="publication-tag">EdTech</span>
+                </div>
+                
+                <div class="publication-authors">
+                    <img src="/api/placeholder/40/40" alt="Author" class="author-avatar">
+                    <span class="author-name">Aayam Bansal</span> et al.
+                </div>
+                
+                <div class="publication-controls">
+                    <button class="abstract-toggle-btn">
+                        <i class="fas fa-chevron-down"></i> Abstract
+                    </button>
+                    <a href="https://drive.google.com/file/d/12OSWnnZov79n6g1F6NVJCV5yP9gBxAq6/view" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i> View Paper
+                    </a>
+                </div>
+                
+                <div class="publication-abstract">
+                    <p>This paper examined the large impacts of Artificial Intelligence (AI) on high school student learning. Our exploration of AI's role in shaping education took us to an analysis of today's AI-powered tools and personalized learning experiences. It explained attitudes about this transformational shift from traditional teaching.</p>
+                    <p>We also present an experimental study with high school students comparing AI-powered tutoring to traditional methods, looking at performance and motivation. This study uses a few case studies to draw out the lessons and explore prospective developments.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Publications Section Styling */
+#publications {
+    padding: 3rem 2rem;
+}
+
+.publications-container {
+    position: relative;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--text-bright);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+}
+
+.section-title i {
+    color: var(--accent);
+    font-size: 1.8rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, var(--accent), transparent);
+}
+
+/* Filters */
+.publications-filters {
+    margin-bottom: 2rem;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.filter-group label {
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.filter-btn {
+    background-color: var(--hover);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    background-color: var(--accent-soft);
+    color: var(--accent);
+}
+
+.filter-btn.active {
+    background-color: var(--accent);
+    color: var(--primary);
+    border-color: var(--accent);
+}
+
+/* Publications Grid */
+.publications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Publication Card */
+.publication-card {
+    background-color: var(--hover);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.publication-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-color: rgba(58, 134, 255, 0.3);
+}
+
+.publication-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.publication-journal {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.journal-badge {
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    background-color: rgba(58, 134, 255, 0.1);
+    color: var(--accent);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.journal-badge.highlight {
+    background-color: rgba(255, 209, 102, 0.2);
+    color: var(--warning);
+}
+
+.pub-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.publication-stats {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background-color: rgba(26, 45, 70, 0.5);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+}
+
+.stat-item i {
+    color: var(--accent);
+}
+
+.publication-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-bright);
+    line-height: 1.4;
+}
+
+.publication-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.publication-tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    background-color: rgba(58, 134, 255, 0.1);
+    color: var(--accent);
+    border-radius: 20px;
+}
+
+.publication-authors {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.author-avatar {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.author-name {
+    color: var(--text);
+    font-weight: 500;
+}
+
+.publication-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+.abstract-toggle-btn {
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.abstract-toggle-btn:hover {
+    color: var(--accent);
+}
+
+.abstract-toggle-btn i {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.abstract-toggle-btn.active i {
+    transform: rotate(180deg);
+}
+
+.view-paper-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--accent);
+    color: var(--primary);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.view-paper-btn:hover {
+    background-color: #4facfe;
+    transform: translateY(-2px);
+}
+
+.view-paper-btn i {
+    font-size: 0.85rem;
+}
+
+.publication-abstract {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+    color: var(--text);
+    display: none;
+}
+
+.publication-abstract p {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+}
+
+.publication-abstract p:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .publications-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .publications-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .filter-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+}
+</style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
