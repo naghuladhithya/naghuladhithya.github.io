@@ -1945,431 +1945,391 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(item);
     });
 });
-<section class="section" id="publications">
-  <h2 class="section-title"><i class="fas fa-scroll"></i> Research Publications</h2>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publications Section</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Publications Section Styling */
+        #publications {
+            padding: 3rem 2rem;
+        }
 
-  <div class="publications-container">
-    <div class="publications-grid">
+        .publications-container {
+            position: relative;
+        }
 
-      <!-- Publication 1 -->
-      <div class="publication-card" data-topics="ai road safety">
-        <div class="publication-header">
-          <div class="publication-journal">
-            <div class="journal-badge">Submitted (Waiting)</div>
-            <div class="pub-date">2025</div>
-          </div>
-          <div class="publication-stats">
-            <div class="stat-item"><i class="fas fa-percentage"></i></div>
-            <div class="stat-item"><i class="fas fa-users"></i></div>
-          </div>
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-bright, #ffffff);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .section-title i {
+            color: var(--accent, #3a86ff);
+            font-size: 1.8rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, var(--accent, #3a86ff), transparent);
+        }
+
+        /* Filters */
+        .publications-filters {
+            margin-bottom: 2rem;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-group label {
+            font-weight: 500;
+            color: var(--text-muted, #a0a0a0);
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            background-color: var(--hover, #1a2d46);
+            border: 1px solid var(--border, #2d4373);
+            color: var(--text, #ffffff);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background-color: var(--accent-soft, #4facfe);
+            color: var(--accent, #3a86ff);
+        }
+
+        .filter-btn.active {
+            background-color: var(--accent, #3a86ff);
+            color: var(--primary, #ffffff);
+            border-color: var(--accent, #3a86ff);
+        }
+
+        /* Publications Grid */
+        .publications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Publication Card */
+        .publication-card {
+            background-color: var(--hover, #1a2d46);
+            border: 1px solid var(--border, #2d4373);
+            border-radius: 12px;
+            overflow: hidden;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .publication-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-color: rgba(58, 134, 255, 0.3);
+        }
+
+        .publication-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .publication-journal {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .journal-badge {
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            background-color: rgba(58, 134, 255, 0.1);
+            color: var(--accent, #3a86ff);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .journal-badge.highlight {
+            background-color: rgba(255, 209, 102, 0.2);
+            color: var(--warning, #ffd166);
+        }
+
+        .pub-date {
+            font-size: 0.8rem;
+            color: var(--text-muted, #a0a0a0);
+        }
+
+        .publication-stats {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: var(--text-muted, #a0a0a0);
+            background-color: rgba(26, 45, 70, 0.5);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        .stat-item i {
+            color: var(--accent, #3a86ff);
+        }
+
+        .publication-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-bright, #ffffff);
+            line-height: 1.4;
+        }
+
+        .publication-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .publication-tag {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            background-color: rgba(58, 134, 255, 0.1);
+            color: var(--accent, #3a86ff);
+            border-radius: 20px;
+        }
+
+        .publication-authors {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted, #a0a0a0);
+            margin-bottom: 1rem;
+        }
+
+        .author-name {
+            color: var(--text, #ffffff);
+            font-weight: 500;
+        }
+
+        .publication-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+
+        .view-paper-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--accent, #3a86ff);
+            color: var(--primary, #ffffff);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .view-paper-btn:hover {
+            background-color: #4facfe;
+            transform: translateY(-2px);
+        }
+
+        .view-paper-btn i {
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <section class="section" id="publications">
+        <h2 class="section-title"><i class="fas fa-scroll"></i> Research Publications</h2>
+        
+        <div class="publications-container">
+            <div class="publications-grid">
+                <!-- Publication 1 -->
+                <div class="publication-card" data-topics="ai data">
+                    <div class="publication-header">
+                        <div class="publication-journal">
+                            <div class="journal-badge">Springer (Under-Review)</div>
+                            <div class="pub-date">Dec 20, 2024</div>
+                        newsletters
+                        <div class="publication-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="publication-title">Real Time Driver Drowsiness Detection for Safe Driving</h3>
+                    
+                    <div class="publication-tags">
+                        <span class="publication-tag">Computer Vision</span>
+                        <span class="publication-tag">Safe Driving</span>
+                        <span class="publication-tag">Eye Aspect Ratio (EAR)</span>
+                    </div>
+                    
+                    <div class="publication-authors">
+                        <span class="author-name">Naghul Adhithya</span>
+                    </div>
+                    
+                    <div class="publication-controls">
+                        <a href="https://www.authorea.com/doi/full/10.22541/au.173204423.35921469" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-external-link-alt"></i> View Paper
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Publication 2 -->
+                <div class="publication-card" data-topics="ai healthcare social">
+                    <div class="publication-header">
+                        <div class="publication-journal">
+                            <div class="journal-badge">Springer LNNS, Singapore</div>
+                            <div class="pub-date">July 17, 2024</div>
+                        </div>
+                        <div class="publication-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="publication-title">Real Time Vehicle Detection and Counting for Traffic Management System</h3>
+                    
+                    <div class="publication-tags">
+                        <span class="publication-tag">Computer Vision</span>
+                        <span class="publication-tag">YOLO</span>
+                        <span class="publication-tag">Traffic Management</span>
+                    </div>
+                    
+                    <div class="publication-authors">
+                        <span class="author-name">Naghul Adhithya</span>
+                    </div>
+                    
+                    <div class="publication-controls">
+                        <a href="https://link.springer.com/chapter/10.1007/978-981-96-2647-2_23" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-external-link-alt"></i> View Paper
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Publication 3 -->
+                <div class="publication-card" data-topics="ai business">
+                    <div class="publication-header">
+                        <div class="publication-journal">
+                            <div class="pub-date">Sep 26, 2023</div>
+                        </div>
+                        <div class="publication-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="publication-title">AI-Driven ERP Systems for Small & Medium Enterprises</h3>
+                    
+                    <div class="publication-tags">
+                        <span class="publication-tag">ERP</span>
+                        <span class="publication-tag">SME</span>
+                        <span class="publication-tag">AI</span>
+                    </div>
+                    
+                    <div class="publication-authors">
+                        <span class="author-name">Naghul Adhithya</span> et al.
+                    </div>
+                    
+                    <div class="publication-controls">
+                        <a href="https://naghuladhithya.github.io/incognito_blueprints/" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-external-link-alt"></i> View Paper
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Publication 4 -->
+                <div class="publication-card" data-topics="ai road safety">
+                    <div class="publication-header">
+                        <div class="publication-journal">
+                            <div class="journal-badge">Submitted (Waiting)</div>
+                            <div class="pub-date">2025</div>
+                        </div>
+                        <div class="publication-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="publication-title">Intelligent Vision Based System for Overtaking of Vehicle</h3>
+                    
+                    <div class="publication-tags">
+                        <span class="publication-tag">Computer Vision</span>
+                        <span class="publication-tag">COCO</span>
+                        <span class="publication-tag">MobileNet-SSD</span>
+                    </div>
+                    
+                    <div class="publication-authors">
+                        <span class="author-name">Naghul Adhithya</span>
+                    </div>
+                    
+                    <div class="publication-controls">
+                        <a href="https://www.authorea.com/users/858543/articles/1243325-intelligent-vision-based-system-for-overtaking-of-vehicle" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
+                            <i class="fas fa-external-link-alt"></i> View Paper
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <h3 class="publication-title">Intelligent vision based system for overtaking of vehicle</h3>
-        <div class="publication-tags">
-          <span class="publication-tag">Computer Vision</span>
-          <span class="publication-tag">COCO</span>
-          <span class="publication-tag">MobileNet-SSD</span>
-        </div>
-        <div class="publication-authors">
-          <span class="author-name">Naghul Adhithya</span>
-        </div>
-        <div class="publication-controls">
-          <a href="https://www.authorea.com/users/858543/articles/1243325-intelligent-vision-based-system-for-overtaking-of-vehicle" target="_blank" rel="noopener noreferrer">
-            <i class="fas fa-external-link-alt"></i> View Paper
-          </a>
-        </div>
-      </div>
-
-      <!-- Publication 2 -->
-      <div class="publication-card" data-topics="ai data">
-        <div class="publication-header">
-          <div class="publication-journal">
-            <div class="journal-badge">Springer(Under-Review)</div>
-            <div class="pub-date">Dec 20, 2024</div>
-          </div>
-          <div class="publication-stats">
-            <div class="stat-item"><i class="fas fa-chart-line"></i></div>
-            <div class="stat-item"><i class="fas fa-chart-bar"></i></div>
-          </div>
-        </div>
-        <h3 class="publication-title">Real Time Driver Drowsiness Detection for Safe Driving</h3>
-        <div class="publication-tags">
-          <span class="publication-tag">Computer Vision</span>
-          <span class="publication-tag">Safe Driving</span>
-          <span class="publication-tag">Eye Aspect Ratio (EAR)</span>
-        </div>
-        <div class="publication-authors">
-          <span class="author-name">Naghul Adhithya</span>
-        </div>
-        <div class="publication-controls">
-          <a href="https://www.authorea.com/doi/full/10.22541/au.173204423.35921469" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
-            <i class="fas fa-external-link-alt"></i> View Paper
-          </a>
-        </div>
-      </div>
-
-      <!-- Publication 3 -->
-      <div class="publication-card" data-topics="ai healthcare social">
-        <div class="publication-header">
-          <div class="publication-journal">
-            <div class="journal-badge">Springer LNNS, Singapore</div>
-            <div class="pub-date">July 17, 2024</div>
-          </div>
-          <div class="publication-stats">
-            <div class="stat-item"><i class="fas fa-percentage"></i></div>
-            <div class="stat-item"><i class="fas fa-users"></i></div>
-          </div>
-        </div>
-        <h3 class="publication-title">Real Time Vehicle Detection and Counting for Traffic Management System</h3>
-        <div class="publication-tags">
-          <span class="publication-tag">Computer Vision</span>
-          <span class="publication-tag">YOLO</span>
-          <span class="publication-tag">Traffic Management</span>
-        </div>
-        <div class="publication-authors">
-          <span class="author-name">Naghul Adhithya</span>
-        </div>
-        <div class="publication-controls">
-          <a href="https://link.springer.com/chapter/10.1007/978-981-96-2647-2_23" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
-            <i class="fas fa-external-link-alt"></i> View Paper
-          </a>
-        </div>
-      </div>
-
-      <!-- Publication 4 -->
-      <div class="publication-card" data-topics="ai business">
-        <div class="publication-header">
-          <div class="publication-journal">
-            <div class="pub-date">Sep 26, 2023</div>
-          </div>
-          <div class="publication-stats">
-            <div class="stat-item"><i class="fas fa-percentage"></i></div>
-            <div class="stat-item"><i class="fas fa-users"></i></div>
-          </div>
-        </div>
-        <h3 class="publication-title">AI-Driven ERP Systems for Small & Medium Enterprises</h3>
-        <div class="publication-tags">
-          <span class="publication-tag">ERP</span>
-          <span class="publication-tag">SME</span>
-          <span class="publication-tag">AI</span>
-        </div>
-        <div class="publication-authors">
-          <span class="author-name">Naghul Adhithya</span> et al.
-        </div>
-        <div class="publication-controls">
-          <a href="https://naghuladhithya.github.io/incognito_blueprints/" target="_blank" rel="noopener noreferrer">
-            <i class="fas fa-external-link-alt"></i> View Paper
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div> 
-</section>
-
-
-<style>
-/* Publications Section Styling */
-#publications {
-    padding: 3rem 2rem;
-}
-
-.publications-container {
-    position: relative;
-}
-
-.section-title {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-    color: var(--text-bright);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    position: relative;
-}
-
-.section-title i {
-    color: var(--accent);
-    font-size: 1.8rem;
-}
-
-.section-title::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -10px;
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(to right, var(--accent), transparent);
-}
-
-/* Filters */
-.publications-filters {
-    margin-bottom: 2rem;
-}
-
-.filter-group {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.filter-group label {
-    font-weight: 500;
-    color: var(--text-muted);
-}
-
-.filter-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.filter-btn {
-    background-color: var(--hover);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.filter-btn:hover {
-    background-color: var(--accent-soft);
-    color: var(--accent);
-}
-
-.filter-btn.active {
-    background-color: var(--accent);
-    color: var(--primary);
-    border-color: var(--accent);
-}
-
-/* Publications Grid */
-.publications-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 1.5rem;
-}
-
-/* Publication Card */
-.publication-card {
-    background-color: var(--hover);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-.publication-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    border-color: rgba(58, 134, 255, 0.3);
-}
-
-.publication-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1rem;
-}
-
-.publication-journal {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-}
-
-.journal-badge {
-    display: inline-block;
-    padding: 0.3rem 0.7rem;
-    background-color: rgba(58, 134, 255, 0.1);
-    color: var(--accent);
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: 600;
-}
-
-.journal-badge.highlight {
-    background-color: rgba(255, 209, 102, 0.2);
-    color: var(--warning);
-}
-
-.pub-date {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-}
-
-.publication-stats {
-    display: flex;
-    gap: 0.8rem;
-}
-
-.stat-item {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    background-color: rgba(26, 45, 70, 0.5);
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-}
-
-.stat-item i {
-    color: var(--accent);
-}
-
-.publication-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: var(--text-bright);
-    line-height: 1.4;
-}
-
-.publication-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.publication-tag {
-    font-size: 0.75rem;
-    padding: 0.2rem 0.6rem;
-    background-color: rgba(58, 134, 255, 0.1);
-    color: var(--accent);
-    border-radius: 20px;
-}
-
-.publication-authors {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-}
-
-.author-avatar {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.author-name {
-    color: var(--text);
-    font-weight: 500;
-}
-
-.publication-controls {
-    display: flex;
-    justify-content: space-between;
-    margin-top: auto;
-    padding-top: 1rem;
-}
-
-.abstract-toggle-btn {
-    background: none;
-    border: none;
-    color: var(--text);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    padding: 0.5rem 0;
-    transition: all 0.3s ease;
-}
-
-.abstract-toggle-btn:hover {
-    color: var(--accent);
-}
-
-.abstract-toggle-btn i {
-    font-size: 0.8rem;
-    transition: transform 0.3s ease;
-}
-
-.abstract-toggle-btn.active i {
-    transform: rotate(180deg);
-}
-
-.view-paper-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: var(--accent);
-    color: var(--primary);
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.view-paper-btn:hover {
-    background-color: #4facfe;
-    transform: translateY(-2px);
-}
-
-.view-paper-btn i {
-    font-size: 0.85rem;
-}
-
-.publication-abstract {
-    margin-top: 1.5rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border);
-    font-size: 0.9rem;
-    color: var(--text);
-    display: none;
-}
-
-.publication-abstract p {
-    margin-bottom: 0.8rem;
-    line-height: 1.6;
-}
-
-.publication-abstract p:last-child {
-    margin-bottom: 0;
-}
-
-/* Responsive adjustments */
-@media (max-width: 992px) {
-    .publications-grid {
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    }
-}
-
-@media (max-width: 768px) {
-    .publications-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .filter-group {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .filter-buttons {
-        width: 100%;
-        justify-content: center;
-    }
-}
-</style>
-
+    </section>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
