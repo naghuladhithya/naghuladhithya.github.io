@@ -1,1016 +1,2694 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Naghul Adhithya – University Admissions Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
-  <style>
-    :root {
-      --bg-primary: #0a0f1a;
-      --bg-secondary: #141a26;
-      --bg-accent: #1e2636;
-      --text-primary: #e2e8f0;
-      --text-secondary: #8a9bb8;
-      --text-accent: #5eb0ff;
-      --success: #3bd987;
-      --warning: #ffc445;
-      --error: #ff6b6b;
-      --applied: #5eb0ff;
-      --border: #2a3446;
-      --border-radius: 12px;
-      --shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    body {
-      margin: 0;
-      font-family: 'Space Grotesk', sans-serif;
-      color: var(--text-primary);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      background-color: var(--bg-primary);
-      background-image: 
-        radial-gradient(circle at 25% 25%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 75% 75%, rgba(59, 217, 135, 0.1) 0%, transparent 50%);
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(to bottom, rgba(10, 15, 26, 0.9), rgba(10, 15, 26, 0.7));
-      z-index: -1;
-    }
-
-    .dashboard {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1.5rem;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-      padding-bottom: 1.5rem;
-      position: relative;
-    }
-
-    header::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: linear-gradient(90deg, var(--text-accent), var(--success));
-      border-radius: 2px;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      background: linear-gradient(90deg, var(--text-accent), #7dc8ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: inline-block;
-    }
-
-    .tagline {
-      font-size: 1.25rem;
-      color: var(--text-primary);
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-    }
-
-    .subtag {
-      color: var(--text-secondary);
-      font-size: 1rem;
-      max-width: 600px;
-      margin: 0 auto;
-      opacity: 0.9;
-    }
-
-    .portfolio-link {
-      display: inline-block;
-      margin-top: 1rem;
-      color: var(--text-accent);
-      text-decoration: none;
-      font-weight: 500;
-      transition: var(--transition);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-
-    .portfolio-link:hover {
-      color: #7dc8ff;
-      text-decoration: underline;
-    }
-
-    .portfolio-link::after {
-      content: "↗";
-      font-size: 0.8em;
-      opacity: 0.7;
-    }
-
-    .summary {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .card {
-      background-color: var(--bg-secondary);
-      padding: 1.5rem;
-      border-radius: var(--border-radius);
-      text-align: center;
-      box-shadow: var(--shadow);
-      transition: var(--transition);
-      border: 1px solid var(--border);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
-    }
-
-    .card .value {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 0.5rem;
-    }
-
-    .card .label {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 500;
-    }
-
-    .card.accepted .value {
-      color: var(--success);
-    }
-
-    .card.rejected .value {
-      color: var(--error);
-    }
-
-    .card.applied .value {
-      color: var(--applied);
-    }
-
-    .table-section {
-      margin-top: 2.5rem;
-    }
-
-    .table-section h2 {
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
-      color: var(--text-primary);
-      font-weight: 600;
-      position: relative;
-      padding-left: 1rem;
-    }
-
-    .table-section h2::before {
-      content: "";
-      display: block;
-      width: 6px;
-      height: 24px;
-      background: linear-gradient(to bottom, var(--text-accent), var(--success));
-      border-radius: 3px;
-      position: absolute;
-      left: 0;
-    }
-
-    .table-container {
-      border-radius: var(--border-radius);
-      background-color: var(--bg-secondary);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .filters {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 1rem;
-    }
-
-    .filter-dropdown {
-      position: relative;
-    }
-
-    .filter-button {
-      background-color: var(--bg-accent);
-      color: var(--text-primary);
-      padding: 0.75rem 1.25rem;
-      border: 1px solid var(--border);
-      border-radius: var(--border-radius);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: inherit;
-      font-size: 0.9rem;
-      transition: var(--transition);
-    }
-
-    .filter-button:hover {
-      background-color: var(--bg-secondary);
-    }
-
-    .filter-button::after {
-      content: "▼";
-      font-size: 0.6rem;
-      margin-left: 0.3rem;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      right: 0;
-      background-color: var(--bg-secondary);
-      min-width: 180px;
-      box-shadow: var(--shadow);
-      z-index: 10;
-      border-radius: var(--border-radius);
-      border: 1px solid var(--border);
-      overflow: hidden;
-    }
-
-    .dropdown-content.show {
-      display: block;
-    }
-
-    .dropdown-content a {
-      color: var(--text-primary);
-      padding: 0.75rem 1rem;
-      text-decoration: none;
-      display: block;
-      transition: var(--transition);
-      font-size: 0.9rem;
-    }
-
-    .dropdown-content a:hover {
-      background-color: var(--bg-accent);
-      color: var(--text-accent);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background-color: var(--bg-secondary);
-    }
-
-    th, td {
-      padding: 1rem 1.25rem;
-      border-bottom: 1px solid var(--border);
-      text-align: left;
-    }
-
-    th {
-      background-color: var(--bg-accent);
-      font-weight: 600;
-      color: var(--text-primary);
-      text-transform: uppercase;
-      font-size: 0.8rem;
-      letter-spacing: 0.5px;
-      position: sticky;
-      top: 0;
-    }
-
-    th.sortable {
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    th.sortable:hover {
-      background-color: var(--bg-primary);
-    }
-
-    th.sortable::after {
-      content: "⇅";
-      margin-left: 0.5rem;
-      font-size: 0.8rem;
-      opacity: 0.5;
-      display: inline-block;
-      transition: var(--transition);
-    }
-
-    th.sortable.asc::after {
-      content: "↑";
-      opacity: 1;
-    }
-
-    th.sortable.desc::after {
-      content: "↓";
-      opacity: 1;
-    }
-
-    tr:hover td {
-      background-color: rgba(94, 176, 255, 0.05);
-    }
-
-    a {
-      color: var(--text-accent);
-      text-decoration: none;
-      font-weight: 500;
-      transition: var(--transition);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-
-    a:hover {
-      color: #7dc8ff;
-      text-decoration: underline;
-    }
-
-    a::after {
-      content: "↗";
-      font-size: 0.8em;
-      opacity: 0.7;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.4rem 0.9rem;
-      border-radius: 9999px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      gap: 0.3rem;
-    }
-
-    .pill::before {
-      content: "";
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
-
-    .pill.accepted {
-      background-color: rgba(59, 217, 135, 0.15);
-      color: var(--success);
-      border: 1px solid rgba(59, 217, 135, 0.3);
-    }
-
-    .pill.accepted::before {
-      background-color: var(--success);
-    }
-
-    .pill.pending {
-      background-color: rgba(255, 196, 69, 0.15);
-      color: var(--warning);
-      border: 1px solid rgba(255, 196, 69, 0.3);
-    }
-
-    .pill.pending::before {
-      background-color: var(--warning);
-    }
-
-    .pill.applied {
-      background-color: rgba(94, 176, 255, 0.15);
-      color: var(--applied);
-      border: 1px solid rgba(94, 176, 255, 0.3);
-    }
-
-    .pill.applied::before {
-      background-color: var(--applied);
-    }
-
-    .pill.rejected {
-      background-color: rgba(255, 107, 107, 0.15);
-      color: var(--error);
-      border: 1px solid rgba(255, 107, 107, 0.3);
-    }
-
-    .pill.rejected::before {
-      background-color: var(--error);
-    }
-
-    .scholarship-list {
-      color: var(--success);
-      display: block;
-      margin-top: 0.5rem;
-      font-size: 0.85rem;
-      line-height: 1.4;
-    }
-
-    .university-name {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .flag-icon {
-      width: 18px;
-      height: 12px;
-      border-radius: 2px;
-      box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
-    }
-
-    .ranking-cell {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .world-ranking {
-      font-weight: 600;
-    }
-
-    .country-ranking {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    /* Mobile Responsiveness */
-    @media (max-width: 768px) {
-      .dashboard {
-        padding: 1rem;
-      }
-      
-      h1 {
-        font-size: 2rem;
-      }
-      
-      .tagline {
-        font-size: 1.1rem;
-      }
-      
-      .subtag {
-        font-size: 0.9rem;
-      }
-      
-      .summary {
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
-      }
-      
-      .card {
-        padding: 1.25rem;
-      }
-      
-      .card .value {
-        font-size: 2rem;
-      }
-      
-      .filters {
-        justify-content: flex-start;
-      }
-      
-      .table-container {
-        border-radius: var(--border-radius);
-        overflow: hidden;
-      }
-      
-      table {
-        display: block;
-        overflow-x: auto;
-      }
-      
-      th, td {
-        padding: 0.75rem;
-        font-size: 0.85rem;
-      }
-      
-      .table-section h2 {
-        font-size: 1.25rem;
-        margin-bottom: 1rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .dashboard {
-        padding: 1rem 0.75rem;
-      }
-      
-      h1 {
-        font-size: 1.75rem;
-      }
-      
-      .table-container {
-        border-radius: 0;
-        margin-left: -0.75rem;
-        margin-right: -0.75rem;
-      }
-      
-      th, td {
-        padding: 0.75rem 0.5rem;
-        font-size: 0.8rem;
-      }
-      
-      .university-name {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.25rem;
-      }
-      
-      .flag-icon {
-        margin-right: 0.25rem;
-      }
-      
-      .pill {
-        padding: 0.3rem 0.7rem;
-        font-size: 0.75rem;
-      }
-    }
-
-    /* Animation for status pills */
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-
-    .pill.pending {
-      animation: pulse 2s infinite;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naghul Adhithya - Portfolio</title>
+    <link rel="icon" href="/images/profile.png" type="image/png">
+
+
+      <!-- SEO Meta Tags -->
+    <title>Naghul Adhithya | AI Researcher & Innovator</title>
+    <meta name="description" content="Official website of Naghul Adhithya, an AI researcher, innovator, and student working at the intersection of computer vision, LLMs, and social impact.">
+    <meta name="author" content="Naghul Adhithya">
+
+  <!-- Open Graph (for LinkedIn, WhatsApp, Facebook, etc.) -->
+    <meta property="og:title" content="Naghul Adhithya | Portfolio">
+    <meta property="og:description" content="Explore the portfolio and research work of Naghul Adhithya, focused on AI, ML, and computer vision projects.">
+    <meta property="og:image" content="https://naghuladhithya.github.io/images/naghul.jpg"> 
+    <meta property="og:url" content="https://naghuladhithya.github.io/">
+    <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+
+        :root {
+            --primary: #0a1929;
+            --secondary: #111e2c;
+            --accent: #3a86ff;
+            --accent-gradient: linear-gradient(135deg, #3a86ff 0%, #4facfe 100%);
+            --accent-soft: rgba(58, 134, 255, 0.15);
+            --text: #e0e6ed;
+            --text-muted: #8b949e;
+            --text-bright: #ffffff;
+            --border: #1e3a5f;
+            --card: #0f1923;
+            --hover: #1a2d46;
+            --success: #00c16e;
+            --warning: #ffd166;
+            --danger: #ef476f;
+            --gradient-bg: linear-gradient(135deg, #0a1929 0%, #0f2942 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--primary);
+            background-image: var(--gradient-bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+            overflow: hidden;
+        }
+
+        .bg-animation span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(58, 134, 255, 0.1);
+            border-radius: 50%;
+            animation: animate 25s linear infinite;
+        }
+
+        .bg-animation span:nth-child(1) {
+            left: 25%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+        }
+
+
+        .bg-animation span:nth-child(2) {
+            left: 10%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 2s;
+            animation-duration: 12s;
+        }
+
+        .bg-animation span:nth-child(3) {
+            left: 70%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 4s;
+        }
+
+        .bg-animation span:nth-child(4) {
+            left: 40%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+            animation-duration: 18s;
+        }
+
+        .bg-animation span:nth-child(5) {
+            left: 65%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 0s;
+        }
+
+        .bg-animation span:nth-child(6) {
+            left: 75%;
+            width: 110px;
+            height: 110px;
+            animation-delay: 3s;
+        }
+
+        .bg-animation span:nth-child(7) {
+            left: 35%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 7s;
+        }
+
+        .bg-animation span:nth-child(8) {
+            left: 50%;
+            width: 25px;
+            height: 25px;
+            animation-delay: 15s;
+            animation-duration: 45s;
+        }
+
+        .bg-animation span:nth-child(9) {
+            left: 20%;
+            width: 15px;
+            height: 15px;
+            animation-delay: 2s;
+            animation-duration: 35s;
+        }
+
+        .bg-animation span:nth-child(10) {
+            left: 85%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 0s;
+            animation-duration: 11s;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+                border-radius: 50%;
+            }
+
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+                border-radius: 50%;
+            }
+        }
+
+
+        .certifications {
+  margin: 2rem 0;
+  font-family: Arial, sans-serif;
+}
+
+.certifications h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.certification-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.certification-list > li {
+  margin-bottom: 1rem;
+}
+
+.certification-group ul {
+  margin-top: 0.5rem;
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.certification-item {
+  margin-bottom: 0.5rem;
+}
+
+
+
+
+/* Styling for Summary Section */
+.section-title {
+  font-size: 32px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: white; /* Make section title white too */
+}
+
+#about h2 {
+  font-size: 24px;
+  margin-top: 20px;
+  color: white; /* Changed to white */
+}
+
+#about p {
+  text-align: justify;
+  line-height: 1.7;
+  color: white; /* Changed to white */
+}
+
+
+
+        /* Header Styling */
+        header {
+            background-color: rgba(17, 30, 44, 0.9);
+            color: var(--text-bright);
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .profile-header {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .profile-header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .profile-image-container {
+            position: relative;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: var(--accent-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-bright);
+            font-size: 3rem;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(58, 134, 255, 0.8), rgba(111, 191, 252, 0.4));
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .profile-status {
+            position: absolute;
+            bottom: 10px;
+            right: 5px;
+            width: 30px;
+            height: 30px;
+            background-color: var(--success);
+            border-radius: 50%;
+            border: 3px solid var(--secondary);
+            z-index: 2;
+        }
+
+        .profile-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .profile-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-bright);
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-name::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background: var(--accent-gradient);
+            border-radius: 10px;
+        }
+
+        .profile-title {
+            font-size: 1.2rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .profile-location {
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .profile-location i {
+            color: var(--accent);
+        }
+
+        .contact-info {
+            text-align: right;
+            min-width: 200px;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .contact-link:hover {
+            background-color: var(--hover);
+            transform: translateX(-5px);
+        }
+
+        .contact-link i {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+            color: var(--accent);
+        }
+
+        .contact-link span {
+            font-weight: 500;
+        }
+
+        /* Navigation Styling */
+        .nav {
+            background-color: rgba(17, 30, 44, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            padding: 5px 0;
+            background-color: rgba(10, 25, 41, 0.98);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--text-bright);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-logo .logo-highlight {
+            color: var(--accent);
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-item a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 1rem 1.2rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-item a::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 50%;
+            background: var(--accent-gradient);
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+
+        .nav-item a:hover {
+            color: var(--text-bright);
+        }
+
+        .nav-item a:hover::before {
+            width: 60%;
+        }
+
+        .nav-item.active a {
+            color: var(--accent);
+        }
+
+        .nav-item.active a::before {
+            width: 60%;
+        }
+
+        /* Social Icons at Nav */
+        .nav-social {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: var(--text);
+            background-color: var(--hover);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: var(--accent-gradient);
+            color: var(--text-bright);
+            transform: translateY(-3px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 992px) {
+            .profile-header-top {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .profile-name::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .contact-info {
+                text-align: center;
+                margin-top: 1rem;
+            }
+
+            .contact-links {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .contact-link {
+                justify-content: center;
+                padding: 10px 15px;
+            }
+
+            .nav-container {
+                padding: 0.5rem 0;
+            }
+
+            .nav-list {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: var(--secondary);
+                padding: 1rem 0;
+                border-bottom: 1px solid var(--border);
+                z-index: 200;
+            }
+
+            .nav-list.active {
+                display: flex;
+            }
+
+            .nav-social {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        /* Section styling for reference */
+        .section {
+            margin: 2rem 0;
+            padding: 2rem;
+            background-color: var(--secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-gradient);
+            border-radius: 4px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.8rem;
+            color: var(--text-bright);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--accent);
+        }
+    </style>
 </head>
 <body>
-  <div class="dashboard">
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
     <header>
-      <h1>Naghul Adhithya</h1>
-      <p class="tagline">University Admissions Dashboard</p>
-      <p class="subtag">Fall 2026 Applications • Status Tracking • Documents & Scholarships</p>
-      <a href="https://naghuladhithya.github.io/" class="portfolio-link" target="_blank">View My Portfolio</a>
+        <div class="container">
+            <div class="profile-header">
+                <div class="profile-header-top">
+                    <div class="profile-image-container">
+                        <img src="images/naghul.jpg" alt="Naghul Adhithya" class="profile-image">
+                        <div class="profile-status"></div>
+                    </div>
+                    <div class="profile-info">
+                        <h1 class="profile-name">Naghul Adhithya</h1>
+                        <p class="profile-title">
+                            High School Senior | 
+                            Incoming Freshman @? ‘30 |
+                            CS intern <span>@OSU @IIIT @DTU</span> | 
+                            <span class="highlight">2x Springer Papers</span> | 
+                            <span class="highlight">AI/ML Researcher</span> | 
+
+                        </p>
+                        <p class="profile-location"><i class="fas fa-map-marker-alt"></i> India</p>
+
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-links">
+                            <a href="mailto:v.naghuladhithya@gmail.com" class="contact-link">
+                                <i class="fas fa-envelope"></i>
+                                <span>v.naghuladhithya@gmail.com</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/naghuladhithya" target="_blank" class="contact-link">
+                                <i class="fab fa-linkedin"></i>
+                                <span>LinkedIn</span>
+                            </a>
+                            <a href="https://naghuladhithya.github.io/" target="_blank" class="contact-link">
+                                <i class="fas fa-globe"></i>
+                                <span>Personal Website</span>
+                            </a>
+                            <a href="https://github.com/naghuladhithya" target="_blank" class="contact-link">
+                                <i class="fab fa-github"></i>
+                                <span>GitHub</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <section class="summary">
-      <div class="card applied">
-        <p class="value">4</p>
-        <p class="label">Applied</p>
-      </div>
-      <div class="card accepted">
-        <p class="value">2</p>
-        <p class="label">Accepted</p>
-      </div>
-      <div class="card rejected">
-        <p class="value">0</p>
-        <p class="label">Rejected</p>
-      </div>
-    </section>
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="#" class="nav-logo">
+                <span class="logo-highlight">Naghul</span>Adhithya
+            </a>
 
-    <section class="table-section">
-      <div class="filters">
-        <div class="filter-dropdown">
-          <button class="filter-button" id="filterButton">
-            <span>Filter by Country</span>
-          </button>
-          <div class="dropdown-content" id="dropdownContent">
-            <a href="#" data-filter="all">All Countries</a>
-            <a href="#" data-filter="us"><span class="flag-icon flag-icon-us"></span> United States</a>
-            <a href="#" data-filter="uk"><span class="flag-icon flag-icon-gb"></span> United Kingdom</a>
-            <a href="#" data-filter="sg"><span class="flag-icon flag-icon-sg"></span> Singapore</a>
-            <a href="#" data-filter="hk"><span class="flag-icon flag-icon-hk"></span> Hong Kong</a>
-            <a href="#" data-filter="ie"><span class="flag-icon flag-icon-ie"></span> Ireland</a>
-          </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <ul class="nav-list">
+                <li class="nav-item active"><a href="#summary"><i class="fas fa-user-alt"></i> About</a></li>
+                <li class="nav-item"><a href="#education"><i class="fas fa-graduation-cap"></i> Education</a></li>
+                <li class="nav-item"><a href="#experience"><i class="fas fa-briefcase"></i> Experience</a></li>
+                <li class="nav-item"><a href="#publications"><i class="fas fa-scroll"></i> Research</a></li>
+                <li class="nav-item"><a href="#certifications"><i class="fas fa-tools"></i> Certifications</a></li>
+                <li class="nav-item"><a href="#awards"><i class="fas fa-trophy"></i> Honors</a></li>
+
+            </ul>
+
+            <div class="nav-social">
+                <a href="https://getallmylinks.com/naghuladhithya" target="_blank" class="social-icon">
+                    <i class="fa-solid fa-diagram-project"></i>
+                </a>
         </div>
-      </div>
-      
-      <h2>Application Status</h2>
-      <div class="table-container">
-        <table id="applicationsTable">
-          <thead>
-            <tr>
-              <th>S.NO</th>
-              <th>University</th>
-              <th class="sortable" data-sort="ranking">Ranking</th>
-              <th class="sortable" data-sort="status">Status</th>
-              <th class="sortable" data-sort="applied">Applied</th>
-              <th>Decision</th>
-              <th>Documents</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Singapore -->
-            <tr data-country="sg" data-ranking="8" data-status="pending" data-applied="">
-              <td data-label="#">1</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-sg"></span>
-                  National University of Singapore
+    </nav>
+
+    <!-- Main content sections would follow here -->
+
+    <!-- JavaScript for interactive elements -->
+    <script>
+        // Add scroll class to navigation
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 0) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navList = document.querySelector('.nav-list');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            navList.classList.toggle('active');
+        });
+
+        // Navigation active state
+        const navLinks = document.querySelectorAll('.nav-item a');
+        const sections = document.querySelectorAll('section');
+
+        window.addEventListener('scroll', function() {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.parentElement.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.parentElement.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+<!-- Custom CSS (place in <style> tag or external CSS) -->
+<style>
+  /* Fade Effect */
+  .carousel-fade .carousel-item {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+  .carousel-fade .carousel-item.active {
+    opacity: 1;
+  }
+
+  /* Custom Navigation */
+  .carousel-control-prev i,
+  .carousel-control-next i {
+    font-size: 2.5rem;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 50%;
+  }
+
+  .carousel-control-prev i:hover,
+  .carousel-control-next i:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .carousel-control-prev i,
+    .carousel-control-next i {
+      font-size: 1.8rem;
+      padding: 8px;
+    }
+  }
+</style>
+
+<!-- Include before closing </body> -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+    <main class="container">
+               <section class="section" id="summary">
+            <h2 class="section-title">Summary</h2>
+            <section id="about">
+  <h2>Who I Am</h2>
+  <p>
+    I’m a high school senior, AI researcher, and published author passionate about building intelligent systems that address real-world challenges—from road safety to environmental sustainability. With hands-on experience at the New York Academy of Sciences, the University of Illinois Chicago, and Incognito Blueprints, I work at the intersection of computer vision, machine learning, and large language models to develop adaptive and impactful technologies.</p>
+<br>
+  <h2>What Drives Me</h2>
+  <p>
+    Relentlessly curious and driven by purpose, I see life as a recursive codebase—where every challenge is a bug to debug, and growth is an infinite loop. I'm committed to advancing intelligence, exploring the limits of computation, and shaping a future where human and artificial understanding evolve together.
+  </p>
+
+
+</section>
+<br>
+        </section>
+
+        <section class="section" id="education">
+            <h2 class="section-title">Education</h2>
+
+            <div class="education-item">
+                <div class="item-header">
+                    <h3 class="item-title">PM SHRI Kendriya Vidyalaya NO.1, Trichy</h3>
+                    <span class="item-date">May 2014 - May 2026</span>
                 </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #8</span>
-                <span class="country-ranking">Country #1</span>
-              </td>
-              <td data-label="Status"><span class="pill pending">Pending</span></td>
-              <td data-label="Applied">—</td>
-              <td data-label="Decision">—</td>
-              <td data-label="Documents">—</td>
-            </tr>
-            <tr data-country="sg" data-ranking="12" data-status="pending" data-applied="">
-              <td data-label="#">2</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-sg"></span>
-                  Nanyang Technological University
+                    <div class="education-detail-item">
+    <span class="education-detail-label">Grades:</span>
+    <br>
+    <ul style="margin-top: 5px; padding-left: 20px;">
+        <li>Grades I-VIII: 90%+</li>
+        <li>Grade IX: 92.2%</li>
+        <li>Grade X: 94.4%</li>
+        <li>Grade XI: 90.4%</li>
+        <li>Grade XII (Predicted): 96.4%</li>
+    </ul>
+</div>
+
+
+
+
                 </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #12</span>
-                <span class="country-ranking">Country #2</span>
-              </td>
-              <td data-label="Status"><span class="pill pending">Pending</span></td>
-              <td data-label="Applied">—</td>
-              <td data-label="Decision">—</td>
-              <td data-label="Documents">—</td>
-            </tr>
-            
-            <!-- Hong Kong -->
-            <tr data-country="hk" data-ranking="11" data-status="pending" data-applied="">
-              <td data-label="#">3</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-hk"></span>
-                  University of Hong Kong
-                </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #11</span>
-                <span class="country-ranking">Country #1</span>
-              </td>
-              <td data-label="Status"><span class="pill pending">Pending</span></td>
-              <td data-label="Applied">—</td>
-              <td data-label="Decision">—</td>
-              <td data-label="Documents">—</td>
-            </tr>
-            
-            <!-- UK -->
-            <tr data-country="uk" data-ranking="33" data-status="pending" data-applied="">
-              <td data-label="#">4</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-gb"></span>
-                  University of Edinburgh
-                </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #33</span>
-                <span class="country-ranking">Country #4</span>
-              </td>
-              <td data-label="Status"><span class="pill pending">Pending</span></td>
-              <td data-label="Applied">—</td>
-              <td data-label="Decision">—</td>
-              <td data-label="Documents">—</td>
-            </tr>
-            <tr data-country="uk" data-ranking="35" data-status="pending" data-applied="">
-              <td data-label="#">5</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-gb"></span>
-                  University of Manchester
-                </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #35</span>
-                <span class="country-ranking">Country #6</span>
-              </td>
-              <td data-label="Status"><span class="pill pending">Pending</span></td>
-              <td data-label="Applied">—</td>
-              <td data-label="Decision">—</td>
-              <td data-label="Documents">—</td>
-            </tr>
-            <tr data-country="uk" data-ranking="79" data-status="pending" data-applied="">
-              <td data-label="#">6</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-gb"></span>
-                  University of Glasgow
-                </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #79</span>
-                <span class="country-ranking">Country #12</span>
-              </td>
-              <td data-label="Status"><span class="pill pending">Pending</span></td>
-              <td data-label="Applied">—</td>
-              <td data-label="Decision">—</td>
-              <td data-label="Documents">—</td>
-            </tr>
-            <tr data-country="uk" data-ranking="97" data-status="pending" data-applied="">
-              <td data-label="#">7</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-gb"></span>
-                  University of Nottingham
-                </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #97</span>
-                <span class="country-ranking">Country #17</span>
-              </td>
-              <td data-label="Status"><span class="pill pending">Pending</span></td>
-              <td data-label="Applied">—</td>
-              <td data-label="Decision">—</td>
-              <td data-label="Documents">—</td>
-            </tr>
-            <tr data-country="uk" data-ranking="149" data-status="pending" data-applied="">
-              <td data-label="#">8</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-gb"></span>
-                  University of Liverpool
-                </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #149</span>
-                <span class="country-ranking">Country #15</span>
-              </td>
-              <td data-label="Status"><span class="pill pending">Pending</span></td>
-              <td data-label="Applied">—</td>
-              <td data-label="Decision">—</td>
-              <td data-label="Documents">—</td>
-            </tr>
-            
-            <!-- USA -->
-            <tr data-country="us" data-ranking="69" data-status="pending" data-applied="">
-              <td data-label="#">9</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-us"></span>
-                  Brown University
-                </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #69</span>
-                <span class="country-ranking">Country #25</span>
-              </td>
-              <td data-label="Status"><span class="pill pending">Pending</span></td>
-              <td data-label="Applied">—</td>
-              <td data-label="Decision">—</td>
-              <td data-label="Documents">—</td>
-            </tr>
-            <tr data-country="us" data-ranking="70" data-status="pending" data-applied="">
-              <td data-label="#">10</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-us"></span>
-                  University of Illinois Urbana-Champaign
-                </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #70</span>
-                <span class="country-ranking">Country #5</span>
-              </td>
-              <td data-label="Status"><span class="pill pending">Pending</span></td>
-              <td data-label="Applied">—</td>
-              <td data-label="Decision">—</td>
-              <td data-label="Documents">—</td>
-            </tr>
-            <tr data-country="us" data-ranking="82" data-status="applied" data-applied="2025-08-12">
-              <td data-label="#">11</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-us"></span>
-                  Penn State University
-                </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #82</span>
-                <span class="country-ranking">Country #24</span>
-              </td>
-              <td data-label="Status"><span class="pill applied">Applied</span></td>
-              <td data-label="Applied">12 Aug 2025</td>
-              <td data-label="Decision">Pending</td>
-              <td data-label="Documents">—</td>
-            </tr>
-            <tr data-country="us" data-ranking="88" data-status="pending" data-applied="">
-              <td data-label="#">12</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-us"></span>
-                  Purdue University
-                </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #88</span>
-                <span class="country-ranking">Country #17</span>
-              </td>
-              <td data-label="Status"><span class="pill pending">Pending</span></td>
-              <td data-label="Applied">—</td>
-              <td data-label="Decision">—</td>
-              <td data-label="Documents">—</td>
-            </tr>
-            <tr data-country="us" data-ranking="110" data-status="pending" data-applied="">
-              <td data-label="#">13</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-us"></span>
-                  University of Wisconsin–Madison
-                </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #110</span>
-                <span class="country-ranking">Country #17</span>
-              </td>
-              <td data-label="Status"><span class="pill pending">Pending</span></td>
-              <td data-label="Applied">—</td>
-              <td data-label="Decision">—</td>
-              <td data-label="Documents">—</td>
-            </tr>
-            <tr data-country="us" data-ranking="123" data-status="pending" data-applied="">
-              <td data-label="#">14</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-us"></span>
-                  Georgia Institute of Technology
-                </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #123</span>
-                <span class="country-ranking">Country #9</span>
-              </td>
-              <td data-label="Status"><span class="pill pending">Pending</span></td>
-              <td data-label="Applied">—</td>
-              <td data-label="Decision">—</td>
-              <td data-label="Documents">—</td>
-            </tr>
-            <tr data-country="us" data-ranking="146" data-status="pending" data-applied="">
-              <td data-label="#">15</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-us"></span>
-                  University of Southern California
-                </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #146</span>
-                <span class="country-ranking">Country #23</span>
-              </td>
-              <td data-label="Status"><span class="pill pending">Pending</span></td>
-              <td data-label="Applied">—</td>
-              <td data-label="Decision">—</td>
-              <td data-label="Documents">—</td>
-            </tr>
-            <tr data-country="us" data-ranking="173" data-status="applied" data-applied="2025-07-01">
-              <td data-label="#">16</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-us"></span>
-                  Arizona State University
-                </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #173</span>
-                <span class="country-ranking">Country #36</span>
-              </td>
-              <td data-label="Status"><span class="pill applied">Applied</span></td>
-              <td data-label="Applied">01 Jul 2025</td>
-              <td data-label="Decision">Pending</td>
-              <td data-label="Documents">—</td>
-            </tr>
-            <tr data-country="us" data-ranking="207" data-status="pending" data-applied="">
-              <td data-label="#">17</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-us"></span>
-                  University of Maryland
-                </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #207</span>
-                <span class="country-ranking">Country #13</span>
-              </td>
-              <td data-label="Status"><span class="pill pending">Pending</span></td>
-              <td data-label="Applied">—</td>
-              <td data-label="Decision">—</td>
-              <td data-label="Documents">—</td>
-            </tr>
-            <tr data-country="us" data-ranking="449" data-status="accepted" data-applied="2025-07-01">
-              <td data-label="#">18</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-us"></span>
-                  Iowa State University
-                </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #449</span>
-                <span class="country-ranking">Country #54</span>
-              </td>
-              <td data-label="Status"><span class="pill accepted">Accepted</span></td>
-              <td data-label="Applied">01 Jul 2025</td>
-              <td data-label="Decision">04 Jul 2025</td>
-              <td data-label="Documents"><a href="Iowa.pdf" target="_blank">Offer Letter</a></td>
-            </tr>
-            <tr data-country="us" data-ranking="1000" data-status="accepted" data-applied="2025-06-27">
-              <td data-label="#">19</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-us"></span>
-                  Florida Institute of Technology
-                </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #1000+</span>
-                <span class="country-ranking">Country #177</span>
-              </td>
-              <td data-label="Status">
-                <span class="pill accepted">Accepted</span><br>
-                <span class="scholarship-list">Scholarships:<br>$17,500/year</span>
-              </td>
-              <td data-label="Applied">27 Jun 2025</td>
-              <td data-label="Decision">02 Jul 2025</td>
-              <td data-label="Documents">
-                <a href="Florida Tech.pdf" target="_blank">Offer Letter</a><br>
-                <a href="Florida Tech Scholarship.pdf" target="_blank">Scholarship Letter</a>
-              </td>
-            </tr>
-            
-            <!-- Ireland -->
-            <tr data-country="ie" data-ranking="118" data-status="pending" data-applied="">
-              <td data-label="#">20</td>
-              <td data-label="University">
-                <div class="university-name">
-                  <span class="flag-icon flag-icon-ie"></span>
-                  University College Dublin
-                </div>
-              </td>
-              <td data-label="Ranking" class="ranking-cell">
-                <span class="world-ranking">QS #118</span>
-                <span class="country-ranking">Country #2</span>
-              </td>
-              <td data-label="Status"><span class="pill pending">Pending</span></td>
-              <td data-label="Applied">—</td>
-              <td data-label="Decision">—</td>
-              <td data-label="Documents">—</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+            </div>
+        </section>
+
+        <section class="section" id="experience">
+    <h2 class="section-title"><i class="fas fa-briefcase"></i> Experience</h2>
+
+    <div class="timeline">
+
+
+  <!-- Current/Recent Experiences -->
+
+<!-- 2025 Experiences -->
+<div class="timeline-group current">
+  <div class="timeline-heading">
+      <h3 class="timeline-period">2025</h3>
+    <span>2023-Present</span>
+
   </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Filter functionality
-      const filterButton = document.getElementById('filterButton');
-      const dropdownContent = document.getElementById('dropdownContent');
-      
-      filterButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        dropdownContent.classList.toggle('show');
-      });
-      
-      // Close dropdown when clicking outside
-      document.addEventListener('click', function() {
-        dropdownContent.classList.remove('show');
-      });
-      
-      // Filter table rows
-      document.querySelectorAll('.dropdown-content a').forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          const country = this.getAttribute('data-filter');
-          filterTable(country);
-          dropdownContent.classList.remove('show');
-          filterButton.querySelector('span').textContent = this.textContent.trim();
+<!-- KV -->
+  <div class="experience-item">
+    <div class="experience-header">
+      <div class="experience-logo" style="
+        background-image: url('images/kv.png'); 
+        background-size: cover;
+        background-position: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;">
+      </div>
+      <div class="experience-title-container">
+        <h3 class="item-title">Head of Student Council (HeadBoy)</h3>
+        <div class="item-subtitle">PM SHRI Kendriya Vidyalaya NO.1, Trichy</div>
+      </div>
+      <div class="experience-date">
+        <span class="item-date">July 2025- Ongoing</span>
+      </div>
+    </div>
+    <div class="experience-content">
+      <div class="item-location-container">
+        <i class="fas fa-map-marker-alt"></i>
+        <span class="item-location"> 
+Tiruchirappalli, Tamil Nadu, India</span>
+      </div>
+      <div class="item-description">
+        <ul>
+          <li>Elected as School Pupil Leader (Head Boy), representing 2000+ students across academic, co-curricular, and disciplinary spheres.</li>
+<li>Team Lead Science & Math Club (2023-25) — organized quizzes, workshops, and exam prep sessions.</li>
+<li>Led inter-house competitions and major institutional events, driving school-wide engagement and participation.</li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+
+      <!-- DTU -->
+  <div class="experience-item">
+    <div class="experience-header">
+      <div class="experience-logo" style="
+        background-image: url('images/DTU.png'); 
+        background-size: cover;
+        background-position: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;">
+      </div>
+      <div class="experience-title-container">
+        <h3 class="item-title">
+Computer Science Intern</h3>
+        <div class="item-subtitle">Delhi Technical Univeristy</div>
+      </div>
+      <div class="experience-date">
+        <span class="item-date">June 2025- Ongoing</span>
+      </div>
+    </div>
+    <div class="experience-content">
+      <div class="item-location-container">
+        <i class="fas fa-map-marker-alt"></i>
+        <span class="item-location">Delhi, India · Remote</span>
+      </div>
+      <div class="item-description">
+        <ul>
+          <li>8-week research internship under Dr. Indu Singh, focusing on computer science and transfer learning models</li>
+        </ul>
+          <li>Mentor: Dr. Indu Singh</li>
+      </div>
+    </div>
+  </div>
+
+ <!-- OSU -->
+  <div class="experience-item">
+    <div class="experience-header">
+      <div class="experience-logo" style="
+        background-image: url('images/OSU.png'); 
+        background-size: cover;
+        background-position: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;">
+      </div>
+      <div class="experience-title-container">
+        <h3 class="item-title">CS Intern – OSU CETI Lab</h3>
+        <div class="item-subtitle">The Ohio State University</div>
+      </div>
+      <div class="experience-date">
+        <span class="item-date">June 2025- Aug 2025</span>
+      </div>
+    </div>
+    <div class="experience-content">
+      <div class="item-location-container">
+        <i class="fas fa-map-marker-alt"></i>
+        <span class="item-location">Columbus, Ohio, United States · Remote</span>
+      </div>
+      <div class="item-description">
+        <ul>
+
+<li>Research on Human vs LLM based solutions - Contributed to research exploring AI-assisted programming and human-AI problem-solving strategies.</li>
+<li>Designed and implemented an object-oriented calculator, benchmarked it against an LLM-generated implementation to evaluate human versus AI approaches.</li>
+
+        </ul>
+          <li>Mentor: Prof. Rajiv Ramnath</li>
+      </div>
+    </div>
+  </div>
+
+
+     <!-- IIIT -->
+  <div class="experience-item">
+    <div class="experience-header">
+      <div class="experience-logo" style="
+        background-image: url('images/IIIT.png'); 
+        background-size: cover;
+        background-position: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;">
+      </div>
+      <div class="experience-title-container">
+        <h3 class="item-title">CS Intern </h3>
+        <div class="item-subtitle">Indian Institute of Information Technology, Tiruchirappalli</div>
+      </div>
+      <div class="experience-date">
+        <span class="item-date">May 2025-June 2025</span>
+      </div>
+    </div>
+    <div class="experience-content">
+      <div class="item-location-container">
+        <i class="fas fa-map-marker-alt"></i>
+        <span class="item-location">Tiruchirappalli, Tamil Nadu, India · In-Person</span>
+      </div>
+      <div class="item-description">
+        <ul>
+          <li>Currently working on a research paper</li>
+            <li>Developed a LoRA-enhanced FLUX.1-dev framework for prompt-to-pencil sketch rendering and color image generation, boosting artistic style transfer accuracy by 15%.</li>
+
+        </ul>
+          <li>Mentor : Dr. T Sugirtha</li>
+      </div>
+    </div>
+  </div>
+
+
+      <!-- CTS -->
+  <div class="experience-item">
+    <div class="experience-header">
+      <div class="experience-logo" style="
+        background-image: url('images/CTS.png'); 
+        background-size: cover;
+        background-position: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;">
+      </div>
+      <div class="experience-title-container">
+        <h3 class="item-title">
+Visual Systems Intern – UI/UX & Engagement Design</h3>
+        <div class="item-subtitle">Cross the Skylimits</div>
+      </div>
+      <div class="experience-date">
+        <span class="item-date">June 2025-July 2025</span>
+      </div>
+    </div>
+    <div class="experience-content">
+      <div class="item-location-container">
+        <i class="fas fa-map-marker-alt"></i>
+          <span class="item-location">India · Remote</span>
+      </div>
+      <div class="item-description">
+        <ul>
+          <li> Redesigned UI/UX for LinkedIn and Instagram, boosting engagement by 20%.</li>
+            <li>Developed scalable design systems, optimizing user flows for 30% higher conversions.</li>
+            <li> Conducted A/B testing to refine branding pipelines and visual narratives.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Awakened -->
+  <div class="experience-item">
+    <div class="experience-header">
+      <div class="experience-logo" style="background-color:#f7931e; display:flex; align-items:center; justify-content:center;">
+        <span>awakened</span>
+      </div>
+      <div class="experience-title-container">
+        <h3 class="item-title">Founder</h3>
+        <div class="item-subtitle">awakened · Self-employed</div>
+      </div>
+      <div class="experience-date">
+        <span class="item-date">Apr 2025 - Present</span>
+      </div>
+    </div>
+    <div class="experience-content">
+      <div class="item-description">
+        <ul>
+          <li>Founded a vlog/blog-based community on YouTube and Quora, scaling to 5M+ views.</li>
+          <li>Designed daily challenge systems to boost academic engagement, increasing user participation by 25%.</li>
+          <li>Crafted SEO-optimized content strategies, enhancing outreach and inspiring educational success.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2024 Experiences -->
+
+<div class="timeline-group">
+  <div class="timeline-heading">
+    <h3>2024</h3>
+    <span class="timeline-period">2024</span>
+  </div>
+
+
+<!-- Abacus -->
+     <div class="experience-item">
+    <div class="experience-header">
+      <div class="experience-logo" style="
+        background-image: url('https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/8f/09/36/8f09363c-1348-f137-87b7-0edccb936a22/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/1200x600wa.png');
+        background-size: cover;
+        background-position: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;">
+      </div>
+      <div class="experience-title-container">
+        <h3 class="item-title">Teaching Assistant – Cognitive Math </h3>
+        <div class="item-subtitle">UCMAS</div>
+      </div>
+      <div class="experience-date">
+        <span class="item-date">Apr 2022 - Dec 2024</span>
+      </div>
+    </div>
+    <div class="experience-content">
+      <div class="item-location-container">
+        <i class="fas fa-map-marker-alt"></i>
+        <span class="item-location">India · On-Site</span>
+      </div>
+      <div class="item-description">
+        <ul>
+          <li>Mentored 100+ students across 8 UCMAS levels, improving calculation speeds by 30%</li>
+          <li>Designed mental arithmetic drills for competitive exam preparation.</li>
+            <li>Completed advanced abacus certification, enhancing cognitive training methods.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- NYAS -->
+  <div class="experience-item">
+    <div class="experience-header">
+      <div class="experience-logo" style="
+        background-image: url('images/Screenshot%202025-05-27%20203745%20(1)%20(1).jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 48px;
+        height: 48px;
+        border-radius: 6px;">
+      </div>
+      <div class="experience-title-container">
+        <h3 class="item-title">Team lead– Ethical AI for Vision Systems</h3>
+        <div class="item-subtitle">The New York Academy of Sciences </div>
+      </div>
+      <div class="experience-date">
+        <span class="item-date">Sep 2024 - Nov 2024 · 3 mos</span>
+      </div>
+    </div>
+    <div class="experience-content">
+      <div class="item-location-container">
+        <i class="fas fa-map-marker-alt"></i>
+        <span class="item-location">New York, United States . Remote</span>
+      </div>
+      <div class="item-description">
+        <ul>
+          <li>Led a global team of four to develop an ethical AI-powered eye-tracking system, achieving 95% accuracy in detecting drowsy driving and misinformation, enhancing road safety.</li>
+          <li>Integrated OpenCV and TensorFlow for real-time vision processing, optimizing response time by 20%.</li>
+          <li>Ensured AI ethics compliance, mitigating bias and ensuring trustworthy outcomes.
+</li>
+        </ul>
+          <li>Mentor: Krishna Balasubramanian (USA)</li>
+      </div>
+    </div>
+  </div>
+
+  <!-- University of Illinois Chicago -->
+  <div class="experience-item">
+    <div class="experience-header">
+      <div class="experience-logo" style="
+        background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/University_of_Illinois_at_Chicago_circle_logo.svg/640px-University_of_Illinois_at_Chicago_circle_logo.svg.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 48px;
+        height: 48px;
+        border-radius: 6px;">
+      </div>
+      <div class="experience-title-container">
+        <h3 class="item-title">
+Research – AI for Environmental Diagnostics</h3>
+        <div class="item-subtitle">University of Illinois Chicago</div>
+      </div>
+      <div class="experience-date">
+        <span class="item-date">Sep 2024 - Nov 2024 · 3 mos</span>
+      </div>
+    </div>
+    <div class="experience-content">
+      <div class="item-location-container">
+        <i class="fas fa-map-marker-alt"></i>
+        <span class="item-location">Chicago, Illinois, United States · Remote</span>
+      </div>
+      <div class="item-description">
+        <ul>
+          <li>Collaborated with a team of four to build a computer vision system for hydroponic rhizofiltration, improving filtration efficiency by 25%</li>
+          <li>Modeled nutrient flows using PyTorch and temporal inference, optimizing biofiltration diagnostics.</li>
+            <li>Visualized pollutant gradients with Matplotlib, enhancing urban water quality insights.</li>
+
+        </ul>
+            <li>Dr.Constance J. Jeffery</li>
+      </div>
+    </div>
+  </div>
+
+
+
+  </div>
+<!-- 2023 Experiences -->
+<div class="timeline-group">
+  <div class="timeline-heading">
+    <h3>2023</h3>
+    <span class="timeline-period">2023</span>
+  </div>
+
+  <!-- Incognito Blueprints -->
+
+<div class="experience-item">
+  <div class="experience-header">
+    <div class="experience-logo" style="
+  background-image: url('images/Screenshot%202025-05-27%20203229%20(2).jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;">
+  </div>
+    <div class="experience-title-container">
+      <h3 class="item-title">Research Fellow – AI-Augmented ERP Systems for SME Retail</h3>
+      <div class="item-subtitle">Incognito Blueprintts</div>
+    </div>
+    <div class="experience-date">
+      <span class="item-date">Aug 2023 - Oct 2023 · 3 mos</span>
+    </div>
+  </div>
+  <div class="experience-content">
+    <div class="item-location-container">
+      <i class="fas fa-map-marker-alt"></i>
+      <span class="item-location">San Francisco, California, United States · Remote</span>
+    </div>
+    <div class="item-description">
+   <ul>
+          <li>Co-authored a research paper with a team of six, integrating Google Cloud AI, IBM Watson, and Microsoft Azure AI into open source ERP systems for SME retailers across USA, Spain, and India.</li>
+          <li>Enhanced operational efficiency by 25% using Python, pandas, and MySQL for multi-country data analysis</li>
+          <li>Reduced data breach risks by 20% with AI-driven threat detection and encryption.</li>
+        </ul>
+
+    </div>
+  </div>
+</div>
+
+                <!-- Other experiences can be added similarly -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+    /* Base styling (assuming previous styles are included) */
+    :root {
+        --primary: #0a1929;
+        --secondary: #111e2c;
+        --accent: #3a86ff;
+        --accent-gradient: linear-gradient(135deg, #3a86ff 0%, #4facfe 100%);
+        --accent-soft: rgba(58, 134, 255, 0.15);
+        --text: #e0e6ed;
+        --text-muted: #8b949e;
+        --text-bright: #ffffff;
+        --border: #1e3a5f;
+        --card: #0f1923;
+        --hover: #1a2d46;
+        --success: #00c16e;
+        --warning: #ffd166;
+        --danger: #ef476f;
+        --gradient-bg: linear-gradient(135deg, #0a1929 0%, #0f2942 100%);
+
+        /* Organization colors */
+        --harvard: #A51C30;
+        --stanford: #8C1515;
+        --nus: #003D7C;
+        --nasa: #0B3D91;
+        --oxford: #002147;
+        --nyas: #00539B;
+        --aws: #FF9900;
+    }
+
+    /* Section styling */
+    .section {
+        margin: 2rem 0;
+        padding: 2.5rem;
+        background-color: var(--secondary);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: var(--text-bright);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        position: relative;
+    }
+
+    .section-title i {
+        color: var(--accent);
+        font-size: 1.8rem;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -10px;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to right, var(--accent), transparent);
+    }
+
+    /* Timeline styling */
+    .timeline {
+        position: relative;
+        padding-left: 20px;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 3px;
+        background: linear-gradient(to bottom, var(--accent), rgba(58, 134, 255, 0.1));
+        border-radius: 5px;
+    }
+
+    .timeline-group {
+        margin-bottom: 3rem;
+        position: relative;
+    }
+
+    .timeline-group::before {
+        content: '';
+        position: absolute;
+        left: -29px;
+        top: 0;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: var(--accent);
+        border: 3px solid var(--secondary);
+        z-index: 2;
+    }
+
+    .timeline-group.current::before {
+        background-color: var(--success);
+        box-shadow: 0 0 0 4px rgba(0, 193, 110, 0.2);
+        width: 14px;
+        height: 14px;
+        left: -30px;
+    }
+
+    .timeline-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .timeline-heading h3 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--text-bright);
+    }
+
+    .timeline-period {
+        font-size: 1rem;
+        color: var(--accent);
+        font-weight: 500;
+    }
+
+    /* Experience Item Styling */
+    .experience-item {
+        background-color: rgba(26, 45, 70, 0.5);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .experience-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        border-color: rgba(58, 134, 255, 0.3);
+    }
+
+    .experience-header {
+        display: flex;
+        align-items: center;
+        padding: 1.25rem;
+        background: linear-gradient(to right, rgba(26, 45, 70, 0.8), rgba(15, 25, 35, 0.4));
+        border-bottom: 1px solid var(--border);
+        gap: 1rem;
+    }
+
+    .experience-logo {
+        width: 52px;
+        height: 52px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        color: white;
+        background: var(--accent-gradient);
+        font-size: 1.2rem;
+        flex-shrink: 0;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+    }
+
+    .experience-logo i {
+        font-size: 1.5rem;
+    }
+
+    /* Organization-specific logo styles */
+    .harvard-logo {
+        background-color: var(--harvard);
+    }
+
+    .stanford-logo {
+        background-color: var(--stanford);
+    }
+
+    .nus-logo {
+        background-color: var(--nus);
+    }
+
+    .nasa-logo {
+        background-color: var(--nasa);
+    }
+
+    .oxford-logo {
+        background-color: var(--oxford);
+    }
+
+    .nyas-logo {
+        background-color: var(--nyas);
+        font-size: 0.7rem;
+    }
+
+    .aws-logo {
+        background-color: var(--aws);
+    }
+
+    .experience-title-container {
+        flex: 1;
+    }
+
+    .item-title {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--text-bright);
+        margin-bottom: 0.3rem;
+    }
+
+    .item-subtitle {
+        font-size: 0.95rem;
+        color: var(--accent);
+        font-weight: 500;
+    }
+
+    .experience-date {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.5rem;
+    }
+
+    .date-badge {
+        padding: 0.2rem 0.6rem;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .date-badge.current {
+        background-color: rgba(0, 193, 110, 0.2);
+        color: var(--success);
+    }
+
+    .date-badge.completed {
+        background-color: rgba(58, 134, 255, 0.2);
+        color: var(--accent);
+    }
+
+    .item-date {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+    }
+
+    .experience-content {
+        padding: 1.25rem;
+    }
+
+    .item-location-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+
+    .item-location-container i {
+        color: var(--accent);
+        font-size: 0.85rem;
+    }
+
+    .item-description {
+        color: var(--text);
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .item-description p {
+        margin-bottom: 0.8rem;
+    }
+
+    .highlight-text {
+        color: var(--accent);
+        font-weight: 500;
+    }
+
+    .fun-note {
+        font-style: italic;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+
+    .fun-note i {
+        color: var(--warning);
+        margin-right: 0.3rem;
+    }
+
+    /* Key achievements styling */
+    .key-achievements {
+        margin: 1rem 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .achievement-item {
+        display: flex;
+        gap: 0.8rem;
+    }
+
+    .achievement-item i {
+        color: var(--accent);
+        margin-top: 0.3rem;
+        font-size: 0.9rem;
+    }
+
+    .achievement-highlight {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-top: 1rem;
+        padding: 0.8rem;
+        background-color: rgba(58, 134, 255, 0.1);
+        border-radius: 8px;
+        border-left: 3px solid var(--accent);
+    }
+
+    .achievement-highlight i {
+        color: var(--accent);
+        font-size: 1.2rem;
+    }
+
+    .achievement-highlight p {
+        margin: 0;
+    }
+
+    /* Key metrics styling */
+    .key-metrics {
+        display: flex;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .metric {
+        text-align: center;
+        flex: 1;
+        padding: 1rem;
+        background-color: rgba(26, 45, 70, 0.5);
+        border-radius: 8px;
+        border: 1px solid var(--border);
+    }
+
+    .metric-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: 0.3rem;
+    }
+
+    .metric-label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+    }
+
+    /* Skills styling */
+    .experience-skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .skill-tag {
+        padding: 0.3rem 0.7rem;
+        border-radius: 20px;
+        background-color: rgba(58, 134, 255, 0.1);
+        color: var(--accent);
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    /* List styling */
+    .experience-list {
+        list-style: none;
+        margin: 1rem 0;
+    }
+
+    .experience-list li {
+        position: relative;
+        padding-left: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .experience-list li::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+    }
+
+    /* Show more/less toggle */
+    .show-more-container {
+        display: flex;
+        justify-content: center;
+        margin: 1.5rem 0;
+    }
+
+    .show-more-btn {
+        background-color: var(--hover);
+        color: var(--text);
+        border: 1px solid var(--border);
+        padding: 0.7rem 1.5rem;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .show-more-btn:hover {
+        background-color: var(--accent-soft);
+        color: var(--accent);
+    }
+
+    .show-more-btn i {
+        font-size: 0.8rem;
+        transition: transform 0.3s ease;
+    }
+
+    .show-more-btn.active i {
+        transform: rotate(180deg);
+    }
+
+    .hidden-experiences {
+        display: none;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+        .experience-header {
+            flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .experience-date {
+        align-items: flex-start;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .key-metrics {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .metric {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        gap: 1rem;
+    }
+
+    .metric-value {
+        font-size: 1.5rem;
+        margin-bottom: 0;
+    }
+
+    .metric-label {
+        font-size: 0.9rem;
+    }
+}
+
+/* Animation effects */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.experience-item {
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+}
+
+.experience-item:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.experience-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.experience-item:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.experience-item:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.experience-item:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.hidden-experiences .experience-item {
+    animation-delay: 0.1s;
+}
+</style>
+
+<script>
+// Show more/less functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const showMoreBtn = document.getElementById('showMoreExperiences');
+    const hiddenExperiences = document.querySelector('.hidden-experiences');
+
+    if (showMoreBtn && hiddenExperiences) {
+        showMoreBtn.addEventListener('click', function() {
+            if (hiddenExperiences.style.display === 'block') {
+                hiddenExperiences.style.display = 'none';
+                showMoreBtn.innerHTML = '<i class="fas fa-chevron-down"></i> Show More Experiences';
+                showMoreBtn.classList.remove('active');
+
+                // Scroll to the show more button
+                showMoreBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                hiddenExperiences.style.display = 'block';
+                showMoreBtn.innerHTML = '<i class="fas fa-chevron-up"></i> Show Less';
+                showMoreBtn.classList.add('active');
+
+                // Add fade-in animation to newly visible items
+                const hiddenItems = hiddenExperiences.querySelectorAll('.experience-item');
+                hiddenItems.forEach((item, index) => {
+                    item.style.animationDelay = `${0.1 * (index + 1)}s`;
+                    item.style.opacity = '0';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                    }, 50);
+                });
+            }
         });
-      });
-      
-      // Sort functionality
-      document.querySelectorAll('th.sortable').forEach(header => {
-        header.addEventListener('click', function() {
-          const sortBy = this.getAttribute('data-sort');
-          const isAsc = this.classList.contains('asc');
-          
-          // Reset all sort indicators
-          document.querySelectorAll('th.sortable').forEach(h => {
-            h.classList.remove('asc', 'desc');
-          });
-          
-          // Set new sort direction
-          this.classList.toggle('asc', !isAsc);
-          this.classList.toggle('desc', isAsc);
-          
-          sortTable(sortBy, !isAsc);
+    }
+
+    // Add intersection observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
         });
-      });
+    }, {
+        threshold: 0.1
     });
-    
-    function filterTable(country) {
-      const rows = document
+
+    document.querySelectorAll('.experience-item').forEach(item => {
+        observer.observe(item);
+    });
+});
+</script>
+
+  <section class="section" id="publications">
+    <h2 class="section-title"><i class="fas fa-scroll"></i> Research Publications</h2>
+
+    <div class="publications-container">
+
+        <div class="publications-grid">
+
+
+
+
+          <!-- Publication 4 -->
+            <div class="publication-card" data-topics="ai road safety">
+                <div class="publication-header">
+                    <div class="publication-journal">
+                        <div class="journal-badge">Submitted (Waiting)</div>
+                        <div class="pub-date">2025</div>
+                    </div>
+                    <div class="publication-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-percentage"></i>
+
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="publication-title">Intelligent vision based system for overtaking of vehicle</h3>
+
+                <div class="publication-tags">
+                    <span class="publication-tag">Computer Vision</span>
+                    <span class="publication-tag">COCO</span>
+                    <span class="publication-tag">MobileNet-SSD</span>
+                </div>
+
+                <div class="publication-authors">
+                    <span class="author-name">Naghul Adhithya</span>
+                </div>
+
+                <div class="publication-controls">
+                    <a href="https://www.authorea.com/users/858543/articles/1243325-intelligent-vision-based-system-for-overtaking-of-vehicle" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i> View Paper
+                    </a>
+                </div>
+
+            </div>
+          </div>
+        </div>
+
+            <!-- Publication 1 -->
+            <div class="publication-card" data-topics="ai data">
+                <div class="publication-header">
+                    <div class="publication-journal">
+                        <div class="journal-badge">Springer(Under-Review)</div>
+                        <div class="pub-date">Dec 20, 2024</div>
+                    </div>
+                    <div class="publication-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="publication-title">Real Time Driver Drowsiness Detection for Safe Driving</h3>
+
+                <div class="publication-tags">
+                    <span class="publication-tag">Computer Vision</span>
+                    <span class="publication-tag">Safe Driving</span>
+                    <span class="publication-tag">Eye Aspect Ratio (EAR</span>
+                </div>
+
+                <div class="publication-authors">
+                    <span class="author-name">Naghul Adhithya</span>
+                </div>
+
+                <div class="publication-controls">
+                    <a href="https://www.authorea.com/doi/full/10.22541/au.173204423.35921469" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i> View Paper
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Publication 2 -->
+            <div class="publication-card" data-topics="ai healthcare social">
+                <div class="publication-header">
+                    <div class="publication-journal">
+                        <div class="journal-badge">Springer LNNS, Singapore</div>
+                        <div class="pub-date">July 17, 2024</div>
+                    </div>
+                    <div class="publication-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-percentage"></i>
+
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="publication-title">Real Time Vehicle Detection and Counting for Traffic Management System</h3>
+
+                <div class="publication-tags">
+                    <span class="publication-tag">Computer Vision</span>
+                    <span class="publication-tag">YOLO</span>
+                    <span class="publication-tag">Traffic Management</span>
+                </div>
+
+                <div class="publication-authors">
+                    <span class="author-name">Naghul Adhithya</span>
+                </div>
+
+                <div class="publication-controls">
+                    <a href="https://link.springer.com/chapter/10.1007/978-981-96-2647-2_23" class="view-paper-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i> View Paper
+                    </a>
+                </div>
+
+            </div>
+          </div>
+        </div>
+
+
+
+               <!-- Publication 3 -->
+            <div class="publication-card" data-topics="ai business">
+                <div class="publication-header">
+                    <div class="publication-journal">
+
+                        <div class="pub-date">Sep 26, 2023</div>
+                    </div>
+                    <div class="publication-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-percentage"></i>
+
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-users"></i>
+
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="publication-title">AI-Driven ERP Systems for Small & Medium Enterprises</h3>
+
+                <div class="publication-tags">
+                    <span class="publication-tag">ERP</span>
+                    <span class="publication-tag">SME</span>
+                    <span class="publication-tag">AI</span>
+                </div>
+
+                <div class="publication-authors">
+                    <span class="author-name">Naghul Adhithya</span> et al.
+                </div>
+
+                <div class="publication-controls">
+                    <a href="https://naghuladhithya.github.io/incognito_blueprints/" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i> View Paper
+                    </a>
+                </div>
+
+            </div>
+          </div>
+        </div>
+    </div>
+</section>
+
+<style>
+<style>
+/* Publications Section Styling */
+#publications {
+    padding: 3rem 2rem;
+}
+
+.publications-container {
+    position: relative;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--text-bright);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+}
+
+.section-title i {
+    color: var(--accent);
+    font-size: 1.8rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, var(--accent), transparent);
+}
+
+/* Filters */
+.publications-filters {
+    margin-bottom: 2rem;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.filter-group label {
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.filter-btn {
+    background-color: var(--hover);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    background-color: var(--accent-soft);
+    color: var(--accent);
+}
+
+.filter-btn.active {
+    background-color: var(--accent);
+    color: var(--primary);
+    border-color: var(--accent);
+}
+
+/* Publications Grid */
+.publications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Publication Card */
+.publication-card {
+    background-color: var(--hover);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.publication-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-color: rgba(58, 134, 255, 0.3);
+}
+
+.publication-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.publication-journal {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.journal-badge {
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    background-color: rgba(58, 134, 255, 0.1);
+    color: var(--accent);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.journal-badge.highlight {
+    background-color: rgba(255, 209, 102, 0.2);
+    color: var(--warning);
+}
+
+.pub-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.publication-stats {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background-color: rgba(26, 45, 70, 0.5);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+}
+
+.stat-item i {
+    color: var(--accent);
+}
+
+.publication-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-bright);
+    line-height: 1.4;
+}
+
+.publication-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.publication-tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    background-color: rgba(58, 134, 255, 0.1);
+    color: var(--accent);
+    border-radius: 20px;
+}
+
+.publication-authors {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.author-avatar {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.author-name {
+    color: var(--text);
+    font-weight: 500;
+}
+
+.publication-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+.abstract-toggle-btn {
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.abstract-toggle-btn:hover {
+    color: var(--accent);
+}
+
+.abstract-toggle-btn i {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.abstract-toggle-btn.active i {
+    transform: rotate(180deg);
+}
+
+.view-paper-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--accent);
+    color: var(--primary);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.view-paper-btn:hover {
+    background-color: #4facfe;
+    transform: translateY(-2px);
+}
+
+.view-paper-btn i {
+    font-size: 0.85rem;
+}
+
+.publication-abstract {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+    color: var(--text);
+    display: none;
+}
+
+.publication-abstract p {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+}
+
+.publication-abstract p:last-child {
+    margin-bottom: 0;
+}
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .publications-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .publications-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Abstract toggle functionality
+    const abstractToggles = document.querySelectorAll('.abstract-toggle-btn');
+
+    abstractToggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            const abstract = this.closest('.publication-card').querySelector('.publication-abstract');
+
+            if (abstract.style.display === 'block') {
+                abstract.style.display = 'none';
+                this.classList.remove('active');
+                this.innerHTML = '<i class="fas fa-chevron-down"></i> Abstract';
+            } else {
+                abstract.style.display = 'block';
+                this.classList.add('active');
+                this.innerHTML = '<i class="fas fa-chevron-up"></i> Hide Abstract';
+            }
+        });
+    });
+
+    // Filter functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const publicationCards = document.querySelectorAll('.publication-card');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+
+            // Add active class to clicked button
+            this.classList.add('active');
+
+            const filter = this.getAttribute('data-filter');
+
+            publicationCards.forEach(card => {
+                if (filter === 'all') {
+                    card.style.display = 'flex';
+
+                    // Add animation
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 50);
+                } else {
+                    const cardTopics = card.getAttribute('data-topics');
+
+                    if (cardTopics.includes(filter)) {
+                        card.style.display = 'flex';
+
+                        // Add animation
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        });
+    });
+});
+</script>
+
+         <section class="section" id="certifications">
+            <h2 class="section-title">Certifications & Courses</h2>
+            <ul class="certifications-list">
+         <section class="certifications">
+  <ul class="certification-list">
+
+    <!-- Harvard CS50 Series -->
+    <li class="certification-group">
+      <strong>Harvard University – CS50 Series:</strong>
+      <ul>
+          <li>Introduction to Programming with Python</li>
+<li>Introduction to Artificial Intelligence</li>
+        <li>Introduction to Cybersecurity</li>
+        <li>Understanding Technology</li>
+        <li>Programming with Scratch</li>
+      </ul>
+    </li>
+
+    <!-- Stanford Code in Place -->
+    <li class="certification-item">
+      <strong>Stanford University:</strong> Code in Place (Summer 2025)
+    </li>
+
+   <!-- UMich -->
+    <li class="certification-item">
+      <strong>University of Michigan:</strong> Python for Everybody
+    </li>
+
+
+    <!-- IIT Courses -->
+    <li class="certification-item">
+      <strong>IIT Madras:</strong> Data Science and Artificial Intelligence
+    </li>
+    <li class="certification-item">
+      <strong>IIT Hyderabad:</strong> Advanced Driver Assistance Systems (ADAS)
+    </li>
+
+       <!-- MIT -->
+    <li class="certification-item">
+      <strong> (MIT OCW) : </strong> Introduction to Deep Learning
+    </li>
+
+
+    <!-- Google Cloud -->
+    <li class="certification-item">
+      <strong>Google Cloud:</strong> Generative AI Path
+    </li>
+
+    <!-- Udemy Course -->
+    <li class="certification-item">
+      <strong>Udemy:</strong> Machine Learning A-Z™: Hands-On Python in Data Science (42 hours)
+    </li>
+
+ <!-- Udemy Course -->
+    <li class="certification-item">
+      <strong>University of California, Berkeley:</strong> 
+REYES-STEM
+    </li>
+
+    <!-- HP LIFE Courses -->
+    <li class="certification-group">
+      <strong>HP LIFE:</strong>
+      <ul>
+        <li>AI for Beginners</li>
+        <li>Data Science and Analytics</li>
+        <li>Introduction to Cybersecurity</li>
+      </ul>
+    </li>
+
+    <!-- Forage Virtual Experience Programs -->
+    <li class="certification-group">
+      <strong>Forage Virtual Experience Programs:</strong>
+      <ul>
+        <li>Data Science – British Airways</li>
+        <li>Software Engineering – Goldman Sachs</li>
+      </ul>
+    </li>
+
+          <!-- Free code camp -->
+    <li class="certification-group">
+      <strong>freecodecamp:</strong>
+      <ul>
+        <li>
+Data Analysis with Python - (Numpy, Pandas, Matplotlib, Seaborn)</li>
+        <li>Responsive Web Design</li>
+      </ul>
+    </li>
+         <!-- Wgitehat jr -->
+    <li class="certification-item">
+      <strong>Whithat Jr:</strong> Game development & UI/UX 
+    </li>
+
+
+  </ul>
+</section>
+
+            </ul>
+        </section>
+
+        <section class="section" id="awards">
+    <h2 class="section-title">Awards & Honors</h2>
+
+    <div class="awards-grid">
+        <!-- Your existing awards here -->
+
+        <!-- Professionally refined award items start -->
+        <div class="award-item">
+            <div class="award-icon"><i class="fas fa-university"></i></div>
+            <div class="award-content">
+                <h3 class="award-title">North Carolina State University Research Program</h3>
+                <p class="award-date">May 2025</p>
+                <p>Accepted into NC State’s 4-week research program with a $300 scholarship.</p>
+                <p>Could not attend due to personal reasons.</p>
+            </div>
+        </div>
+
+        <div class="award-item">
+            <div class="award-icon"><i class="fas fa-university"></i></div>
+            <div class="award-content">
+                <h3 class="award-title">Young Entrepreneurs Bootcamp (YEB), BITS Pilani</h3>
+                <p class="award-date">January 2025</p>
+                <p>Accepted to participate in the Young Entrepreneurs Program at BITS Pilani.</p>
+                <p>Could not attend due to personal reasons.</p>
+            </div>
+        </div>
+
+        <div class="award-item">
+            <div class="award-icon"><i class="fas fa-certificate"></i></div>
+            <div class="award-content">
+                <h3 class="award-title">Certificate of Merit — Vidyarthi Vigyan Manthan (VVM)</h3>
+                <p class="award-date">November 2024</p>
+                <p class="award-description">
+                   Awarded first rank in the district and selected for the State Camp (Level II) in India’s largest science talent search exam
+                </p>
+            </div>
+        </div>
+            </div>
+        <!-- Professionally refined award items end -->
+
+
+<style>
+    .section {
+        margin: 2rem 0;
+        padding: 2rem;
+        background-color: var(--secondary);
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: var(--text-bright);
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--accent);
+    }
+
+    .section-subtitle {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 1.5rem 0;
+        color: var(--accent);
+    }
+
+    /* Olympiad Section Styling */
+    .olympiad-section {
+        margin-bottom: 3rem;
+    }
+
+    .olympiad-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.25rem;
+    }
+
+    .olympiad-item {
+        display: flex;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.03);
+        border-radius: 8px;
+        padding: 1rem;
+        border: 1px solid var(--border);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .olympiad-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .olympiad-medal {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+
+    .gold {
+        background: linear-gradient(145deg, #ffd700, #b8860b);
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+    }
+
+    .silver {
+        background: linear-gradient(145deg, #c0c0c0, #a9a9a9);
+        box-shadow: 0 0 10px rgba(192, 192, 192, 0.6);
+    }
+
+    .bronze {
+        background: linear-gradient(145deg, #cd7f32, #8b4513);
+        box-shadow: 0 0 10px rgba(205, 127, 50, 0.6);
+    }
+
+    .olympiad-content h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0 0 0.5rem 0;
+        color: var(--text-bright);
+    }
+
+    .olympiad-content p {
+        font-size: 0.9rem;
+        margin: 0;
+        color: var(--text);
+    }
+
+    .olympiad-note {
+        font-style: italic;
+        color: var(--accent) !important;
+        font-size: 0.85rem !important;
+        margin-top: 0.25rem !important;
+    }
+
+    /* Awards Grid Styling */
+    .awards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .award-item {
+        display: flex;
+        background-color: rgba(255, 255, 255, 0.03);
+        border-radius: 8px;
+        padding: 1.5rem;
+        border: 1px solid var(--border);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .award-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .award-icon {
+        font-size: 2rem;
+        color: var(--accent);
+        margin-right: 1rem;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        width: 2.5rem;
+    }
+
+    .award-content {
+        flex: 1;
+    }
+
+    .award-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 0 0 0.5rem 0;
+        color: var(--text-bright);
+    }
+
+    .award-date {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-bottom: 0.75rem;
+    }
+
+    .award-description p {
+        font-size: 0.95rem;
+        color: var(--text);
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+        .olympiad-grid,
+        .awards-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .award-item {
+            flex-direction: column;
+        }
+
+        .award-icon {
+            margin-right: 0;
+            margin-bottom: 1rem;
+            width: auto;
+        }
+    }
+
+    /* For Font Awesome icons (if using CDN) */
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+</style>
+
+
+
+
+    </main>
+
+    <footer>
+        <div class="container" >
+            <p style="text-align: center;">&copy; 2025 Naghul Adhithya. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
